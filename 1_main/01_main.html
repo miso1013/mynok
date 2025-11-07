@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>마이노크</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- 헤더 -->
+    <header class="header">
+        <h1 class="logo">마이노크</h1>
+    </header>
+
+    <!-- 프로필 섹션 -->
+    <section class="profile-section">
+        <div class="profile-content">
+            <div class="greeting">
+                <h2 class="user-name">미소<span class="suffix">님</span></h2>
+                <p class="message">오늘의 추억은<br>내일의 당신에게<br>큰 힘이 될거에요. 🍀</p>
+            </div>
+            <div class="profile-image">
+                <!-- 프로필 이미지는 CSS background로 처리 -->
+            </div>
+        </div>
+    </section>
+
+    <!-- 검색바 -->
+    <div class="search-container">
+        <input type="text" class="search-input" placeholder="검색">
+        <span class="search-icon">🔍</span>
+    </div>
+
+    <!-- 탭 버튼 -->
+    <div class="tab-container">
+        <button class="tab-btn active" data-tab="connection">소중한 인연</button>
+        <button class="tab-btn" data-tab="group">소중한 그룹 인연</button>
+    </div>
+
+    <!-- 인연 목록 -->
+    <section class="connections-section" id="connectionTab">
+        <div class="connection-item">
+            <img src="../img/마이노크 메인페이지.jpg" alt="강훈" class="connection-avatar">
+            <div class="connection-info">
+                <h3 class="connection-name">강훈</h3>
+                <p class="connection-details">생일 05월 23일 | 추억 47개</p>
+            </div>
+            <button class="knock-btn">📖 추억 노크하기</button>
+        </div>
+
+        <div class="connection-item">
+            <div class="connection-avatar placeholder"></div>
+            <div class="connection-info">
+                <h3 class="connection-name">아빠</h3>
+                <p class="connection-details">생일 06월 02일 | 추억 87개</p>
+            </div>
+            <button class="knock-btn">📖 추억 노크하기</button>
+        </div>
+
+        <div class="connection-item">
+            <div class="connection-avatar placeholder"></div>
+            <div class="connection-info">
+                <h3 class="connection-name">엄마</h3>
+                <p class="connection-details">생일 02월 17일 | 추억 87개</p>
+            </div>
+            <button class="knock-btn">📖 추억 노크하기</button>
+        </div>
+
+        <div class="connection-item">
+            <div class="connection-avatar placeholder"></div>
+            <div class="connection-info">
+                <h3 class="connection-name">할머니</h3>
+                <p class="connection-details">생일 08월 15일 | 추억 654개</p>
+            </div>
+            <button class="knock-btn">📖 추억 노크하기</button>
+        </div>
+
+        <!-- 인연 추가 버튼 -->
+        <button class="add-connection-btn">+ 인연 추가하기</button>
+
+        <!-- 선물 추천 섹션 -->
+        <div class="gift-section">
+            <p class="gift-title">사랑하는 사람에게</p>
+            <p class="gift-subtitle">평생 간직할 수 있는<br>선물을 전달해보세요</p>
+            <div class="mynok-logo">mynok</div>
+            <div class="gift-icon">📷</div>
+            <button class="gift-btn">추억 선물하러 가기 ›</button>
+        </div>
+    </section>
+
+    <!-- 그룹 인연 탭 (숨김) -->
+    <section class="groups-section" id="groupTab" style="display: none;">
+        <!-- 그룹 카드 1 -->
+        <div class="group-card">
+            <div class="group-header">
+                <h3 class="group-name">우리 가족 💕</h3>
+                <span class="member-count">4명</span>
+            </div>
+            <div class="group-members">
+                <span class="member-tag">엄마</span>
+                <span class="member-tag">아빠</span>
+                <span class="member-tag me">미소(나)</span>
+                <span class="member-tag">할머니</span>
+                <span class="member-tag">할머니1</span>
+            </div>
+            <button class="group-knock-btn">💕 추억 노크하기</button>
+        </div>
+
+        <!-- 그룹 카드 2 -->
+        <div class="group-card">
+            <div class="group-header">
+                <h3 class="group-name">친구들과 함께 🎉</h3>
+                <span class="member-count">4명</span>
+            </div>
+            <div class="group-members">
+                <span class="member-tag">지혜</span>
+                <span class="member-tag">해린</span>
+                <span class="member-tag">진희</span>
+                <span class="member-tag me">미소(나)</span>
+            </div>
+            <button class="group-knock-btn">💕 추억 노크하기</button>
+        </div>
+
+        <!-- 그룹 추가 버튼 -->
+        <button class="add-group-btn">+</button>
+        <p class="add-group-text">새 그룹 만들기</p>
+    </section>
+
+
+    <!-- 하단 네비게이션 -->
+    <nav class="bottom-nav">
+        <div class="nav-item active">
+            <span class="nav-icon">🏠</span>
+            <span class="nav-label">마이노크홈</span>
+        </div>
+        <div class="nav-item">
+            <span class="nav-icon">📅</span>
+            <span class="nav-label">일정 확인하기</span>
+        </div>
+        <div class="nav-item">
+            <span class="nav-icon">👤</span>
+            <span class="nav-label">마이페이지</span>
+        </div>
+    </nav>
+
+    <script src="script.js"></script>
+</body>
+</html>
