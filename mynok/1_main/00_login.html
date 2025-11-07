@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <title>로그인 - 마이노크</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- 헤더 -->
+    <header class="header add-connection-header">
+        <button class="back-btn" id="backFromLogin">‹</button>
+        <h1 class="page-title">로그인</h1>
+    </header>
+
+    <!-- 로그인 폼 -->
+    <div class="login-container">
+        <!-- 로고 -->
+        <div class="login-logo">
+            <img src="../img/00_로고.png" alt="마이노크 로고" class="login-logo-img">
+        </div>
+
+        <!-- 연락처 입력 -->
+        <div class="form-group">
+            <div class="input-with-button">
+                <input type="tel" class="form-input" id="loginPhone" placeholder="연락처를 입력해주세요.">
+                <button type="button" class="input-btn" id="sendVerifyBtn">인증번호 발송</button>
+            </div>
+            <p class="form-note">'-'없이 숫자만 입력해주세요.</p>
+        </div>
+
+        <!-- 인증번호 입력 -->
+        <div class="form-group">
+            <div class="input-with-button">
+                <input type="text" class="form-input" id="verifyCode" placeholder="인증번호를 입력해주세요.">
+                <button type="button" class="input-btn-gray" id="checkVerifyBtn">인증번호 확인</button>
+            </div>
+            <a href="#" class="form-link">인증 번호가 오지 않았나요?</a>
+        </div>
+
+        <!-- 자동 로그인 -->
+        <div class="checkbox-wrapper auto-login">
+            <input type="checkbox" id="autoLogin" class="form-checkbox">
+            <label for="autoLogin" class="checkbox-label">자동 로그인</label>
+        </div>
+
+        <!-- 로그인 버튼 -->
+        <button type="button" class="login-btn" id="loginBtn">로그인</button>
+
+        <!-- 회원가입 링크 -->
+        <div class="signup-link-wrapper">
+            <a href="00_join.html" class="signup-link">회원가입 하기</a>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

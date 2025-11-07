@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <title>추억 지우기 - 마이노크</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- 헤더 -->
+    <header class="header add-connection-header">
+        <button class="back-btn" id="backFromRemove">‹</button>
+        <h1 class="page-title">추억 지우기</h1>
+    </header>
+
+    <!-- 안내 문구 -->
+    <section class="remove-info-section">
+        <p class="remove-info-text">삭제할 인연을 선택해주세요</p>
+        <p class="remove-info-subtext">선택한 인연은 소중한 인연 목록에서 삭제됩니다.</p>
+    </section>
+
+    <!-- 인연 목록 (체크박스 포함) -->
+    <section class="remove-list-section">
+        <div id="removeConnectionsList">
+            <!-- JavaScript로 동적 생성 -->
+        </div>
+    </section>
+
+    <!-- 삭제 버튼 -->
+    <div class="remove-button-container">
+        <button class="remove-submit-btn" id="removeSubmitBtn">선택한 인연 삭제하기</button>
+    </div>
+
+    <!-- 하단 네비게이션 -->
+    <nav class="bottom-nav">
+        <div class="nav-item" id="navHome">
+            <span class="nav-icon">🏠</span>
+            <span class="nav-label">마이노크홈</span>
+        </div>
+        <div class="nav-item" id="navCalendar">
+            <span class="nav-icon">📅</span>
+            <span class="nav-label">일정 확인하기</span>
+        </div>
+        <div class="nav-item" id="navMypage">
+            <span class="nav-icon">👤</span>
+            <span class="nav-label">마이페이지</span>
+        </div>
+    </nav>
+
+    <script src="script.js"></script>
+</body>
+</html>
