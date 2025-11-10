@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <title>추억 선물하러 가기 - 마이노크</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- 헤더 -->
+    <header class="header add-connection-header">
+        <button class="back-btn" id="backFromGift">‹</button>
+        <h1 class="page-title">추억 선물하러 가기</h1>
+    </header>
+
+    <!-- 선물 통계 배너 -->
+    <section class="gift-stats-banner">
+        <div class="gift-stats-content">
+            <h2 class="gift-stats-title">
+                <span class="gift-user-name">미소</span> 님은<br>
+                소중한 선물을<br>
+                총 <span class="gift-count">13 번</span> 하셨어요!
+            </h2>
+            <a href="#" class="gift-history-link" id="giftHistoryLink">선물한 내역 보러가기 ›</a>
+        </div>
+        <div class="gift-stats-image">
+            <div class="gift-banner-nfc">
+                <img src="../img/오디오 키링_아이콘.png" alt="오디오 키링" class="banner-nfc-photo">
+            </div>
+            <div class="gift-banner-frame">
+                <img src="../img/디스플레이 액자_아이콘.png" alt="디스플레이 액자" class="banner-frame-photo">
+            </div>
+        </div>
+    </section>
+
+    <!-- 선물 상품 목록 -->
+    <div class="gift-products-wrapper">
+
+        <!-- NFC 키링 카드 -->
+        <div class="gift-product-card">
+            <div class="gift-product-image">
+                <div class="nfc-keyring-visual">
+                    <img src="../img/오디오 키링_아이콘.png" alt="오디오 키링" class="keyring-photo">
+                </div>
+            </div>
+            <div class="gift-product-info">
+                <p class="gift-product-description">
+                    소중한 사람에게<br>
+                    평생 간직할 수 있는<br>
+                    <strong>키링을 선물해보세요</strong>
+                </p>
+                <button class="gift-product-btn" id="giftKeyringBtn">선물하러 가기 ›</button>
+            </div>
+        </div>
+
+        <!-- 액자 카드 -->
+        <div class="gift-product-card">
+            <div class="gift-product-image">
+                <div class="frame-visual">
+                    <img src="../img/디스플레이 액자_아이콘.png" alt="디스플레이 액자" class="frame-photo">
+                </div>
+            </div>
+            <div class="gift-product-info">
+                <p class="gift-product-description">
+                    소중한 사람에게<br>
+                    평생 간직할 수 있는<br>
+                    <strong>액자를 선물해보세요</strong>
+                </p>
+                <button class="gift-product-btn" id="giftFrameBtn">선물하러 가기 ›</button>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- 하단 네비게이션 -->
+    <nav class="bottom-nav">
+        <div class="nav-item" id="navHome">
+            <img src="../img/마이노크 홈 아이콘_off.png" alt="홈" class="nav-icon">
+            <span class="nav-label">마이노크홈</span>
+        </div>
+        <div class="nav-item" id="navCalendar">
+            <img src="../img/마이노크 캘린더 아이콘_off.png" alt="캘린더" class="nav-icon">
+            <span class="nav-label">일정 확인하기</span>
+        </div>
+        <div class="nav-item" id="navMypage">
+            <img src="../img/마이노크 마이페이지 아이콘_off.png" alt="마이페이지" class="nav-icon">
+            <span class="nav-label">마이페이지</span>
+        </div>
+    </nav>
+
+    <script src="script.js"></script>
+</body>
+</html>

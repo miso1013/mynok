@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <title>소리가 있어 - 마이노크</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- 헤더 -->
+    <header class="header add-connection-header">
+        <button class="back-btn" id="backFromVoice">‹</button>
+        <h1 class="page-title">소리가 있어</h1>
+    </header>
+
+    <!-- 프로필 인사 섹션 -->
+    <section class="voice-greeting-section">
+        <div class="voice-profile-container">
+            <div class="voice-profile-item">
+                <div class="voice-profile-image" id="userProfileImage">
+                    <img src="../img/00_로고.png" alt="미소" class="voice-profile-img" id="voiceUserProfileImg" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="voice-profile-placeholder" style="display: none;">👤</div>
+                </div>
+                <p class="voice-profile-name">미소</p>
+            </div>
+
+            <div class="voice-waveform-container">
+                <svg class="voice-waveform-icon" viewBox="0 0 120 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M5 30 Q 15 20, 25 30 T 45 30 T 65 30 T 85 30 T 105 30 T 115 30" stroke="#FF9595" stroke-width="3" fill="none" stroke-linecap="round"/>
+                    <path d="M10 30 L 10 15 M 20 30 L 20 20 M 30 30 L 30 10 M 40 30 L 40 25 M 50 30 L 50 15 M 60 30 L 60 20 M 70 30 L 70 10 M 80 30 L 80 25 M 90 30 L 90 15 M 100 30 L 100 20 M 110 30 L 110 15" stroke="#FF9595" stroke-width="2.5" stroke-linecap="round"/>
+                </svg>
+                <div class="voice-hearts">
+                    <span class="voice-heart">💗</span>
+                    <span class="voice-heart">💕</span>
+                </div>
+            </div>
+
+            <div class="voice-profile-item">
+                <div class="voice-profile-image" id="connectionProfileImage">
+                    <!-- 상대방 프로필 이미지 -->
+                </div>
+                <p class="voice-profile-name" id="connectionProfileName">강 훈</p>
+            </div>
+        </div>
+
+        <p class="voice-greeting-message">시간이 흘러도<br>우리의 목소리는 여기에 머물러요.</p>
+    </section>
+
+    <!-- 녹음/보내기 버튼 -->
+    <div class="voice-action-buttons">
+        <button class="voice-action-btn voice-record-btn" id="recordVoiceBtn">녹음하기</button>
+        <button class="voice-action-btn voice-send-btn" id="importVoiceBtn">음성 가져오기</button>
+        <input type="file" id="voiceFileInput" accept="audio/*" style="display: none;">
+    </div>
+
+    <!-- 검색바 -->
+    <div class="voice-search-container">
+        <input type="text" class="voice-search-input" id="voiceSearchInput" placeholder="">
+        <svg class="voice-search-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="11" cy="11" r="7" stroke="#FF9595" stroke-width="2"/>
+            <path d="M20 20L16.5 16.5" stroke="#FF9595" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+    </div>
+
+    <!-- 탭 버튼 -->
+    <div class="voice-tab-container">
+        <button class="voice-tab-btn active" data-tab="received" id="receivedTab">받은 음성함</button>
+        <button class="voice-tab-btn" data-tab="sent" id="sentTab">보낸 음성함</button>
+    </div>
+
+    <!-- 받은 음성함 -->
+    <section class="voice-list-section" id="receivedVoiceTab">
+        <div id="receivedVoiceList">
+            <!-- JavaScript로 동적 생성 -->
+        </div>
+    </section>
+
+    <!-- 보낸 음성함 (숨김) -->
+    <section class="voice-list-section" id="sentVoiceTab" style="display: none;">
+        <div id="sentVoiceList">
+            <!-- JavaScript로 동적 생성 -->
+        </div>
+    </section>
+
+    <!-- 공유하기 FAB 버튼 -->
+    <button class="voice-share-fab" id="voiceShareBtn">
+        <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+            <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+        </svg>
+    </button>
+
+    <!-- 하단 네비게이션 -->
+    <nav class="bottom-nav">
+        <div class="nav-item" id="navHome">
+            <img src="../img/마이노크 홈 아이콘_off.png" alt="홈" class="nav-icon">
+            <span class="nav-label">마이노크홈</span>
+        </div>
+        <div class="nav-item" id="navCalendar">
+            <img src="../img/마이노크 캘린더 아이콘_off.png" alt="캘린더" class="nav-icon">
+            <span class="nav-label">일정 확인하기</span>
+        </div>
+        <div class="nav-item" id="navMypage">
+            <img src="../img/마이노크 마이페이지 아이콘_off.png" alt="마이페이지" class="nav-icon">
+            <span class="nav-label">마이페이지</span>
+        </div>
+    </nav>
+
+    <!-- 음성 듣기 모달 -->
+    <div class="voice-player-modal" id="voicePlayerModal">
+        <div class="voice-player-content">
+            <button class="voice-modal-close" id="closePlayerModal">✕</button>
+            <h3 class="voice-modal-title">음성 듣기</h3>
+
+            <div class="voice-player-info">
+                <h4 class="voice-player-subject" id="playerSubject">잘 안을 때 들어 미소야 😊</h4>
+                <p class="voice-player-message" id="playerMessage">미소야 잘 안을 때 들어.<br>동화책 읽어줄거야 무려 25분 짜리야 ㅋㅋㅋ</p>
+            </div>
+
+            <div class="voice-player-time" id="playerTime">00:00:00</div>
+
+            <div class="voice-player-progress">
+                <div class="voice-progress-bar">
+                    <div class="voice-progress-fill" id="playerProgressFill"></div>
+                    <div class="voice-progress-handle" id="playerProgressHandle"></div>
+                </div>
+            </div>
+
+            <div class="voice-player-controls">
+                <button class="voice-control-btn" id="shuffleBtn">
+                    <svg viewBox="0 0 24 24" fill="#FF9595">
+                        <path d="M10.59 9.17L5.41 4 4 5.41l5.17 5.17 1.42-1.41zM14.5 4l2.04 2.04L4 18.59 5.41 20 17.96 7.46 20 9.5V4h-5.5zm.33 9.41l-1.41 1.41 3.13 3.13L14.5 20H20v-5.5l-2.04 2.04-3.13-3.13z"/>
+                    </svg>
+                </button>
+                <button class="voice-control-btn" id="prevBtn">
+                    <svg viewBox="0 0 24 24" fill="#FF9595">
+                        <path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/>
+                    </svg>
+                </button>
+                <button class="voice-control-btn voice-play-btn" id="playPauseBtn">
+                    <svg viewBox="0 0 24 24" fill="#FF9595">
+                        <path d="M8 5v14l11-7z"/>
+                    </svg>
+                </button>
+                <button class="voice-control-btn" id="nextBtn">
+                    <svg viewBox="0 0 24 24" fill="#FF9595">
+                        <path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/>
+                    </svg>
+                </button>
+                <button class="voice-control-btn" id="repeatBtn">
+                    <svg viewBox="0 0 24 24" fill="#FF9595">
+                        <path d="M7 7h10v3l4-4-4-4v3H5v6h2V7zm10 10H7v-3l-4 4 4 4v-3h12v-6h-2v4z"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 음성 보내기 모달 -->
+    <div class="voice-send-modal" id="voiceSendModal">
+        <div class="voice-send-content">
+            <button class="voice-modal-close" id="closeSendModal">✕</button>
+            <h3 class="voice-modal-title">음성 보내기</h3>
+
+            <input type="text" class="voice-send-input" id="voiceSubjectInput" placeholder="음성 제목을 적어주세요.">
+
+            <textarea class="voice-send-textarea" id="voiceMessageInput" placeholder="남기고싶은 메시지를 적어주세요."></textarea>
+
+            <div class="voice-record-time" id="recordTime">00:00:00</div>
+
+            <div class="voice-record-progress">
+                <div class="voice-progress-bar">
+                    <div class="voice-progress-fill" id="recordProgressFill"></div>
+                    <div class="voice-progress-handle" id="recordProgressHandle"></div>
+                </div>
+            </div>
+
+            <button class="voice-record-button" id="recordButton">
+                <div class="voice-record-icon" id="recordIcon"></div>
+            </button>
+
+            <div class="voice-send-actions" id="sendActions" style="display: none;">
+                <button class="voice-send-action-btn voice-retry-btn" id="retryRecordBtn">다시 녹음하기</button>
+                <button class="voice-send-action-btn voice-submit-btn" id="submitVoiceBtn">음성 보내기</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

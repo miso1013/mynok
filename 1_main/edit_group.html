@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <title>그룹 수정하기 - 마이노크</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- 헤더 -->
+    <header class="header add-connection-header">
+        <button class="back-btn" id="backFromEditGroup">‹</button>
+        <h1 class="page-title">그룹 수정하기</h1>
+    </header>
+
+    <!-- 프로필 인사 섹션 -->
+    <section class="profile-greeting">
+        <div class="greeting-content">
+            <h2 class="greeting-name">미소 님</h2>
+            <p class="greeting-text">그룹 정보를<br>수정해보세요!</p>
+        </div>
+        <div class="greeting-icon">
+            <span class="icon-people">👥</span>
+        </div>
+    </section>
+
+    <!-- 그룹 수정 폼 -->
+    <form class="add-connection-form" id="editGroupForm">
+        <!-- 그룹 프로필 사진 -->
+        <div class="form-group">
+            <label class="form-label">그룹 프로필 사진</label>
+            <div class="profile-upload">
+                <input type="file" id="editGroupProfileImage" accept="image/*" style="display: none;">
+                <label for="editGroupProfileImage" class="upload-box" id="editGroupUploadBoxLabel">
+                    <span class="upload-icon" id="editGroupUploadIcon">+</span>
+                    <img id="editGroupUploadPreview" style="display: none; width: 100%; height: 100%; object-fit: cover; border-radius: 8px;">
+                </label>
+            </div>
+        </div>
+
+        <!-- 그룹 이름 -->
+        <div class="form-group">
+            <label class="form-label">그룹 이름 <span class="required-mark">*</span></label>
+            <input type="text" class="form-input" id="editGroupName" placeholder="예: 우리 가족 💕" required>
+        </div>
+
+        <!-- 멤버 검색 -->
+        <div class="form-group">
+            <label class="form-label">그룹 멤버 선택</label>
+            <input type="text" class="form-input search-input" id="editMemberSearch" placeholder="멤버 검색...">
+        </div>
+
+        <!-- 멤버 리스트 -->
+        <div class="member-selection-list" id="editMemberSelectionList">
+            <!-- JavaScript로 동적 생성 --></div>
+
+        <!-- 선택된 멤버 표시 -->
+        <div class="form-group">
+            <label class="form-label">선택된 멤버 (<span id="editSelectedCount">0</span>명)</label>
+            <div class="selected-members-container" id="editSelectedMembersContainer">
+                <p class="empty-message">선택된 멤버가 없습니다</p>
+            </div>
+        </div>
+
+        <!-- 추억장 설정 -->
+        <div class="form-group">
+            <label class="form-label">추억장 양도</label>
+            <p class="form-note">그룹의 추억장 역할을 다른 멤버에게 양도할 수 있습니다.</p>
+            <select class="form-select" id="editMemoryKeeper">
+                <option value="me">나 (미소)</option>
+            </select>
+        </div>
+
+        <!-- 추억장 양도 안내 -->
+        <div class="info-box">
+            <p class="info-text">💡 추억장이 양도되면 해당 멤버가 그룹의 추억을 관리하게 됩니다.</p>
+        </div>
+
+        <!-- 제출 버튼 -->
+        <button type="submit" class="submit-btn">그룹 수정 완료</button>
+    </form>
+
+    <!-- 하단 네비게이션 -->
+    <nav class="bottom-nav">
+        <div class="nav-item" id="navHome">
+            <img src="../img/마이노크 홈 아이콘_off.png" alt="홈" class="nav-icon">
+            <span class="nav-label">마이노크홈</span>
+        </div>
+        <div class="nav-item" id="navCalendar">
+            <img src="../img/마이노크 캘린더 아이콘_off.png" alt="캘린더" class="nav-icon">
+            <span class="nav-label">일정 확인하기</span>
+        </div>
+        <div class="nav-item" id="navMypage">
+            <img src="../img/마이노크 마이페이지 아이콘_off.png" alt="마이페이지" class="nav-icon">
+            <span class="nav-label">마이페이지</span>
+        </div>
+    </nav>
+
+    <script src="script.js"></script>
+</body>
+</html>

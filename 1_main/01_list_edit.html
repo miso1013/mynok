@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <title>추억 인연 수정하기 - 마이노크</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- 헤더 -->
+    <header class="header add-connection-header">
+        <button class="back-btn" id="backFromEdit">‹</button>
+        <h1 class="page-title">추억 인연 수정하기</h1>
+    </header>
+
+    <!-- 탭 버튼 -->
+    <div class="tab-container">
+        <button class="tab-btn active" data-tab="connection">소중한 인연</button>
+        <button class="tab-btn" data-tab="group">소중한 그룹 인연</button>
+    </div>
+
+    <!-- 안내 문구 -->
+    <section class="remove-info-section">
+        <p class="remove-info-text" id="editInfoText">수정하거나 삭제할 인연을 선택해주세요</p>
+    </section>
+
+    <!-- 인연 목록 탭 -->
+    <section class="edit-list-section" id="connectionEditTab">
+        <div id="editConnectionsList">
+            <!-- JavaScript로 동적 생성 -->
+        </div>
+    </section>
+
+    <!-- 그룹 목록 탭 (숨김) -->
+    <section class="edit-list-section" id="groupEditTab" style="display: none;">
+        <div id="editGroupsList">
+            <!-- JavaScript로 동적 생성 -->
+        </div>
+    </section>
+
+    <!-- 수정/삭제 버튼 -->
+    <div class="edit-button-container">
+        <button class="edit-action-btn edit-btn" id="editSubmitBtn">수정</button>
+        <button class="edit-action-btn delete-btn" id="deleteSubmitBtn">삭제</button>
+    </div>
+
+    <!-- 하단 네비게이션 -->
+    <nav class="bottom-nav">
+        <div class="nav-item" id="navHome">
+            <img src="../img/마이노크 홈 아이콘_off.png" alt="홈" class="nav-icon">
+            <span class="nav-label">마이노크홈</span>
+        </div>
+        <div class="nav-item" id="navCalendar">
+            <img src="../img/마이노크 캘린더 아이콘_off.png" alt="캘린더" class="nav-icon">
+            <span class="nav-label">일정 확인하기</span>
+        </div>
+        <div class="nav-item" id="navMypage">
+            <img src="../img/마이노크 마이페이지 아이콘_off.png" alt="마이페이지" class="nav-icon">
+            <span class="nav-label">마이페이지</span>
+        </div>
+    </nav>
+
+    <script src="script.js"></script>
+</body>
+</html>

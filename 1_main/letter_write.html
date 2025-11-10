@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <title>편지 쓰기 - 마이노크</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- 헤더 -->
+    <header class="header add-connection-header">
+        <button class="back-btn" id="backFromLetterWrite">‹</button>
+        <h1 class="page-title">문장이 있어</h1>
+    </header>
+
+    <!-- 편지쓰기 폼 -->
+    <div class="letter-write-container">
+        <!-- 인사 섹션 -->
+        <section class="letter-write-greeting">
+            <div class="letter-write-greeting-text">
+                <h2 class="letter-write-user-name"><span class="name-highlight" id="letterWriterName">미소</span> 님</h2>
+                <p class="letter-write-message">소중한 사람에게<br>편지를 전해보세요!</p>
+            </div>
+            <div class="letter-write-envelope">
+                <div class="envelope-icon">✉️</div>
+            </div>
+        </section>
+
+        <form id="letterWriteForm" class="letter-write-form">
+            <!-- 받는이 -->
+            <div class="letter-write-section">
+                <label class="letter-write-label">받는이</label>
+                <p class="letter-write-note">편지를 전달하고 싶은 소중한 사람을 선택해주세요.</p>
+                <div class="letter-recipient-container">
+                    <div class="letter-recipient-tags" id="recipientTags">
+                        <!-- JavaScript로 동적 생성 -->
+                    </div>
+                    <button type="button" class="letter-recipient-search-btn" id="recipientSearchBtn">
+                        <svg class="search-icon-svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="11" cy="11" r="7" stroke="#FF9595" stroke-width="2"/>
+                            <path d="M20 20L16.5 16.5" stroke="#FF9595" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- 제목 -->
+            <div class="letter-write-section">
+                <label class="letter-write-label">제 목</label>
+                <input type="text" class="letter-write-input" id="letterTitle" placeholder="제목을 적어주세요.">
+            </div>
+
+            <!-- 편지내용 -->
+            <div class="letter-write-section">
+                <label class="letter-write-label">편지내용</label>
+                <textarea class="letter-write-textarea" id="letterContent" placeholder="편지를 적어주세요."></textarea>
+            </div>
+
+            <!-- 편지지 -->
+            <div class="letter-write-section">
+                <label class="letter-write-label">편지지</label>
+                <p class="letter-write-note">편지지를 선택해주세요.</p>
+                <div class="letter-pattern-grid">
+                    <div class="letter-pattern-box" data-pattern="hearts">
+                        <div class="pattern-hearts"></div>
+                    </div>
+                    <div class="letter-pattern-box" data-pattern="plain-pink">
+                        <div class="pattern-plain-pink"></div>
+                    </div>
+                    <div class="letter-pattern-box" data-pattern="dots">
+                        <div class="pattern-dots"></div>
+                    </div>
+                    <div class="letter-pattern-box" data-pattern="stripes">
+                        <div class="pattern-stripes"></div>
+                    </div>
+                    <div class="letter-pattern-box" data-pattern="flowers">
+                        <div class="pattern-flowers"></div>
+                    </div>
+                    <div class="letter-pattern-box" data-pattern="waves">
+                        <div class="pattern-waves"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 사진 추가하기 -->
+            <div class="letter-write-section">
+                <label class="letter-write-label">사진 추가하기</label>
+                <p class="letter-write-note">편지와 함께 사진이나 동영상을 전달하시겠어요?</p>
+
+                <!-- 메인 사진 박스 (큰 가로) -->
+                <div class="letter-photo-main-box" id="photoBoxMain">
+                    <input type="file" class="photo-input" id="photoInput0" accept="image/*" style="display: none;">
+                    <label for="photoInput0" class="photo-label">
+                        <span class="camera-icon">📷</span>
+                    </label>
+                    <div class="photo-preview" id="photoPreview0" style="display: none;">
+                        <img src="" alt="Preview">
+                        <button type="button" class="photo-remove" data-index="0">×</button>
+                    </div>
+                </div>
+
+                <!-- 추가 사진 3개 (작은 정사각형) -->
+                <div class="letter-photo-small-grid">
+                    <div class="letter-photo-small-box" id="photoBox1">
+                        <input type="file" class="photo-input" id="photoInput1" accept="image/*" style="display: none;">
+                        <label for="photoInput1" class="photo-label">
+                            <span class="plus-icon">+</span>
+                        </label>
+                        <div class="photo-preview" id="photoPreview1" style="display: none;">
+                            <img src="" alt="Preview">
+                            <button type="button" class="photo-remove" data-index="1">×</button>
+                        </div>
+                    </div>
+                    <div class="letter-photo-small-box" id="photoBox2">
+                        <input type="file" class="photo-input" id="photoInput2" accept="image/*" style="display: none;">
+                        <label for="photoInput2" class="photo-label">
+                            <span class="plus-icon">+</span>
+                        </label>
+                        <div class="photo-preview" id="photoPreview2" style="display: none;">
+                            <img src="" alt="Preview">
+                            <button type="button" class="photo-remove" data-index="2">×</button>
+                        </div>
+                    </div>
+                    <div class="letter-photo-small-box" id="photoBox3">
+                        <input type="file" class="photo-input" id="photoInput3" accept="image/*" style="display: none;">
+                        <label for="photoInput3" class="photo-label">
+                            <span class="plus-icon">+</span>
+                        </label>
+                        <div class="photo-preview" id="photoPreview3" style="display: none;">
+                            <img src="" alt="Preview">
+                            <button type="button" class="photo-remove" data-index="3">×</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 하단 버튼 -->
+            <div class="letter-write-buttons">
+                <button type="button" class="letter-cancel-btn" id="letterCancelBtn">뒤로가기</button>
+                <button type="submit" class="letter-send-btn" id="letterSendBtn">보내기</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- 하단 네비게이션 -->
+    <nav class="bottom-nav">
+        <div class="nav-item" id="navHome">
+            <img src="../img/마이노크 홈 아이콘_off.png" alt="홈" class="nav-icon">
+            <span class="nav-label">마이노크홈</span>
+        </div>
+        <div class="nav-item" id="navCalendar">
+            <img src="../img/마이노크 캘린더 아이콘_off.png" alt="캘린더" class="nav-icon">
+            <span class="nav-label">일정 확인하기</span>
+        </div>
+        <div class="nav-item" id="navMypage">
+            <img src="../img/마이노크 마이페이지 아이콘_off.png" alt="마이페이지" class="nav-icon">
+            <span class="nav-label">마이페이지</span>
+        </div>
+    </nav>
+
+    <script src="script.js"></script>
+</body>
+</html>

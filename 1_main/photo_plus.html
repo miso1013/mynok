@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <title>장소별 추억 추가하기 - 마이노크</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- 헤더 -->
+    <header class="header">
+        <button class="back-btn" id="backFromPhotoPlus">‹</button>
+        <h1 class="page-title">장소별 추억 추가하기</h1>
+    </header>
+
+    <div class="photo-plus-container">
+        <!-- 지역 설정 -->
+        <section class="photo-plus-section">
+            <h3 class="photo-plus-section-title">지역 설정</h3>
+            <div class="photo-plus-location-search">
+                <input type="text" class="photo-plus-search-input" id="locationSearchInput" placeholder="지역을 검색해주세요.">
+                <svg class="photo-plus-search-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="11" cy="11" r="7" stroke="#FF9595" stroke-width="2"/>
+                    <path d="M20 20L16.5 16.5" stroke="#FF9595" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+                <div class="photo-plus-search-results" id="locationSearchResults"></div>
+            </div>
+            <div class="photo-plus-location-selected" id="locationSelected" style="display: none;">
+            </div>
+        </section>
+
+        <!-- 계절 설정 -->
+        <section class="photo-plus-section">
+            <h3 class="photo-plus-section-title">계절 설정</h3>
+            <div class="photo-plus-season-tabs">
+                <button class="photo-plus-season-tab" data-season="spring">봄</button>
+                <button class="photo-plus-season-tab" data-season="summer">여름</button>
+                <button class="photo-plus-season-tab" data-season="fall">가을</button>
+                <button class="photo-plus-season-tab active" data-season="winter">겨울</button>
+            </div>
+        </section>
+
+        <!-- 공유 설정 -->
+        <section class="photo-plus-section">
+            <h3 class="photo-plus-section-title">공유 설정</h3>
+            <div class="photo-plus-share-tabs">
+                <button class="photo-plus-share-tab active" data-share="select">선택공유</button>
+                <button class="photo-plus-share-tab" data-share="private">비공개</button>
+                <button class="photo-plus-share-tab" data-share="all">전체보기</button>
+            </div>
+            <div class="photo-plus-member-search">
+                <input type="text" class="photo-plus-member-input" id="memberSearchInput" placeholder="공유할 인연을 검색해주세요.">
+                <svg class="photo-plus-member-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="11" cy="11" r="7" stroke="#999" stroke-width="2"/>
+                    <path d="M20 20L16.5 16.5" stroke="#999" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+                <div class="photo-plus-member-results" id="memberSearchResults"></div>
+            </div>
+            <div class="photo-plus-selected-members" id="selectedMembers"></div>
+        </section>
+
+        <!-- 사진/동영상 추가하기 -->
+        <section class="photo-plus-section">
+            <h3 class="photo-plus-section-title">사진 / 동영상 추가하기</h3>
+            <p class="photo-plus-section-desc">추억을 사진이나 동영상으로 추가해주세요!</p>
+            <div class="photo-plus-upload-area" id="uploadArea">
+                <div class="photo-plus-upload-icon">+</div>
+            </div>
+            <div class="photo-plus-preview-grid" id="previewGrid">
+                <!-- 미리보기 이미지가 여기에 추가됩니다 -->
+            </div>
+        </section>
+
+        <!-- 메모 추가하기 -->
+        <section class="photo-plus-section">
+            <h3 class="photo-plus-section-title">메모 추가하기</h3>
+            <p class="photo-plus-section-desc">장소에서 있던 추억을 메모로 남겨보세요!</p>
+            <textarea class="photo-plus-memo-textarea" id="memoTextarea" placeholder="내용을 입력해주세요." rows="6"></textarea>
+        </section>
+
+        <!-- 저장 버튼 -->
+        <button class="photo-plus-save-btn" id="saveBtn">저장하기</button>
+    </div>
+
+    <!-- 하단 네비게이션 -->
+    <nav class="bottom-nav">
+        <div class="nav-item" id="navHome">
+            <img src="../img/마이노크 홈 아이콘_off.png" alt="홈" class="nav-icon">
+            <span class="nav-label">마이노크홈</span>
+        </div>
+        <div class="nav-item" id="navCalendar">
+            <img src="../img/마이노크 캘린더 아이콘_off.png" alt="캘린더" class="nav-icon">
+            <span class="nav-label">일정 확인하기</span>
+        </div>
+        <div class="nav-item" id="navMypage">
+            <img src="../img/마이노크 마이페이지 아이콘_off.png" alt="마이페이지" class="nav-icon">
+            <span class="nav-label">마이페이지</span>
+        </div>
+    </nav>
+
+    <script src="script.js"></script>
+</body>
+</html>

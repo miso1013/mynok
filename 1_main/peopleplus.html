@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <title>인연 추가 - 마이노크</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- 헤더 -->
+    <header class="header add-connection-header">
+        <button class="back-btn" id="backToMain">‹</button>
+        <h1 class="page-title">인연 추가</h1>
+    </header>
+
+    <!-- 프로필 인사 섹션 -->
+    <section class="profile-greeting">
+        <div class="greeting-content">
+            <h2 class="greeting-name">미소 님</h2>
+            <p class="greeting-text">추가하고싶은<br>소중한 인연을 알려주세요!</p>
+        </div>
+        <div class="greeting-icon">
+            <span class="icon-people">👥</span>
+        </div>
+    </section>
+
+    <!-- 인연 추가 폼 -->
+    <form class="add-connection-form">
+        <!-- 프로필 사진 -->
+        <div class="form-group">
+            <label class="form-label">프로필 사진</label>
+            <div class="profile-upload">
+                <input type="file" id="profileImage" accept="image/*" style="display: none;">
+                <label for="profileImage" class="upload-box" id="uploadBoxLabel">
+                    <span class="upload-icon" id="uploadIcon">+</span>
+                    <img id="uploadPreview" style="display: none; width: 100%; height: 100%; object-fit: cover; border-radius: 8px;">
+                </label>
+            </div>
+        </div>
+
+        <!-- 이름 -->
+        <div class="form-group">
+            <label class="form-label">이름</label>
+            <input type="text" class="form-input" id="nameInput" placeholder="강훈">
+        </div>
+
+        <!-- 생년월일 -->
+        <div class="form-group">
+            <label class="form-label">생년월일</label>
+            <div class="checkbox-wrapper">
+                <input type="checkbox" id="birthdayUnknown" class="form-checkbox">
+                <label for="birthdayUnknown" class="checkbox-label">모르겠어요.</label>
+            </div>
+            <div class="birthday-selects">
+                <select class="form-select" id="birthYear">
+                    <option value="">년도</option>
+                </select>
+                <select class="form-select" id="birthMonth">
+                    <option value="">월</option>
+                </select>
+                <select class="form-select" id="birthDay">
+                    <option value="">일</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- 연락처 -->
+        <div class="form-group">
+            <label class="form-label">연락처</label>
+            <div class="checkbox-wrapper">
+                <input type="checkbox" id="contactUnknown" class="form-checkbox">
+                <label for="contactUnknown" class="checkbox-label">모르겠어요.</label>
+            </div>
+            <div class="input-with-button">
+                <input type="text" class="form-input" placeholder="연락처를 입력해주세요." id="contactInput">
+                <button type="button" class="input-btn">입력</button>
+            </div>
+            <p class="form-note">*'링이' 소재파 입력해주세요.</p>
+        </div>
+
+        <!-- 인연 유형 -->
+        <div class="form-group">
+            <label class="form-label">인연 유형</label>
+            <p class="form-note">반려동물은 편지를 직접 전달할 수 없어요.</p>
+            <div class="connection-type-options">
+                <label class="connection-type-option">
+                    <input type="radio" name="connectionType" value="person" class="type-radio" checked>
+                    <span class="type-label">
+                        <span class="type-icon">👤</span>
+                        <span class="type-text">일반 인연</span>
+                    </span>
+                </label>
+                <label class="connection-type-option">
+                    <input type="radio" name="connectionType" value="pet" class="type-radio">
+                    <span class="type-label">
+                        <span class="type-icon">🐾</span>
+                        <span class="type-text">반려동물</span>
+                    </span>
+                </label>
+            </div>
+        </div>
+
+        <!-- 추억 공유 여부 -->
+        <div class="form-group">
+            <label class="form-label">추억을 함께 공유 하시겠어요?</label>
+            <div class="toggle-buttons">
+                <button type="button" class="toggle-btn active" data-value="yes">네</button>
+                <button type="button" class="toggle-btn" data-value="no">아니요</button>
+            </div>
+        </div>
+
+        <!-- 제출 버튼 -->
+        <button type="submit" class="submit-btn">인연 추가하기</button>
+    </form>
+
+    <!-- 하단 네비게이션 -->
+    <nav class="bottom-nav">
+        <div class="nav-item" id="navHome">
+            <img src="../img/마이노크 홈 아이콘_off.png" alt="홈" class="nav-icon">
+            <span class="nav-label">마이노크홈</span>
+        </div>
+        <div class="nav-item" id="navCalendar">
+            <img src="../img/마이노크 캘린더 아이콘_off.png" alt="캘린더" class="nav-icon">
+            <span class="nav-label">일정 확인하기</span>
+        </div>
+        <div class="nav-item" id="navMypage">
+            <img src="../img/마이노크 마이페이지 아이콘_off.png" alt="마이페이지" class="nav-icon">
+            <span class="nav-label">마이페이지</span>
+        </div>
+    </nav>
+
+    <script src="script.js"></script>
+</body>
+</html>

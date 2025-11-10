@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <title>장소별 추억 확인 - 마이노크</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- 헤더 -->
+    <header class="header">
+        <button class="back-btn" id="backFromPlace">‹</button>
+        <h1 class="page-title">장소별 추억 확인</h1>
+    </header>
+
+    <!-- 상단 배너 -->
+    <div class="place-header-banner">
+        <div class="place-banner-person">
+            <span class="place-banner-name" id="placeBannerName">강훈</span>
+            <span class="place-banner-text"> 님과</span>
+        </div>
+        <div class="place-banner-message">
+            다양한 장소에서 추억을 쌓았어요 🍀
+        </div>
+        <div class="place-banner-stats">
+            <div class="place-total-count">
+                함께한 지역 <span class="place-count-number" id="totalPlaceCount">38</span> 곳
+            </div>
+            <div class="place-season-stats">
+                봄 <span class="season-count" id="springCount">389</span> |
+                여름 <span class="season-count" id="summerCount">524</span> |
+                가을 <span class="season-count" id="fallCount">208</span> |
+                겨울 <span class="season-count" id="winterCount">528</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 검색바 -->
+    <div class="place-search-wrapper">
+        <input type="text" class="place-search-input" id="placeSearchInput" placeholder="지역을 검색해주세요.">
+        <svg class="place-search-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="11" cy="11" r="7" stroke="#FF9595" stroke-width="2"/>
+            <path d="M20 20L16.5 16.5" stroke="#FF9595" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+    </div>
+
+    <!-- 계절 필터 탭 -->
+    <div class="place-season-tabs">
+        <button class="place-season-tab active" data-season="spring">봄</button>
+        <button class="place-season-tab" data-season="summer">여름</button>
+        <button class="place-season-tab" data-season="fall">가을</button>
+        <button class="place-season-tab" data-season="winter">겨울</button>
+    </div>
+
+    <!-- 지역 카드 리스트 -->
+    <div class="place-cards-section">
+        <div class="place-cards-list" id="placeCardsList">
+            <!-- JavaScript로 동적 생성 -->
+        </div>
+    </div>
+
+    <!-- FAB 버튼들 -->
+    <button class="place-favorite-fab" id="favoriteFab">♥</button>
+    <button class="place-add-fab" id="addPlaceFab">+</button>
+
+    <!-- 하단 네비게이션 -->
+    <nav class="bottom-nav">
+        <div class="nav-item" id="navHome">
+            <img src="../img/마이노크 홈 아이콘_off.png" alt="홈" class="nav-icon">
+            <span class="nav-label">마이노크홈</span>
+        </div>
+        <div class="nav-item" id="navCalendar">
+            <img src="../img/마이노크 캘린더 아이콘_off.png" alt="캘린더" class="nav-icon">
+            <span class="nav-label">일정 확인하기</span>
+        </div>
+        <div class="nav-item" id="navMypage">
+            <img src="../img/마이노크 마이페이지 아이콘_off.png" alt="마이페이지" class="nav-icon">
+            <span class="nav-label">마이페이지</span>
+        </div>
+    </nav>
+
+    <script src="script.js"></script>
+</body>
+</html>
