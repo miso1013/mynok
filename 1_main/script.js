@@ -39,53 +39,87 @@ function initializeNavigation() {
 
 // 샘플 데이터 초기화 함수
 function initializeSampleData() {
-    // 인연 샘플 데이터 추가 (기존 인연이 없을 때만)
-    const existingConnections = localStorage.getItem('mynokConnections');
-    let connections = existingConnections ? JSON.parse(existingConnections) : [];
+    // 데이터 버전 체크 - 버전이 다르면 초기화
+    const DATA_VERSION = '1.0';
+    const currentVersion = localStorage.getItem('mynokDataVersion');
 
-    // 샘플 인연 추가 (이름으로 중복 체크)
-    const sampleConnectionNames = ['아빠', '엄마', '할머니', '강훈이'];
+    // 샘플 인연 데이터
     const sampleConnections = [
         {
+            name: '강훈',
+            birthday: '5월 23일',
+            contact: '01012345645',
+            connectionType: 'person',
+            memories: 47,
+            avatar: '../img/kanghoon/2024.12.30_강훈2.jpg'
+        },
+        {
+            name: '할머니',
+            birthday: '8월 15일',
+            contact: '01056789887',
+            connectionType: 'person',
+            memories: 654,
+            avatar: null
+        },
+        {
+            name: '시월이',
+            birthday: '10월 2일',
+            contact: '정보 없음',
+            connectionType: 'pet',
+            memories: 23,
+            avatar: '../img/seewer/시월이_02.jpg'
+        },
+        {
             name: '아빠',
-            birthday: '1975-05-15',
-            contact: '010-1234-5678',
+            birthday: '정보 없음',
+            contact: '정보 없음',
             connectionType: 'person',
             memories: 0,
             avatar: null
         },
         {
             name: '엄마',
-            birthday: '1977-08-22',
-            contact: '010-2345-6789',
+            birthday: '정보 없음',
+            contact: '정보 없음',
             connectionType: 'person',
             memories: 0,
             avatar: null
         },
         {
-            name: '할머니',
-            birthday: '1950-03-10',
-            contact: '010-3456-7890',
+            name: '지혜',
+            birthday: '정보 없음',
+            contact: '정보 없음',
             connectionType: 'person',
             memories: 0,
             avatar: null
         },
         {
-            name: '강훈이',
-            birthday: '2000-11-25',
-            contact: '010-4567-8901',
+            name: '혜진언니',
+            birthday: '정보 없음',
+            contact: '정보 없음',
             connectionType: 'person',
             memories: 0,
             avatar: null
         }
     ];
 
-    sampleConnections.forEach(sample => {
-        if (!connections.some(c => c.name === sample.name)) {
-            connections.push(sample);
+    let connections = [];
+
+    // 버전이 다르면 강제로 샘플 데이터로 초기화
+    if (currentVersion !== DATA_VERSION) {
+        connections = [...sampleConnections];
+        localStorage.setItem('mynokDataVersion', DATA_VERSION);
+        localStorage.setItem('mynokConnections', JSON.stringify(connections));
+    } else {
+        // 같은 버전이면 기존 데이터 사용 (없으면 샘플 데이터)
+        const existingConnections = localStorage.getItem('mynokConnections');
+        if (existingConnections) {
+            connections = JSON.parse(existingConnections);
+        } else {
+            connections = [...sampleConnections];
+            localStorage.setItem('mynokConnections', JSON.stringify(connections));
         }
-    });
-    localStorage.setItem('mynokConnections', JSON.stringify(connections));
+    }
 
     // 일정 샘플 데이터 추가 (항상 추가)
     const existingEvents = localStorage.getItem('mynokCalendarEvents');
@@ -274,12 +308,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const defaultGroups = [
         {
             id: '1',
-            name: '우리 가족 💕',
+            name: '가족',
             members: [
-                { name: '엄마', relation: '가족', profileImage: '' },
-                { name: '아빠', relation: '가족', profileImage: '' },
-                { name: '미소', relation: '나', profileImage: '' },
-                { name: '할머니', relation: '가족', profileImage: '' }
+                { name: '할머니', relation: '그룹 멤버', profileImage: '' },
+                { name: '엄마', relation: '그룹 멤버', profileImage: '' },
+                { name: '아빠', relation: '그룹 멤버', profileImage: '' },
+                { name: '미소', relation: '나', profileImage: '' }
             ],
             memoryKeeper: '미소',
             createdDate: new Date().toISOString(),
@@ -287,11 +321,10 @@ document.addEventListener('DOMContentLoaded', function() {
         },
         {
             id: '2',
-            name: '친구들과 함께 🎉',
+            name: '친구',
             members: [
-                { name: '지혜', relation: '친구', profileImage: '' },
-                { name: '해린', relation: '친구', profileImage: '' },
-                { name: '진희', relation: '친구', profileImage: '' },
+                { name: '지혜', relation: '그룹 멤버', profileImage: '' },
+                { name: '혜진언니', relation: '그룹 멤버', profileImage: '' },
                 { name: '미소', relation: '나', profileImage: '' }
             ],
             memoryKeeper: '미소',
@@ -300,53 +333,15 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     ];
 
-    // localStorage에 기본 그룹 데이터 초기화 및 마이그레이션
-    const savedGroups = localStorage.getItem('mynokGroups');
-    if (!savedGroups) {
+    // localStorage에 기본 그룹 데이터 초기화
+    // 버전이 다르면 강제로 샘플 데이터로 초기화
+    if (currentVersion !== DATA_VERSION) {
         localStorage.setItem('mynokGroups', JSON.stringify(defaultGroups));
     } else {
-        // 기존 그룹 데이터를 새 구조로 마이그레이션
-        let groups = JSON.parse(savedGroups);
-        let updated = false;
-
-        groups = groups.map(group => {
-            // id를 문자열로 변환
-            if (typeof group.id !== 'string') {
-                group.id = String(group.id);
-                updated = true;
-            }
-
-            // members가 문자열 배열이면 객체 배열로 변환
-            if (group.members && group.members.length > 0 && typeof group.members[0] === 'string') {
-                group.members = group.members.map(memberName => ({
-                    name: memberName.replace('(나)', ''),
-                    relation: memberName.includes('미소') ? '나' : '그룹 멤버',
-                    profileImage: ''
-                }));
-                updated = true;
-            }
-
-            // createdDate 필드 추가
-            if (!group.createdDate && group.createdAt) {
-                group.createdDate = group.createdAt;
-                updated = true;
-            } else if (!group.createdDate) {
-                group.createdDate = new Date().toISOString();
-                updated = true;
-            }
-
-            // isSharing 필드 추가
-            if (group.isSharing === undefined) {
-                group.isSharing = true;
-                updated = true;
-            }
-
-            return group;
-        });
-
-        if (updated) {
-            localStorage.setItem('mynokGroups', JSON.stringify(groups));
-            console.log('그룹 데이터 마이그레이션 완료');
+        // 같은 버전이면 기존 데이터 사용 (없으면 샘플 데이터)
+        const savedGroups = localStorage.getItem('mynokGroups');
+        if (!savedGroups) {
+            localStorage.setItem('mynokGroups', JSON.stringify(defaultGroups));
         }
     }
 
