@@ -232,6 +232,45 @@ function initializeSampleData() {
 
     localStorage.setItem('mynokCalendarEvents', JSON.stringify(events));
     console.log('샘플 데이터 추가 완료:', events.length, '개 일정');
+
+    // 그룹 샘플 데이터
+    const defaultGroups = [
+        {
+            id: '1',
+            name: '가족',
+            members: [
+                { name: '할머니', relation: '그룹 멤버', profileImage: '' },
+                { name: '엄마', relation: '그룹 멤버', profileImage: '' },
+                { name: '아빠', relation: '그룹 멤버', profileImage: '' },
+                { name: '미소', relation: '나', profileImage: '' }
+            ],
+            memoryKeeper: '미소',
+            createdDate: new Date().toISOString(),
+            isSharing: true
+        },
+        {
+            id: '2',
+            name: '친구',
+            members: [
+                { name: '지혜', relation: '그룹 멤버', profileImage: '' },
+                { name: '혜진언니', relation: '그룹 멤버', profileImage: '' },
+                { name: '미소', relation: '나', profileImage: '' }
+            ],
+            memoryKeeper: '미소',
+            createdDate: new Date().toISOString(),
+            isSharing: true
+        }
+    ];
+
+    // 그룹 데이터 초기화
+    if (currentVersion !== DATA_VERSION) {
+        localStorage.setItem('mynokGroups', JSON.stringify(defaultGroups));
+    } else {
+        const savedGroups = localStorage.getItem('mynokGroups');
+        if (!savedGroups) {
+            localStorage.setItem('mynokGroups', JSON.stringify(defaultGroups));
+        }
+    }
 }
 
 // 탭 전환 기능
@@ -303,47 +342,6 @@ document.addEventListener('DOMContentLoaded', function() {
             connectionType: 'pet' // 반려동물
         }
     ];
-
-    // 기본 그룹 데이터
-    const defaultGroups = [
-        {
-            id: '1',
-            name: '가족',
-            members: [
-                { name: '할머니', relation: '그룹 멤버', profileImage: '' },
-                { name: '엄마', relation: '그룹 멤버', profileImage: '' },
-                { name: '아빠', relation: '그룹 멤버', profileImage: '' },
-                { name: '미소', relation: '나', profileImage: '' }
-            ],
-            memoryKeeper: '미소',
-            createdDate: new Date().toISOString(),
-            isSharing: true
-        },
-        {
-            id: '2',
-            name: '친구',
-            members: [
-                { name: '지혜', relation: '그룹 멤버', profileImage: '' },
-                { name: '혜진언니', relation: '그룹 멤버', profileImage: '' },
-                { name: '미소', relation: '나', profileImage: '' }
-            ],
-            memoryKeeper: '미소',
-            createdDate: new Date().toISOString(),
-            isSharing: true
-        }
-    ];
-
-    // localStorage에 기본 그룹 데이터 초기화
-    // 버전이 다르면 강제로 샘플 데이터로 초기화
-    if (currentVersion !== DATA_VERSION) {
-        localStorage.setItem('mynokGroups', JSON.stringify(defaultGroups));
-    } else {
-        // 같은 버전이면 기존 데이터 사용 (없으면 샘플 데이터)
-        const savedGroups = localStorage.getItem('mynokGroups');
-        if (!savedGroups) {
-            localStorage.setItem('mynokGroups', JSON.stringify(defaultGroups));
-        }
-    }
 
     // localStorage에서 인연 데이터 불러오기
     function getConnections() {
