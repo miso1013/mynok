@@ -4,17 +4,24 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-**마이노크 (MyNok)** is a Korean-language social connection and memory-sharing mobile web application. Built with vanilla JavaScript, HTML, and CSS, it's a multi-page application optimized for mobile viewing (393px width, targeting iPhone 14 Pro dimensions).
+**마이노크 (MyNok)** is a Korean-language social connection and memory-sharing mobile web application designed for exhibition display. Built with vanilla JavaScript, HTML, and CSS, it's a multi-page application optimized for mobile viewing (393px width, targeting iPhone 14 Pro dimensions).
 
 ## Development Commands
 
 This is a static HTML/CSS/JS application with **no build process**.
 
-**Run locally:**
+**Run locally from mynok root (required for image paths):**
 ```bash
-cd "C:\Users\라포랩스\Desktop\mynok\1_main"
-python -m http.server 8000
-# Navigate to http://localhost:8000/00_loading.html
+cd "C:\Users\라포랩스\Desktop\mynok"
+python -m http.server 8000 --bind 0.0.0.0
+# Navigate to http://localhost:8000/1_main/00_loading.html
+```
+
+**For external access (different Wi-Fi networks):**
+```bash
+# Start ngrok tunnel
+ngrok http 8000
+# Access via generated URL: https://[random].ngrok-free.dev/1_main/00_loading.html
 ```
 
 **No build, lint, or test commands** - this is vanilla web with no toolchain.
@@ -22,36 +29,46 @@ python -m http.server 8000
 ## Architecture Overview
 
 ### Technology Stack
-- **Pure vanilla JavaScript** (6,850 lines) - No frameworks
-- **HTML5** - 24 separate page files
-- **CSS3** (7,251 lines) - Single shared stylesheet
+- **Pure vanilla JavaScript** (~8,200+ lines) - No frameworks
+- **HTML5** - 28 separate page files
+- **CSS3** (~7,700+ lines) - Single shared stylesheet
 - **localStorage** - All data persistence (no backend)
 - **Pretendard font** - Via jsDelivr CDN
+- **PWA enabled** - Service Worker with offline caching
 
 ### File Structure
 ```
-1_main/
-├── 00_*.html          # Authentication flow (loading, login, join)
-├── 01_*.html          # Core pages (main, mypage, list_edit)
-├── 02_*.html          # Memory pages (memory, groupmemory)
-├── 03_*.html          # Content pages (letter, photo, calendar)
-├── 04_*.html          # Feature pages (voice, placephoto)
-├── 05_*.html          # E-commerce (gift)
-├── *.html             # Supporting pages (peopleplus, new_group, etc.)
-├── script.js          # ALL JavaScript (shared across pages)
-├── styles.css         # ALL styles (shared across pages)
-└── z_claude_md.md     # Legacy documentation
-
-img/
-├── keyring/           # Product detail images
-└── [user folders]     # Profile images
+mynok/
+├── manifest.json          # PWA manifest
+├── service-worker.js      # Offline caching (cache: mynok-v3)
+├── 1_main/
+│   ├── 00_*.html          # Authentication flow (loading, login, join)
+│   ├── 01_*.html          # Core pages (main, mypage, list_edit)
+│   ├── 02_*.html          # Memory pages (memory, groupmemory)
+│   ├── 03_*.html          # Content pages (letter, photo, calendar, groupletter, groupphoto)
+│   ├── 04_*.html          # Feature pages (voice, placephoto, groupvoice, groupplacephoto)
+│   ├── 05_*.html          # E-commerce (gift)
+│   ├── *.html             # Supporting pages (peopleplus, new_group, letter_write, calendar_plus, etc.)
+│   ├── script.js          # ALL JavaScript (shared across pages)
+│   └── styles.css         # ALL styles (shared across pages)
+└── img/
+    ├── keyring/           # Product detail images
+    ├── miso/              # User profile images
+    ├── kanghoon/          # Connection profile images
+    ├── seewer/            # Pet images
+    ├── 00_로고.png         # App logo (192x192)
+    ├── 마이노크 홈 아이콘_on.png  # App icon (512x512)
+    ├── 소리가 있어 아이콘_00.png  # Voice memory icon
+    ├── 사진이 있어 아이콘_00.png  # Photo memory icon
+    ├── 문장이 있어 아이콘_00.png  # Letter memory icon
+    └── [other UI icons]
 ```
 
 ### Core Design Pattern
 
 **Monolithic Shared Resources:**
-- Single `script.js` file handles ALL pages (6,850 lines)
-- Single `styles.css` file styles ALL pages (7,251 lines)
+- Single `script.js` file handles ALL pages (~8,200+ lines)
+- Single `styles.css` file styles ALL pages (~7,700+ lines)
 - Event handlers use element existence checks to avoid errors:
 
 ```javascript
@@ -64,7 +81,40 @@ if (element) {
 }
 ```
 
-This allows one script to work safely across 24 different pages without throwing errors.
+This allows one script to work safely across 28 different pages without throwing errors.
+
+## PWA Configuration
+
+### Service Worker (service-worker.js)
+- **Cache name**: `mynok-v3` (increment for forced updates)
+- **Strategy**: Cache-first with network fallback
+- **Cached resources**: All HTML pages, script.js, styles.css
+- Registration: Auto-registered in script.js on page load
+
+```javascript
+// Service Worker registration (script.js)
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/service-worker.js')
+        .then(reg => console.log('[PWA] Service Worker registered'))
+        .catch(err => console.error('[PWA] Registration failed:', err));
+}
+```
+
+### Manifest (manifest.json)
+- **Start URL**: `/1_main/00_loading.html`
+- **Display**: standalone (hides browser UI)
+- **Theme**: #FF9595 (pink)
+- **Icons**: 192x192 and 512x512 PNG
+- **Orientation**: portrait (locked)
+
+### HTML PWA Meta Tags (all pages)
+```html
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#FF9595">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="apple-touch-icon" href="/img/00_로고.png">
+```
 
 ## Data Management
 
@@ -79,6 +129,7 @@ This allows one script to work safely across 24 different pages without throwing
 'mynokCalendarEvents'            // Calendar events
 'mynokLetters_{personName}'      // Person-specific letters
 'mynokPlacePhotos'               // Location-based photos
+'eventNotificationLastShown'     // Last shown date for event notification
 ```
 
 ### Data Structures
@@ -91,7 +142,8 @@ This allows one script to work safely across 24 different pages without throwing
     contact: string,           // "010-1234-5678" or "정보 없음"
     memories: number,          // Memory count
     avatar: string|null,       // Base64 image or path
-    connectionType: string     // 'person' | 'pet' | 'memorial'
+    connectionType: string,    // 'person' | 'pet' | 'memorial'
+    isSharing: boolean         // Sharing status (true = 공유중, false = 간직중)
 }
 ```
 
@@ -125,12 +177,53 @@ This allows one script to work safely across 24 different pages without throwing
 }
 ```
 
+**Calendar Event Object:**
+```javascript
+{
+    id: number,
+    title: string,
+    date: string,              // "2025-01-15" (start date)
+    endDate: string,           // "2025-01-15" (end date)
+    content: string,
+    repeatType: string,        // 'none' | 'daily' | 'monthly' | 'weekly' | 'yearly' | 'custom'
+    alarmTime: number,         // Minutes before event (0 = no alarm)
+    shareMethod: string,       // 'select' | 'private' | 'all'
+    sharedWith: string[],      // Array of connection names (if shareMethod is 'select')
+    createdAt: string          // ISO timestamp
+}
+```
+
 ### Data Migration Pattern
 
-The codebase includes automatic migration logic (script.js ~line 303-351):
+The codebase includes automatic migration logic (script.js ~line 303-467):
 - Converts numeric group IDs to strings
 - Migrates string member arrays to object arrays
+- Updates profile images from localStorage
 - Maintains backward compatibility
+
+**Auto-update Logic:**
+```javascript
+// Runs on page load for connections
+const connections = getConnections();
+let updated = false;
+
+// Example: Update specific connection
+const kanghoon = connections.find(conn => conn.name === '강훈');
+if (kanghoon) {
+    if (kanghoon.avatar !== '../img/kanghoon/2024.12.30_강훈2.jpg') {
+        kanghoon.avatar = '../img/kanghoon/2024.12.30_강훈2.jpg';
+        updated = true;
+    }
+    if (kanghoon.isSharing !== true) {
+        kanghoon.isSharing = true;
+        updated = true;
+    }
+}
+
+if (updated) {
+    localStorage.setItem('mynokConnections', JSON.stringify(connections));
+}
+```
 
 ## Navigation Flow
 
@@ -146,30 +239,16 @@ The central dashboard with two tabs:
 ```
 [+ 인연 추가하기] → peopleplus.html
 [📖 추억 노크하기] → 02_memory.html?name={name}
-    └─ [문장이 있어] → 03_letter.html?name={name}
-        └─ [+ 편지 쓰기] → letter_write.html?name={name}
+    └─ [소리가 있어/사진이 있어/문장이 있어] → Respective pages
+        └─ [문장이 있어] → 03_letter.html?name={name}
+            ├─ [+ 편지 쓰기] → letter_write.html?name={name}
+            └─ [편지 보기] → Opens letter view modal
 ```
 
 **Tab 2: 소중한 그룹 인연 (Groups)**
 ```
 [+ 새 그룹 만들기] → new_group.html
 [📖 추억 노크하기] → 02_groupmemory.html?groupId={id}
-```
-
-### Settings Flow
-```
-01_mypage.html
-    └─ [추억 인연 수정하기] → 01_list_edit.html
-        ├─ [수정] → peopleplus.html?mode=edit&index={i}
-        │          edit_group.html?id={groupId}
-        └─ [삭제] → Confirmation → localStorage update
-```
-
-### E-commerce Flow
-```
-05_gift.html
-    ├─ [NFC 키링 선물하러 가기] → keyring.html
-    └─ [액자 선물하러 가기] → frame.html
 ```
 
 ### URL Parameter Communication
@@ -180,6 +259,8 @@ Pages pass data via query strings:
 - `letter_write.html?name=강훈` - Write letter to person
 - `peopleplus.html?mode=edit&index=2` - Edit connection
 - `edit_group.html?id=1699876543210` - Edit group
+- `calendar_plus.html?eventId=123` - Edit event
+- `calendar_plus.html?date=2025-01-15` - Add event with pre-filled date
 
 ## Key Functions Reference
 
@@ -198,30 +279,43 @@ Pages pass data via query strings:
 - `updateSelectedMembersDisplay()` - Updates member tag UI
 - `updateMemoryKeeperDropdown()` - Syncs dropdown with members
 
-### Memory Page (02_memory.html)
-- Dynamic rendering from URL: `?name={connectionName}`
+### Memory Page (02_memory.html, 02_groupmemory.html)
+- Dynamic rendering from URL: `?name={connectionName}` or `?groupId={id}`
 - Share toggle: 공유중 ↔ 간직중
   - **Auto-disabled for pets/memorial/no-contact**
   - Modal confirmation when disabling sharing
-- Gift card section with product recommendations
+  - Saves `isSharing` property to localStorage
+- **Red-dot notification system**: Shows update indicators on memory type icons
+  - Only displays when `isSharing === true` (공유중)
+  - 40% random probability per icon
+  - Pulse animation with gradient background
+  - Auto-clears on icon click
 
 ### Letter System (03_letter.html, letter_write.html)
 - `getLetters()` - Retrieves person-specific letters
 - `renderLetters(type, query)` - Filters and displays letters
+- `openLetterModal(letterId)` - Opens letter view modal with pattern
+  - **6 letter patterns**: hearts, plain-pink, dots, stripes, flowers, waves
+  - Uses saved pattern if available, otherwise randomizes
+  - Displays title, recipient, date, content, and photos
 - Person-specific storage: `mynokLetters_{personName}`
-- Pattern selection with 6 visual styles
 - Photo upload via FileReader API (base64 encoding)
-- Form validation: recipient, title, content required
+
+### Calendar System (03_calendar.html, calendar_plus.html)
+- `getEvents()` - Retrieves calendar events from localStorage
+- `renderCalendar(year, month)` - Generates calendar grid
+- `renderMonthlyEvents(year, month, selectedDate)` - Displays events
+- Event creation/editing with date range, repeat, alarm, sharing
+- **Korean alphabetical sorting**: Using `localeCompare('ko-KR')`
 
 ### Font Accessibility (script.js)
 - `applyFontSize(fontClass)` - Applies and saves font preference
 - 4 levels: font-small (12px), font-medium (14px), font-large (16px), font-xlarge (18px)
-- Slider synced with radio buttons in join flow
 
 ## Styling Conventions
 
 ### CSS Architecture
-- **Monolithic**: All 7,251 lines in one file
+- **Monolithic**: All ~7,700+ lines in one file
 - **No preprocessors**: Pure CSS3
 - **Class-based**: BEM-like naming patterns
 - **Mobile-first**: 393px fixed width, responsive height
@@ -232,123 +326,85 @@ Pages pass data via query strings:
 --primary: #FF7474
 --light-pink: #FFB4B6
 --accent-coral: #FF8A8A
---pink-gradient: linear-gradient(135deg, #FF7474 0%, #FF8A8A 100%)
+--pink-gradient: linear-gradient(135deg, #FF9595 0%, #FFB4B6 100%)
 
 /* Supporting colors */
---text: #333
+--text: #333, #5D5D5D
 --gray: #666, #999
 --light-bg: #f5f5f5, #f0f0f0
---borders: #e0e0e0, #ddd
+--borders: #e0e0e0, #ddd, rgba(255, 149, 149, 0.3)
 ```
 
 ### Key CSS Patterns
 
-**Fixed Bottom Navigation:**
+**Fixed Bottom Navigation (adjusted for iOS):**
 ```css
 .bottom-nav {
     position: fixed;
-    bottom: 0;
+    bottom: 12px;          /* Raised from 0 for better mobile display */
+    left: 50%;
+    transform: translateX(-50%);
     max-width: 393px;
-    height: 83px;
-    z-index: 1000;
+    z-index: 100;
+}
+```
+
+**Red-dot Notification Indicator:**
+```css
+.red-dot {
+    position: absolute;
+    top: 0;
+    right: 2px;
+    width: 10px;
+    height: 10px;
+    background: linear-gradient(135deg, #FF4444 0%, #FF7474 100%);
+    border-radius: 50%;
+    box-shadow: 0 2px 8px rgba(255, 68, 68, 0.5);
+    display: none;
+    animation: pulse-dot 2s infinite;
+}
+
+.red-dot.active {
+    display: block;
+}
+
+@keyframes pulse-dot {
+    0%, 100% {
+        box-shadow: 0 2px 8px rgba(255, 68, 68, 0.5),
+                    0 0 0 0 rgba(255, 68, 68, 0);
+    }
+    50% {
+        box-shadow: 0 2px 8px rgba(255, 68, 68, 0.5),
+                    0 0 0 4px rgba(255, 68, 68, 0);
+    }
+}
+```
+
+**Memory Type Icons (no background box):**
+```css
+.memory-type-icon {
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    /* No background - uses PNG images directly */
+}
+
+.memory-type-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
 }
 ```
 
 **State Management Classes:**
 ```css
-.active          /* Active tabs, buttons, modals */
+.active          /* Active tabs, buttons, modals, red-dots */
 .selected        /* Selected items (patterns, members) */
 .disabled        /* Disabled toggles/buttons */
 .collapsed       /* Collapsed accordions/sections */
-```
-
-**Component Classes:**
-```css
-.connection-item         /* Person/group cards */
-.member-tag             /* Group member badges */
-.toggle-switch          /* On/off toggles */
-.letter-card            /* Letter preview cards */
-.letter-pattern-box     /* Pattern selection */
-.purchase-button-container  /* Product purchase buttons */
-```
-
-### Page-Specific Styling Sections
-The CSS file is organized by page (lines 6837+):
-- Keyring purchase page: lines 6837-7251
-- Frame purchase page: uses same classes
-- Group memory page: lines 6673-6796
-- Letter pages: lines 5800+
-
-## Important Patterns & Conventions
-
-### Form Validation
-**Add/Edit Connection (peopleplus.html):**
-- Name required
-- Birthday/contact optional (use "모르겠어요" checkbox)
-- Empty optionals save as "정보 없음"
-- Connection type affects sharing capabilities
-
-**Group Creation (new_group.html):**
-- Group name required
-- Member selection with search
-- Validates member types (blocks pets/memorial/no-contact)
-- Memory keeper dropdown auto-updates
-
-**Letter Writing (letter_write.html):**
-- Recipient, title, content required
-- Pattern selection (1 of 6)
-- Up to 4 photos (base64 encoded)
-- Auto-saves to person-specific localStorage
-
-### Modal System
-```javascript
-// Show modal
-modalOverlay.classList.add('active');
-
-// Hide modal
-modalOverlay.classList.remove('active');
-
-// Close on background click
-modalOverlay.addEventListener('click', function(e) {
-    if (e.target === this) {
-        this.classList.remove('active');
-    }
-});
-```
-
-### Tab Switching
-```javascript
-// Pattern used in 01_main.html, 01_list_edit.html, 03_letter.html
-tabButtons.forEach(btn => {
-    btn.addEventListener('click', function() {
-        // Remove active from all tabs
-        tabButtons.forEach(b => b.classList.remove('active'));
-        // Add active to clicked tab
-        this.classList.add('active');
-        // Show corresponding content
-        const tabName = this.getAttribute('data-tab');
-        // Toggle content visibility
-    });
-});
-```
-
-### Image Upload Pattern
-```javascript
-// Used in peopleplus.html, letter_write.html
-fileInput.addEventListener('change', function(e) {
-    const file = e.target.files[0];
-    if (file) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            const base64 = e.target.result;
-            // Display preview
-            previewImg.src = base64;
-            // Store in object
-            data.image = base64;
-        };
-        reader.readAsDataURL(file);
-    }
-});
 ```
 
 ## Special Business Logic
@@ -360,16 +416,65 @@ fileInput.addEventListener('change', function(e) {
    - Can be added to groups (if has contact)
    - Can toggle sharing (공유중 ↔ 간직중)
    - Can receive letters
+   - **Red-dot shows only when `isSharing === true`**
 
 2. **'pet'** (반려동물):
    - **Cannot** be added to groups
    - **Cannot** toggle sharing (always 간직중)
    - Can receive letters (stored locally)
+   - **No red-dot** (always 간직중)
 
 3. **'memorial'** (추모 인연):
    - **Cannot** be added to groups
    - **Cannot** toggle sharing (always 간직중)
    - Can receive letters (stored locally)
+   - **No red-dot** (always 간직중)
+
+### Red-dot Notification Logic
+Shows update indicators on memory type cards (script.js ~line 3179-3226):
+```javascript
+function showRandomRedDots() {
+    // Individual memory page: Check isSharing status
+    if (window.location.pathname.includes('02_memory.html')) {
+        const personName = new URLSearchParams(window.location.search).get('name');
+        const connections = getConnections();
+        const person = connections.find(conn => conn.name === personName);
+
+        // Only show red-dot if sharing (공유중)
+        if (person && person.isSharing === true) {
+            [voiceDot, photoDot, letterDot].forEach(dot => {
+                if (dot && Math.random() < 0.4) {  // 40% probability
+                    dot.classList.add('active');
+                }
+            });
+        }
+    }
+
+    // Group memory page: Always show (groups are always shared)
+    if (window.location.pathname.includes('02_groupmemory.html')) {
+        [groupVoiceDot, groupPhotoDot, groupLetterDot].forEach(dot => {
+            if (dot && Math.random() < 0.4) {
+                dot.classList.add('active');
+            }
+        });
+    }
+}
+
+// Auto-remove red-dot on click
+item.addEventListener('click', function() {
+    const dot = item.querySelector('.red-dot');
+    if (dot) dot.classList.remove('active');
+    // Navigate to page...
+});
+```
+
+### Memory Sharing Logic
+On memory page (02_memory.html):
+- Auto-disable toggle for pet/memorial/no-contact
+- Show tooltip explaining why sharing is disabled
+- Confirmation modal when switching from 공유중 to 간직중
+- Saves `isSharing` property to connection in localStorage
+- Red-dot only appears when `isSharing === true`
 
 ### Group Member Validation
 When selecting members for groups (script.js):
@@ -382,35 +487,25 @@ if (connectionType === 'pet' || connectionType === 'memorial' || contact === '�
 }
 ```
 
-### Memory Sharing Logic
-On memory page (02_memory.html):
-- Auto-disable toggle for pet/memorial/no-contact
-- Show tooltip explaining why sharing is disabled
-- Confirmation modal when switching from 공유중 to 간직중
-
-### Product Pages (keyring.html, frame.html)
-Recent additions (~lines 6734+ in script.js):
-- Back navigation to 05_gift.html
-- Delivery info toggle (collapsed by default)
-- Purchase/gift button (placeholder alert)
-- Same structure for both products
-- Bottom padding prevents content overlap with nav
-
 ## Working with This Codebase
 
 ### When Adding New Pages
-1. Create HTML file (follow naming convention: 00_/01_/02_/03_/04_/05_prefix or descriptive name)
+1. Create HTML file (follow naming convention: 00_/01_/02_/03_/04_/05_prefix)
 2. Include `<link rel="stylesheet" href="styles.css">`
-3. Include `<script src="script.js"></script>` before `</body>`
-4. Add page-specific handlers in script.js with existence checks
-5. Ensure 393px width + bottom navigation (if needed)
-6. Use URL parameters for context (person name, group ID, edit mode)
+3. Include PWA meta tags (manifest, theme-color, apple-touch-icon)
+4. Include `<script src="script.js"></script>` before `</body>`
+5. Add page-specific handlers in script.js with existence checks
+6. Ensure 393px width + bottom navigation at `bottom: 12px`
+7. Use URL parameters for context (person name, group ID, edit mode)
+8. **Update service-worker.js** to cache the new page
+9. **Increment CACHE_NAME** in service-worker.js (e.g., v3 → v4)
 
 ### When Modifying Existing Pages
 1. **HTML changes**: Edit specific HTML file
 2. **Style changes**: Edit styles.css (affects ALL pages globally)
 3. **Logic changes**: Edit script.js (wrap in existence checks)
 4. **Navigation changes**: Update `window.location.href` calls
+5. **Cache updates**: Increment service-worker.js CACHE_NAME for forced refresh
 
 ### Common Development Patterns
 
@@ -452,11 +547,12 @@ if (container) {
 }
 ```
 
-### Debugging
-Extensive console.log statements throughout:
-- Open DevTools (F12) to monitor
-- Loading transitions, button clicks, data operations all logged
-- Pattern: `console.log('Context:', data)`
+**Korean alphabetical sorting:**
+```javascript
+const sortedConnections = connections.sort((a, b) =>
+    a.name.localeCompare(b.name, 'ko-KR')
+);
+```
 
 ## Important Notes
 
@@ -464,33 +560,74 @@ Extensive console.log statements throughout:
 - **Korean-only**: No internationalization
 - **Mobile-only**: Not responsive beyond 393px viewport
 - **No build process**: Direct file editing, no compilation
+- **Server from root**: Must run HTTP server from mynok root, not 1_main folder
 - **Shared resources**: Changes to styles.css or script.js affect ALL pages
 - **URL parameters**: Primary method for page-to-page data passing
-- **Modal confirmations**: Used for destructive actions (deleting, disabling sharing)
+- **Modal confirmations**: Used for destructive actions
 - **Font accessibility**: 4-level system for vision-impaired users
+- **Exhibition context**: Designed for display at graduation exhibition
+- **PWA ready**: Installable, offline-capable, mobile-optimized
+- **Image icons**: Memory type icons are PNG images, not emojis or CSS backgrounds
+- **Bottom nav spacing**: Fixed at `bottom: 12px` for better iOS display
 
-## Recent Additions
+## Recent Additions (Latest First)
 
-### Product Purchase Pages (keyring.html, frame.html)
-- Complete e-commerce style pages
-- Product info: name, price, discount, delivery
-- Collapsible delivery details
-- Detail cards with pink/green/dark/spec variants
-- Product specifications table
-- Purchase button with white background container
-- Bottom navigation integration
-- Script handlers: ~lines 6738-6849 in script.js
-- Styles: ~lines 6837-7251 in styles.css
+### Red-dot Notification System (Latest)
+- **Visual indicator** for new updates on memory type cards
+- Appears only when `isSharing === true` (공유중) for individual connections
+- Always appears for group memories (groups are inherently shared)
+- 40% random probability per icon on page load
+- Gradient red dot with pulse animation (no white border)
+- Auto-removes on click
+- Positioned at `top: 0, right: 2px` of icon container
+- Implementation: script.js ~line 3179-3226, styles.css ~line 1906-1938
 
-### Group Memory Page (02_groupmemory.html)
-- Similar to individual memory page
-- Group-specific member card (collapsible)
-- Group context from URL: `?groupId={id}`
-- Member list with profile images
-- Script handlers: ~lines 6308-6731 in script.js
+### Memory Type Icon Redesign
+- Removed background gradient boxes
+- Direct PNG image display: 소리가 있어 아이콘_00.png, 사진이 있어 아이콘_00.png, 문장이 있어 아이콘_00.png
+- Cleaner, more professional appearance
+- 80x80px container with `object-fit: contain`
 
-### Data Structure Migration
-- Automatic migration on load (script.js ~lines 303-351)
-- String group IDs → string IDs
-- String member arrays → object arrays
-- Maintains backward compatibility
+### Bottom Navigation Adjustment
+- Raised from `bottom: 0` to `bottom: 12px`
+- Better alignment with iOS safe area
+- Prevents overlap with device UI
+
+### PWA Implementation
+- Complete Progressive Web App setup
+- Service Worker with cache-first strategy
+- manifest.json with app metadata
+- Offline capability for all pages
+- iOS home screen installation support
+- Cache versioning: mynok-v3 (increment for updates)
+
+### Event Notification Modal (01_main.html)
+- Auto-displays on main page
+- Styled with pink gradient matching other buttons
+- Shows graduation exhibition announcement with clover emoji 🍀
+- localStorage tracking to show once per day
+
+### Letter View Modal (03_letter.html)
+- Opens when "편지 보기" button clicked
+- 6 semi-transparent patterns for readability
+- Shows title, recipient, date, content, and photos
+- Close via X button or background click
+
+### Calendar System (03_calendar.html, calendar_plus.html)
+- Full calendar grid with month/year navigation
+- Event creation/editing with date range, repeat, alarm
+- Share methods: 선택공유, 비공개, 전체보기
+- Member selection for shared events
+- Filter dropdown with Korean alphabetical sorting
+
+### Gift Section Redesign
+- Consistent across main, memory, and group memory pages
+- Horizontal flex layout: icons left, text/button right
+- Gradient background with semi-transparent pink
+- Product icons: 오디오 키링, 디스플레이 액자
+
+### Toggle Switch Enhancement
+- Active state uses pink gradient
+- Inner shadow for depth
+- Matches overall app aesthetic
+- Used for sharing status on memory pages
