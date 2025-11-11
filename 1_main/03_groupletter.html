@@ -18,16 +18,16 @@
 <body>
     <!-- 헤더 -->
     <header class="header add-connection-header">
-        <button class="back-btn" id="backFromLetter">‹</button>
+        <button class="back-btn" id="backFromGroupLetter">‹</button>
         <h1 class="page-title">문장이 있어</h1>
     </header>
 
-    <!-- 인사 섹션 -->
+    <!-- 그룹 인사 섹션 -->
     <section class="letter-greeting-section">
         <div class="letter-greeting-content">
             <div class="letter-greeting-text">
-                <h2 class="letter-person-name" id="letterPersonName">강훈 님과</h2>
-                <p class="letter-greeting-message">서로 주고받은 문장이 여기 모여있어요.</p>
+                <h2 class="letter-person-name" id="groupLetterName">그룹과</h2>
+                <p class="letter-greeting-message">함께 주고받은 문장이 여기 모여있어요.</p>
             </div>
             <div class="letter-icon-circle">
                 <span class="letter-icon">📝</span>
@@ -37,61 +37,37 @@
 
     <!-- 편지 쓰기 버튼 -->
     <div class="letter-write-btn-container">
-        <button class="letter-write-btn" id="writeLetterBtn">+ 편지 쓰기</button>
+        <button class="letter-write-btn" id="writeGroupLetterBtn">+ 편지 쓰기</button>
     </div>
 
     <!-- 탭 버튼 -->
     <div class="letter-tab-container">
-        <button class="letter-tab-btn active" data-tab="sent">보낸편지함</button>
-        <button class="letter-tab-btn" data-tab="received">받은편지함</button>
+        <button class="letter-tab-btn active" data-tab="all">전체편지함</button>
+        <button class="letter-tab-btn" data-tab="my">내가 쓴 편지</button>
     </div>
 
     <!-- 검색바 -->
     <div class="letter-search-container">
-        <input type="text" class="letter-search-input" id="letterSearchInput" placeholder="편지 검색">
+        <input type="text" class="letter-search-input" id="groupLetterSearchInput" placeholder="그룹 편지 검색">
         <svg class="letter-search-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <circle cx="11" cy="11" r="7" stroke="#FF9595" stroke-width="2"/>
             <path d="M20 20L16.5 16.5" stroke="#FF9595" stroke-width="2" stroke-linecap="round"/>
         </svg>
     </div>
 
-    <!-- 보낸편지함 -->
-    <section class="letter-list-section" id="sentLetterTab">
-        <div id="sentLetterList">
+    <!-- 전체편지함 -->
+    <section class="letter-list-section" id="allGroupLetterTab">
+        <div id="allGroupLetterList">
             <!-- JavaScript로 동적 생성 -->
         </div>
     </section>
 
-    <!-- 받은편지함 (숨김) -->
-    <section class="letter-list-section" id="receivedLetterTab" style="display: none;">
-        <div id="receivedLetterList">
+    <!-- 내가 쓴 편지함 (숨김) -->
+    <section class="letter-list-section" id="myGroupLetterTab" style="display: none;">
+        <div id="myGroupLetterList">
             <!-- JavaScript로 동적 생성 -->
         </div>
     </section>
-
-    <!-- 편지 보기 모달 -->
-    <div class="letter-view-modal-overlay" id="letterViewModal">
-        <div class="letter-view-modal">
-            <button class="letter-view-close-btn" id="closeLetterModal">×</button>
-            <div class="letter-view-content" id="letterViewContent">
-                <div class="letter-view-pattern" id="letterViewPattern">
-                    <div class="letter-view-header">
-                        <h3 class="letter-view-title" id="letterViewTitle">편지 제목</h3>
-                        <div class="letter-view-info">
-                            <span class="letter-view-recipient" id="letterViewRecipient">받는 사람</span>
-                            <span class="letter-view-date" id="letterViewDate">2024.01.01</span>
-                        </div>
-                    </div>
-                    <div class="letter-view-text" id="letterViewText">
-                        편지 내용이 여기에 표시됩니다.
-                    </div>
-                    <div class="letter-view-photos" id="letterViewPhotos">
-                        <!-- 사진들이 여기에 표시됩니다 -->
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- 하단 네비게이션 -->
     <nav class="bottom-nav">

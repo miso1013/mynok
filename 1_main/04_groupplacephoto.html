@@ -18,35 +18,35 @@
 <body>
     <!-- 헤더 -->
     <header class="header">
-        <button class="back-btn" id="backFromPlace">‹</button>
+        <button class="back-btn" id="backFromGroupPlace">‹</button>
         <h1 class="page-title">장소별 추억 확인</h1>
     </header>
 
     <!-- 상단 배너 -->
     <div class="place-header-banner">
         <div class="place-banner-person">
-            <span class="place-banner-name" id="placeBannerName">강훈</span>
-            <span class="place-banner-text"> 님과</span>
+            <span class="place-banner-name" id="groupPlaceBannerName">그룹</span>
+            <span class="place-banner-text">과 함께</span>
         </div>
         <div class="place-banner-message">
             다양한 장소에서 추억을 쌓았어요 🍀
         </div>
         <div class="place-banner-stats">
             <div class="place-total-count">
-                함께한 지역 <span class="place-count-number" id="totalPlaceCount">38</span> 곳
+                함께한 지역 <span class="place-count-number" id="groupTotalPlaceCount">0</span> 곳
             </div>
             <div class="place-season-stats">
-                봄 <span class="season-count" id="springCount">389</span> |
-                여름 <span class="season-count" id="summerCount">524</span> |
-                가을 <span class="season-count" id="fallCount">208</span> |
-                겨울 <span class="season-count" id="winterCount">528</span>
+                봄 <span class="season-count" id="groupSpringCount">0</span> |
+                여름 <span class="season-count" id="groupSummerCount">0</span> |
+                가을 <span class="season-count" id="groupFallCount">0</span> |
+                겨울 <span class="season-count" id="groupWinterCount">0</span>
             </div>
         </div>
     </div>
 
     <!-- 검색바 -->
     <div class="place-search-wrapper">
-        <input type="text" class="place-search-input" id="placeSearchInput" placeholder="지역을 검색해주세요.">
+        <input type="text" class="place-search-input" id="groupPlaceSearchInput" placeholder="지역을 검색해주세요.">
         <svg class="place-search-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <circle cx="11" cy="11" r="7" stroke="#FF9595" stroke-width="2"/>
             <path d="M20 20L16.5 16.5" stroke="#FF9595" stroke-width="2" stroke-linecap="round"/>
@@ -55,22 +55,22 @@
 
     <!-- 계절 필터 탭 -->
     <div class="place-season-tabs">
-        <button class="place-season-tab active" data-season="spring">봄</button>
-        <button class="place-season-tab" data-season="summer">여름</button>
-        <button class="place-season-tab" data-season="fall">가을</button>
-        <button class="place-season-tab" data-season="winter">겨울</button>
+        <button class="place-season-tab active" data-season="spring" id="groupSeasonSpring">봄</button>
+        <button class="place-season-tab" data-season="summer" id="groupSeasonSummer">여름</button>
+        <button class="place-season-tab" data-season="fall" id="groupSeasonFall">가을</button>
+        <button class="place-season-tab" data-season="winter" id="groupSeasonWinter">겨울</button>
     </div>
 
     <!-- 지역 카드 리스트 -->
     <div class="place-cards-section">
-        <div class="place-cards-list" id="placeCardsList">
+        <div class="place-cards-list" id="groupPlaceCardsList">
             <!-- JavaScript로 동적 생성 -->
         </div>
     </div>
 
     <!-- FAB 버튼들 -->
-    <button class="place-favorite-fab" id="favoriteFab">♥</button>
-    <button class="place-add-fab" id="addPlaceFab">+</button>
+    <button class="place-favorite-fab" id="groupFavoriteFab">♥</button>
+    <button class="place-add-fab" id="addGroupPlaceFab">+</button>
 
     <!-- 하단 네비게이션 -->
     <nav class="bottom-nav">

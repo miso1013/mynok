@@ -6,6 +6,13 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <title id="pageTitle">그룹 추억 - 마이노크</title>
+
+    <!-- PWA 설정 -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#FF9595">
+    <link rel="icon" type="image/png" href="/img/00_로고.png">
+    <link rel="apple-touch-icon" href="/img/00_로고.png">
+
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -29,7 +36,7 @@
                 함께한 추억을<br>
                 <span class="highlight-days" id="bannerGroupDays">...</span> <span id="bannerGroupStatus">간직중이에요</span>
             </h2>
-            <p class="memory-banner-question">오늘은 어떤 추억을 쌓으셨나요? ›</p>
+            <p class="memory-banner-question">오늘은 어떤 추억을 쌓으셨나요?</p>
         </div>
         <div class="memory-banner-image group-banner-image">
             <div class="group-profile-images" id="groupProfileImages">
@@ -60,22 +67,24 @@
         <section class="memory-types-card">
             <h3 class="memory-types-title" id="groupMemoryTypesTitle">우리 ... 그룹의 추억에는</h3>
             <div class="memory-types-grid">
-                <div class="memory-type-item">
+                <div class="memory-type-item" id="groupVoiceItem" data-type="voice">
                     <div class="memory-type-icon">
-                        <span class="icon-emoji">🎵</span>
-                        <span class="red-dot"></span>
+                        <img src="../img/소리가 있어 아이콘_00.png" alt="소리가 있어" class="memory-type-img">
+                        <span class="red-dot" id="groupVoiceDot"></span>
                     </div>
                     <p class="memory-type-label">소리가 있어</p>
                 </div>
-                <div class="memory-type-item">
+                <div class="memory-type-item" id="groupPhotoItem" data-type="photo">
                     <div class="memory-type-icon">
-                        <span class="icon-emoji">📂</span>
+                        <img src="../img/사진이 있어 아이콘_00.png" alt="사진이 있어" class="memory-type-img">
+                        <span class="red-dot" id="groupPhotoDot"></span>
                     </div>
                     <p class="memory-type-label">사진이 있어</p>
                 </div>
-                <div class="memory-type-item">
+                <div class="memory-type-item" id="groupLetterItem" data-type="letter">
                     <div class="memory-type-icon">
-                        <span class="icon-emoji">📂</span>
+                        <img src="../img/문장이 있어 아이콘_00.png" alt="문장이 있어" class="memory-type-img">
+                        <span class="red-dot" id="groupLetterDot"></span>
                     </div>
                     <p class="memory-type-label">문장이 있어</p>
                 </div>
@@ -84,7 +93,7 @@
 
         <!-- 캘린더 & 장소 카드 -->
         <div class="memory-cards-row">
-            <div class="memory-feature-card">
+            <div class="memory-feature-card" id="groupCalendarCard">
                 <h3 class="feature-card-title">캘린더</h3>
                 <div class="feature-card-icon">
                     <span class="icon-emoji">📅</span>
@@ -99,19 +108,16 @@
         </div>
 
         <!-- 선물 카드 -->
-        <section class="memory-gift-card">
-            <div class="gift-card-text">
-                <p class="gift-card-subtitle">사랑하는 사람에게</p>
-                <p class="gift-card-description">
-                    평생 간직할 수 있는<br>
-                    선물을 전달해보세요.
-                </p>
+        <section class="gift-section">
+            <div class="gift-icons-container">
+                <img src="../img/오디오 키링_아이콘.png" alt="오디오 키링" class="gift-icon-img">
+                <img src="../img/디스플레이 액자_아이콘.png" alt="디스플레이 액자" class="gift-icon-img">
             </div>
-            <div class="gift-card-image">
-                <span class="nfc-badge">NFC</span>
-                <div class="gift-frame-img">🖼️</div>
+            <div class="gift-content">
+                <p class="gift-title">소중한 사람에게</p>
+                <p class="gift-subtitle">평생 간직할 수 있는<br>선물을 전달해보세요</p>
+                <button class="gift-btn" id="groupGiftBtn">추억 선물하러 가기 ›</button>
             </div>
-            <button class="gift-card-btn" id="groupGiftBtn">추억 선물하러 가기 ›</button>
         </section>
 
     </div>

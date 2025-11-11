@@ -6,36 +6,45 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <title>사진이 있어 - 마이노크</title>
+
+    <!-- PWA 설정 -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#FF9595">
+    <link rel="icon" type="image/png" href="/img/00_로고.png">
+    <link rel="apple-touch-icon" href="/img/00_로고.png">
+
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <!-- 헤더 -->
     <header class="header add-connection-header">
-        <button class="back-btn" id="backFromPhoto">‹</button>
+        <button class="back-btn" id="backFromGroupPhoto">‹</button>
         <h1 class="page-title">사진이 있어</h1>
     </header>
 
-    <!-- 상단 배너 (프로필 + 텍스트) -->
+    <!-- 상단 배너 (그룹 프로필 + 텍스트) -->
     <section class="photo-header-banner">
         <div class="photo-header-content">
             <div class="photo-header-title">
-                <span class="highlight" id="photoPersonName">강훈</span> 님과의<br>
+                <span class="highlight" id="groupPhotoName">그룹</span>과 함께한<br>
                 사진과 동영상에서<br>
                 행복함이 느껴지요! 🍀
             </div>
             <div class="photo-header-stats">
-                사진 <span class="number" id="photoCount">0</span> 개 | 동영상 <span class="number" id="videoCount">0</span> 개
+                사진 <span class="number" id="groupPhotoCount">0</span> 개 | 동영상 <span class="number" id="groupVideoCount">0</span> 개
             </div>
         </div>
         <div class="photo-header-profile">
-            <img src="" alt="프로필" id="photoProfileImage">
+            <div class="group-profile-mini" id="groupPhotoProfiles">
+                <!-- 그룹 멤버 프로필들이 동적으로 생성됩니다 -->
+            </div>
         </div>
     </section>
 
     <!-- 검색바 -->
     <div class="photo-search-bar">
         <div class="photo-search-wrapper">
-            <input type="text" class="photo-search-input" id="photoSearchInput" placeholder="">
+            <input type="text" class="photo-search-input" id="groupPhotoSearchInput" placeholder="그룹 사진 검색">
             <svg class="photo-search-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <circle cx="11" cy="11" r="7" stroke="#FF9595" stroke-width="2"/>
                 <path d="M20 20L16.5 16.5" stroke="#FF9595" stroke-width="2" stroke-linecap="round"/>
@@ -45,25 +54,25 @@
 
     <!-- 탭 버튼 -->
     <div class="photo-tabs">
-        <button class="photo-tab-btn active" data-tab="photos" id="photosTab">
+        <button class="photo-tab-btn active" data-tab="photos" id="groupPhotosTab">
             <img src="../img/마이노크 갤러리 아이콘_on.png" alt="사진" class="photo-tab-icon">
         </button>
         <div class="photo-tab-divider"></div>
-        <button class="photo-tab-btn" data-tab="videos" id="videosTab">
+        <button class="photo-tab-btn" data-tab="videos" id="groupVideosTab">
             <img src="../img/마이노크 동영상 아이콘_off.png" alt="동영상" class="photo-tab-icon">
         </button>
         <div class="photo-tab-divider"></div>
-        <button class="photo-tab-btn" data-tab="favorites" id="favoritesTab">
+        <button class="photo-tab-btn" data-tab="favorites" id="groupFavoritesTab">
             <img src="../img/마이노크 하트 아이콘_off.png" alt="하이라이트" class="photo-tab-icon">
         </button>
     </div>
 
     <!-- 사진 탭 콘텐츠 -->
-    <div id="photo-tab-photos" class="photo-tab-content">
+    <div id="group-photo-tab-photos" class="photo-tab-content">
         <!-- 제일 좋아하는 사진 -->
         <div class="photo-section">
             <div class="photo-section-title">제일 좋아하는 사진</div>
-            <div class="photo-grid" id="favoritePhotosGrid">
+            <div class="photo-grid" id="groupFavoritePhotosGrid">
                 <!-- JavaScript로 동적 생성 -->
             </div>
         </div>
@@ -71,28 +80,28 @@
         <!-- 최신 사진 -->
         <div class="photo-section">
             <div class="photo-section-title">최신 사진</div>
-            <div class="photo-grid" id="recentPhotosGrid">
+            <div class="photo-grid" id="groupRecentPhotosGrid">
                 <!-- JavaScript로 동적 생성 -->
             </div>
         </div>
     </div>
 
     <!-- 동영상 탭 콘텐츠 (숨김) -->
-    <div id="photo-tab-videos" class="photo-tab-content" style="display: none;">
+    <div id="group-photo-tab-videos" class="photo-tab-content" style="display: none;">
         <div class="photo-section">
             <div class="photo-section-title">최신 동영상</div>
-            <div class="photo-grid" id="recentVideosGrid">
+            <div class="photo-grid" id="groupRecentVideosGrid">
                 <!-- JavaScript로 동적 생성 -->
             </div>
         </div>
     </div>
 
     <!-- 하이라이트 탭 콘텐츠 (숨김) -->
-    <div id="photo-tab-favorites" class="photo-tab-content" style="display: none;">
+    <div id="group-photo-tab-favorites" class="photo-tab-content" style="display: none;">
         <!-- 하이라이트 소개 카드 -->
         <div class="highlight-intro-card">
             <div class="highlight-intro-text">
-                <p><span class="highlight-red">미소</span>님과 <span class="highlight-red" id="highlightConnectionName">강훈</span>님이</p>
+                <p><span class="highlight-red" id="groupHighlightName">그룹</span>에서</p>
                 <p>제일 많이 조회한 사진과 영상으로</p>
                 <p>하이라이트를 만들어 보았어요!</p>
             </div>
@@ -109,7 +118,7 @@
         <div class="highlight-section">
             <h3 class="highlight-section-title">사진 하이라이트</h3>
             <div class="highlight-photo-scroll">
-                <div class="highlight-photo-grid" id="highlightPhotosGrid">
+                <div class="highlight-photo-grid" id="groupHighlightPhotosGrid">
                     <!-- JavaScript로 동적 생성 -->
                 </div>
             </div>
@@ -118,19 +127,19 @@
         <!-- 영상 하이라이트 -->
         <div class="highlight-section">
             <h3 class="highlight-section-title">영상 하이라이트</h3>
-            <div class="highlight-video-card" id="highlightVideoCard">
+            <div class="highlight-video-card" id="groupHighlightVideoCard">
                 <!-- JavaScript로 동적 생성 -->
             </div>
         </div>
     </div>
 
     <!-- 업로드 FAB 버튼 -->
-    <button class="photo-upload-fab" id="photoUploadBtn">
+    <button class="photo-upload-fab" id="groupPhotoUploadBtn">
         <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
             <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
         </svg>
     </button>
-    <input type="file" id="photoFileInput" accept="image/*,video/*" multiple style="display: none;">
+    <input type="file" id="groupPhotoFileInput" accept="image/*,video/*" multiple style="display: none;">
 
     <!-- 하단 네비게이션 -->
     <nav class="bottom-nav">
@@ -149,31 +158,28 @@
     </nav>
 
     <!-- 사진 상세 모달 -->
-    <div class="photo-detail-modal" id="photoDetailModal">
+    <div class="photo-detail-modal" id="groupPhotoDetailModal">
         <div class="photo-detail-content">
-            <button class="photo-modal-close" id="closePhotoModal">✕</button>
-            <div class="photo-detail-image-container" id="photoSwipeContainer">
-                <div class="photo-slider-wrapper">
-                    <img src="" alt="사진" id="photoDetailImage" class="photo-slide">
-                    <img src="" alt="사진" id="photoDetailImageNext" class="photo-slide photo-slide-hidden">
-                </div>
+            <button class="photo-modal-close" id="closeGroupPhotoModal">✕</button>
+            <div class="photo-detail-image-container">
+                <img src="" alt="사진" id="groupPhotoDetailImage">
             </div>
             <div class="photo-detail-info">
-                <div class="photo-detail-date" id="photoDetailDate">2024.01.15</div>
+                <div class="photo-detail-date" id="groupPhotoDetailDate">2024.01.15</div>
                 <div class="photo-detail-actions">
-                    <button class="photo-detail-btn photo-favorite-btn" id="toggleFavoriteBtn">
+                    <button class="photo-detail-btn photo-favorite-btn" id="toggleGroupFavoriteBtn">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
                         </svg>
                         즐겨찾기
                     </button>
-                    <button class="photo-detail-btn photo-download-btn" id="downloadPhotoBtn">
+                    <button class="photo-detail-btn photo-download-btn" id="downloadGroupPhotoBtn">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>
                         </svg>
                         다운로드
                     </button>
-                    <button class="photo-detail-btn photo-delete-btn" id="deletePhotoBtn">
+                    <button class="photo-detail-btn photo-delete-btn" id="deleteGroupPhotoBtn">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <polyline points="3 6 5 6 21 6"/>
                             <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>

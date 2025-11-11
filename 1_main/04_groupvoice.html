@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <title>소리가 있어 - 마이노크</title>
+
+    <!-- PWA 설정 -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#FF9595">
+    <link rel="icon" type="image/png" href="/img/00_로고.png">
+    <link rel="apple-touch-icon" href="/img/00_로고.png">
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- 헤더 -->
+    <header class="header add-connection-header">
+        <button class="back-btn" id="backFromGroupVoice">‹</button>
+        <h1 class="page-title">소리가 있어</h1>
+    </header>
+
+    <!-- 그룹 프로필 인사 섹션 -->
+    <section class="voice-greeting-section">
+        <div class="group-voice-profile-container" id="groupVoiceProfiles">
+            <!-- 그룹 멤버 프로필들이 동적으로 생성됩니다 -->
+        </div>
+
+        <p class="voice-greeting-message">
+            시간이 흘러도<br>
+            우리의 목소리는 여기에 머물러요.
+        </p>
+    </section>
+
+    <!-- 녹음/보내기 버튼 -->
+    <div class="voice-action-buttons">
+        <button class="voice-action-btn voice-record-btn" id="recordGroupVoiceBtn">녹음하기</button>
+        <button class="voice-action-btn voice-send-btn" id="importGroupVoiceBtn">음성 가져오기</button>
+        <input type="file" id="groupVoiceFileInput" accept="audio/*" style="display: none;">
+    </div>
+
+    <!-- 검색바 -->
+    <div class="voice-search-container">
+        <input type="text" class="voice-search-input" id="groupVoiceSearchInput" placeholder="그룹 음성 검색">
+        <svg class="voice-search-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="11" cy="11" r="7" stroke="#FF9595" stroke-width="2"/>
+            <path d="M20 20L16.5 16.5" stroke="#FF9595" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+    </div>
+
+    <!-- 탭 버튼 -->
+    <div class="voice-tab-container">
+        <button class="voice-tab-btn active" data-tab="all" id="allGroupVoiceTab">전체 음성함</button>
+        <button class="voice-tab-btn" data-tab="my" id="myGroupVoiceTab">내가 보낸 음성</button>
+    </div>
+
+    <!-- 전체 음성함 -->
+    <section class="voice-list-section" id="allGroupVoiceList">
+        <div id="groupVoiceListContainer">
+            <!-- JavaScript로 동적 생성 -->
+        </div>
+    </section>
+
+    <!-- 내가 보낸 음성함 (숨김) -->
+    <section class="voice-list-section" id="myGroupVoiceList" style="display: none;">
+        <div id="myGroupVoiceListContainer">
+            <!-- JavaScript로 동적 생성 -->
+        </div>
+    </section>
+
+    <!-- 공유하기 FAB 버튼 -->
+    <button class="voice-share-fab" id="groupVoiceShareBtn">
+        <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+            <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+        </svg>
+    </button>
+
+    <!-- 하단 네비게이션 -->
+    <nav class="bottom-nav">
+        <div class="nav-item" id="navHome">
+            <img src="../img/마이노크 홈 아이콘_off.png" alt="홈" class="nav-icon">
+            <span class="nav-label">마이노크홈</span>
+        </div>
+        <div class="nav-item" id="navCalendar">
+            <img src="../img/마이노크 캘린더 아이콘_off.png" alt="캘린더" class="nav-icon">
+            <span class="nav-label">일정 확인하기</span>
+        </div>
+        <div class="nav-item" id="navMypage">
+            <img src="../img/마이노크 마이페이지 아이콘_off.png" alt="마이페이지" class="nav-icon">
+            <span class="nav-label">마이페이지</span>
+        </div>
+    </nav>
+
+    <!-- 음성 듣기 모달 -->
+    <div class="voice-player-modal" id="groupVoicePlayerModal">
+        <div class="voice-player-content">
+            <button class="voice-modal-close" id="closeGroupPlayerModal">✕</button>
+            <h3 class="voice-modal-title">음성 듣기</h3>
+
+            <div class="voice-player-info">
+                <h4 class="voice-player-subject" id="groupPlayerSubject"></h4>
+                <p class="voice-player-message" id="groupPlayerMessage"></p>
+                <p class="voice-player-sender" id="groupPlayerSender"></p>
+            </div>
+
+            <div class="voice-player-time" id="groupPlayerTime">00:00:00</div>
+
+            <div class="voice-player-progress">
+                <div class="voice-progress-bar">
+                    <div class="voice-progress-fill" id="groupPlayerProgressFill"></div>
+                    <div class="voice-progress-handle" id="groupPlayerProgressHandle"></div>
+                </div>
+            </div>
+
+            <div class="voice-player-controls">
+                <button class="voice-control-btn" id="groupShuffleBtn">
+                    <svg viewBox="0 0 24 24" fill="#FF9595">
+                        <path d="M10.59 9.17L5.41 4 4 5.41l5.17 5.17 1.42-1.41zM14.5 4l2.04 2.04L4 18.59 5.41 20 17.96 7.46 20 9.5V4h-5.5zm.33 9.41l-1.41 1.41 3.13 3.13L14.5 20H20v-5.5l-2.04 2.04-3.13-3.13z"/>
+                    </svg>
+                </button>
+                <button class="voice-control-btn" id="groupPrevBtn">
+                    <svg viewBox="0 0 24 24" fill="#FF9595">
+                        <path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/>
+                    </svg>
+                </button>
+                <button class="voice-control-btn voice-play-btn" id="groupPlayPauseBtn">
+                    <svg viewBox="0 0 24 24" fill="#FF9595">
+                        <path d="M8 5v14l11-7z"/>
+                    </svg>
+                </button>
+                <button class="voice-control-btn" id="groupNextBtn">
+                    <svg viewBox="0 0 24 24" fill="#FF9595">
+                        <path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/>
+                    </svg>
+                </button>
+                <button class="voice-control-btn" id="groupRepeatBtn">
+                    <svg viewBox="0 0 24 24" fill="#FF9595">
+                        <path d="M7 7h10v3l4-4-4-4v3H5v6h2V7zm10 10H7v-3l-4 4 4 4v-3h12v-6h-2v4z"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 음성 보내기 모달 -->
+    <div class="voice-send-modal" id="groupVoiceSendModal">
+        <div class="voice-send-content">
+            <button class="voice-modal-close" id="closeGroupSendModal">✕</button>
+            <h3 class="voice-modal-title">그룹에 음성 보내기</h3>
+
+            <input type="text" class="voice-send-input" id="groupVoiceSubjectInput" placeholder="음성 제목을 적어주세요.">
+
+            <textarea class="voice-send-textarea" id="groupVoiceMessageInput" placeholder="남기고싶은 메시지를 적어주세요."></textarea>
+
+            <div class="voice-record-time" id="groupRecordTime">00:00:00</div>
+
+            <div class="voice-record-progress">
+                <div class="voice-progress-bar">
+                    <div class="voice-progress-fill" id="groupRecordProgressFill"></div>
+                    <div class="voice-progress-handle" id="groupRecordProgressHandle"></div>
+                </div>
+            </div>
+
+            <button class="voice-record-button" id="groupRecordButton">
+                <div class="voice-record-icon" id="groupRecordIcon"></div>
+            </button>
+
+            <div class="voice-send-actions" id="groupSendActions" style="display: none;">
+                <button class="voice-send-action-btn voice-retry-btn" id="retryGroupRecordBtn">다시 녹음하기</button>
+                <button class="voice-send-action-btn voice-submit-btn" id="submitGroupVoiceBtn">음성 보내기</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

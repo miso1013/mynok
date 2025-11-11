@@ -6,6 +6,13 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <title>일정 추가 - 마이노크</title>
+
+    <!-- PWA 설정 -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#FF9595">
+    <link rel="icon" type="image/png" href="/img/00_로고.png">
+    <link rel="apple-touch-icon" href="/img/00_로고.png">
+
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -34,13 +41,13 @@
         <!-- 날짜 범위 선택 -->
         <div class="event-date-picker-wrapper">
             <div class="event-date-card">
-                <span class="event-calendar-icon">📅</span>
+                <img src="../img/마이노크 캘린더 아이콘_on.png" alt="캘린더" class="event-calendar-icon">
                 <span id="startDateText">10월 13일 (화)</span>
                 <input type="date" id="startDate" class="hidden-date-input">
             </div>
             <span class="event-date-arrow">→</span>
             <div class="event-date-card">
-                <span class="event-calendar-icon">📅</span>
+                <img src="../img/마이노크 캘린더 아이콘_on.png" alt="캘린더" class="event-calendar-icon">
                 <span id="endDateText">10월 13일 (화)</span>
                 <input type="date" id="endDate" class="hidden-date-input">
             </div>
@@ -94,11 +101,15 @@
 
         <!-- 공유할 인연 검색 -->
         <div class="event-search-wrapper">
-            <input type="text" class="event-search-input" id="searchMembers" placeholder="공유할 인연을 검색해주세요.">
-            <svg class="event-search-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="11" cy="11" r="7" stroke="#FF9595" stroke-width="2"/>
-                <path d="M20 20L16.5 16.5" stroke="#FF9595" stroke-width="2" stroke-linecap="round"/>
-            </svg>
+            <div class="event-search-input-container">
+                <input type="text" class="event-search-input" id="searchMembers" placeholder="공유할 인연을 검색해주세요.">
+                <svg class="event-search-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="11" cy="11" r="7" stroke="#FF9595" stroke-width="2"/>
+                    <path d="M20 20L16.5 16.5" stroke="#FF9595" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+            </div>
+            <div class="event-search-results"></div>
+            <div class="event-selected-members"></div>
         </div>
 
         <!-- 일정 내용 -->

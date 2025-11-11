@@ -1,3 +1,16 @@
+// ==================== PWA Service Worker 등록 ====================
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js')
+            .then(registration => {
+                console.log('[PWA] Service Worker 등록 성공:', registration.scope);
+            })
+            .catch(error => {
+                console.error('[PWA] Service Worker 등록 실패:', error);
+            });
+    });
+}
+
 // ==================== 네비게이션 바 초기화 ====================
 function initializeNavigation() {
     const currentPage = window.location.pathname.split('/').pop();
@@ -39,11 +52,7 @@ function initializeNavigation() {
 
 // 샘플 데이터 초기화 함수
 function initializeSampleData() {
-    // 데이터 버전 체크 - 버전이 다르면 초기화
-    const DATA_VERSION = '1.0';
-    const currentVersion = localStorage.getItem('mynokDataVersion');
-
-    // 샘플 인연 데이터
+    // 인연 샘플 데이터
     const sampleConnections = [
         {
             name: '강훈',
@@ -51,7 +60,8 @@ function initializeSampleData() {
             contact: '01012345645',
             connectionType: 'person',
             memories: 47,
-            avatar: '../img/kanghoon/2024.12.30_강훈2.jpg'
+            avatar: '../img/kanghoon/2024.12.30_강훈2.jpg',
+            isSharing: true
         },
         {
             name: '할머니',
@@ -59,7 +69,8 @@ function initializeSampleData() {
             contact: '01056789887',
             connectionType: 'person',
             memories: 654,
-            avatar: null
+            avatar: '../img/miso/할머니_01.png',
+            isSharing: true
         },
         {
             name: '시월이',
@@ -67,7 +78,8 @@ function initializeSampleData() {
             contact: '정보 없음',
             connectionType: 'pet',
             memories: 23,
-            avatar: '../img/seewer/시월이_02.jpg'
+            avatar: '../img/seewer/시월이_02.jpg',
+            isSharing: false
         },
         {
             name: '아빠',
@@ -75,7 +87,8 @@ function initializeSampleData() {
             contact: '정보 없음',
             connectionType: 'person',
             memories: 0,
-            avatar: null
+            avatar: '../img/miso/아빠_01.jpg',
+            isSharing: true
         },
         {
             name: '엄마',
@@ -83,42 +96,42 @@ function initializeSampleData() {
             contact: '정보 없음',
             connectionType: 'person',
             memories: 0,
-            avatar: null
+            avatar: '../img/miso/엄마_01.png',
+            isSharing: true
         },
         {
             name: '지혜',
-            birthday: '정보 없음',
+            birthday: '11월 7일',
             contact: '정보 없음',
             connectionType: 'person',
             memories: 0,
-            avatar: null
+            avatar: '../img/miso/지혜_01.jpg',
+            isSharing: true
         },
         {
             name: '혜진언니',
-            birthday: '정보 없음',
+            birthday: '10월 1일',
             contact: '정보 없음',
             connectionType: 'person',
             memories: 0,
-            avatar: null
+            avatar: '../img/miso/혜진_01.jpg',
+            isSharing: true
+        },
+        {
+            name: '찬희',
+            birthday: '1월 20일',
+            contact: '정보 없음',
+            connectionType: 'person',
+            memories: 0,
+            avatar: '../img/miso/찬희_01.jpg',
+            isSharing: true
         }
     ];
 
-    let connections = [];
-
-    // 버전이 다르면 강제로 샘플 데이터로 초기화
-    if (currentVersion !== DATA_VERSION) {
-        connections = [...sampleConnections];
-        localStorage.setItem('mynokDataVersion', DATA_VERSION);
-        localStorage.setItem('mynokConnections', JSON.stringify(connections));
-    } else {
-        // 같은 버전이면 기존 데이터 사용 (없으면 샘플 데이터)
-        const existingConnections = localStorage.getItem('mynokConnections');
-        if (existingConnections) {
-            connections = JSON.parse(existingConnections);
-        } else {
-            connections = [...sampleConnections];
-            localStorage.setItem('mynokConnections', JSON.stringify(connections));
-        }
+    // localStorage에 인연 데이터가 없을 때만 샘플 데이터 추가
+    const existingConnections = localStorage.getItem('mynokConnections');
+    if (!existingConnections) {
+        localStorage.setItem('mynokConnections', JSON.stringify(sampleConnections));
     }
 
     // 일정 샘플 데이터 추가 (항상 추가)
@@ -194,7 +207,7 @@ function initializeSampleData() {
         },
         {
             id: Date.now() + 6,
-            title: '개인 일정',
+            title: '비공유 일정',
             date: new Date(today.getFullYear(), today.getMonth(), today.getDate() + 2).toISOString().split('T')[0],
             endDate: null,
             content: '혼자 조용히 책 읽기',
@@ -239,10 +252,10 @@ function initializeSampleData() {
             id: '1',
             name: '가족',
             members: [
-                { name: '할머니', relation: '그룹 멤버', profileImage: '' },
-                { name: '엄마', relation: '그룹 멤버', profileImage: '' },
-                { name: '아빠', relation: '그룹 멤버', profileImage: '' },
-                { name: '미소', relation: '나', profileImage: '' }
+                { name: '할머니', relation: '그룹 멤버', profileImage: '../img/miso/할머니_01.png' },
+                { name: '엄마', relation: '그룹 멤버', profileImage: '../img/miso/엄마_01.png' },
+                { name: '아빠', relation: '그룹 멤버', profileImage: '../img/miso/아빠_01.jpg' },
+                { name: '미소', relation: '나', profileImage: '../img/miso/미소_01.jpg' }
             ],
             memoryKeeper: '미소',
             createdDate: new Date().toISOString(),
@@ -252,9 +265,9 @@ function initializeSampleData() {
             id: '2',
             name: '친구',
             members: [
-                { name: '지혜', relation: '그룹 멤버', profileImage: '' },
-                { name: '혜진언니', relation: '그룹 멤버', profileImage: '' },
-                { name: '미소', relation: '나', profileImage: '' }
+                { name: '지혜', relation: '그룹 멤버', profileImage: '../img/miso/지혜_01.jpg' },
+                { name: '혜진언니', relation: '그룹 멤버', profileImage: '../img/miso/혜진_01.jpg' },
+                { name: '미소', relation: '나', profileImage: '../img/miso/미소_01.jpg' }
             ],
             memoryKeeper: '미소',
             createdDate: new Date().toISOString(),
@@ -262,14 +275,10 @@ function initializeSampleData() {
         }
     ];
 
-    // 그룹 데이터 초기화
-    if (currentVersion !== DATA_VERSION) {
+    // 그룹 데이터 초기화 - localStorage에 없을 때만 샘플 데이터 추가
+    const savedGroups = localStorage.getItem('mynokGroups');
+    if (!savedGroups) {
         localStorage.setItem('mynokGroups', JSON.stringify(defaultGroups));
-    } else {
-        const savedGroups = localStorage.getItem('mynokGroups');
-        if (!savedGroups) {
-            localStorage.setItem('mynokGroups', JSON.stringify(defaultGroups));
-        }
     }
 }
 
@@ -358,12 +367,121 @@ document.addEventListener('DOMContentLoaded', function() {
                 console.log('"강훈이" 제거됨');
             }
 
-            // 강훈 프로필 이미지 업데이트
+            // 강훈 프로필 이미지 및 공유 상태 업데이트
             const kanghoon = connections.find(conn => conn.name === '강훈');
-            if (kanghoon && kanghoon.avatar !== '../img/kanghoon/2024.12.30_강훈2.jpg') {
-                kanghoon.avatar = '../img/kanghoon/2024.12.30_강훈2.jpg';
+            if (kanghoon) {
+                if (kanghoon.avatar !== '../img/kanghoon/2024.12.30_강훈2.jpg') {
+                    kanghoon.avatar = '../img/kanghoon/2024.12.30_강훈2.jpg';
+                    updated = true;
+                    console.log('강훈 프로필 이미지 업데이트됨');
+                }
+                if (kanghoon.isSharing !== true) {
+                    kanghoon.isSharing = true;
+                    updated = true;
+                }
+            }
+
+            // 찬희가 없으면 자동으로 추가
+            const chanhee = connections.find(conn => conn.name === '찬희');
+            if (!chanhee) {
+                connections.push({
+                    name: '찬희',
+                    birthday: '1월 20일',
+                    contact: '정보 없음',
+                    connectionType: 'person',
+                    memories: 0,
+                    avatar: '../img/miso/찬희_01.jpg',
+                    isSharing: true
+                });
                 updated = true;
-                console.log('강훈 프로필 이미지 업데이트됨');
+                console.log('찬희 추가됨');
+            } else if (chanhee) {
+                // 찬희 생일, 프로필 이미지 및 공유 상태 업데이트
+                if (chanhee.birthday !== '1월 20일') {
+                    chanhee.birthday = '1월 20일';
+                    updated = true;
+                }
+                if (chanhee.avatar !== '../img/miso/찬희_01.jpg') {
+                    chanhee.avatar = '../img/miso/찬희_01.jpg';
+                    updated = true;
+                }
+                if (chanhee.isSharing !== true) {
+                    chanhee.isSharing = true;
+                    updated = true;
+                }
+            }
+
+            // 지혜 생일, 프로필 이미지 및 공유 상태 업데이트
+            const jihye = connections.find(conn => conn.name === '지혜');
+            if (jihye) {
+                if (jihye.birthday !== '11월 7일') {
+                    jihye.birthday = '11월 7일';
+                    updated = true;
+                }
+                if (jihye.avatar !== '../img/miso/지혜_01.jpg') {
+                    jihye.avatar = '../img/miso/지혜_01.jpg';
+                    updated = true;
+                }
+                if (jihye.isSharing !== true) {
+                    jihye.isSharing = true;
+                    updated = true;
+                }
+            }
+
+            // 혜진언니 생일, 프로필 이미지 및 공유 상태 업데이트
+            const hyejin = connections.find(conn => conn.name === '혜진언니');
+            if (hyejin) {
+                if (hyejin.birthday !== '10월 1일') {
+                    hyejin.birthday = '10월 1일';
+                    updated = true;
+                }
+                if (hyejin.avatar !== '../img/miso/혜진_01.jpg') {
+                    hyejin.avatar = '../img/miso/혜진_01.jpg';
+                    updated = true;
+                }
+                if (hyejin.isSharing !== true) {
+                    hyejin.isSharing = true;
+                    updated = true;
+                }
+            }
+
+            // 아빠 프로필 이미지 및 공유 상태 업데이트
+            const dad = connections.find(conn => conn.name === '아빠');
+            if (dad) {
+                if (dad.avatar !== '../img/miso/아빠_01.jpg') {
+                    dad.avatar = '../img/miso/아빠_01.jpg';
+                    updated = true;
+                }
+                if (dad.isSharing !== true) {
+                    dad.isSharing = true;
+                    updated = true;
+                }
+            }
+
+            // 엄마 프로필 이미지 및 공유 상태 업데이트
+            const mom = connections.find(conn => conn.name === '엄마');
+            if (mom) {
+                if (mom.avatar !== '../img/miso/엄마_01.png') {
+                    mom.avatar = '../img/miso/엄마_01.png';
+                    updated = true;
+                }
+                if (mom.isSharing !== true) {
+                    mom.isSharing = true;
+                    updated = true;
+                }
+            }
+
+            // 할머니 프로필 이미지 및 공유 상태 업데이트
+            const grandma = connections.find(conn => conn.name === '할머니');
+            if (grandma) {
+                if (grandma.avatar !== '../img/miso/할머니_01.png') {
+                    grandma.avatar = '../img/miso/할머니_01.png';
+                    updated = true;
+                }
+                if (grandma.isSharing !== true) {
+                    grandma.isSharing = true;
+                    updated = true;
+                }
             }
 
             if (updated) {
@@ -375,6 +493,252 @@ document.addEventListener('DOMContentLoaded', function() {
         localStorage.setItem('mynokConnections', JSON.stringify(defaultConnections));
         return defaultConnections;
     }
+
+    // 강훈 사진 초기화 함수
+    function initializeKanghoonPhotos() {
+        const PHOTOS_KEY = 'mynokPhotos_강훈';
+        const existingPhotos = localStorage.getItem(PHOTOS_KEY);
+
+        // 이미 26개(24 photos + 2 videos)의 kanghoon 사진이 있으면 초기화하지 않음
+        if (existingPhotos) {
+            const photos = JSON.parse(existingPhotos);
+            if (photos.length === 26 && photos[0].url && photos[0].url.includes('kanghoon')) {
+                return;
+            }
+        }
+
+        // 강훈 폴더의 모든 사진과 동영상
+        const kanghoonPhotos = [
+            // 2024.05.26
+            {
+                id: 1,
+                type: 'photo',
+                url: '../img/kanghoon/2024.05.26_강훈1.jpg',
+                date: '2024.05.26',
+                favorite: false,
+                createdAt: new Date('2024-05-26').toISOString()
+            },
+            {
+                id: 2,
+                type: 'photo',
+                url: '../img/kanghoon/2024.05.26_강훈2.jpg',
+                date: '2024.05.26',
+                favorite: false,
+                createdAt: new Date('2024-05-26').toISOString()
+            },
+            // 2024.9.28
+            {
+                id: 3,
+                type: 'photo',
+                url: '../img/kanghoon/2024.9.28_강훈1.jpg',
+                date: '2024.09.28',
+                favorite: false,
+                createdAt: new Date('2024-09-28').toISOString()
+            },
+            {
+                id: 4,
+                type: 'photo',
+                url: '../img/kanghoon/2024.9.28_강훈2.jpg',
+                date: '2024.09.28',
+                favorite: false,
+                createdAt: new Date('2024-09-28').toISOString()
+            },
+            // 2024.12.30
+            {
+                id: 5,
+                type: 'photo',
+                url: '../img/kanghoon/2024.12.30_강훈1.jpg',
+                date: '2024.12.30',
+                favorite: true,
+                createdAt: new Date('2024-12-30').toISOString()
+            },
+            {
+                id: 6,
+                type: 'photo',
+                url: '../img/kanghoon/2024.12.30_강훈2.jpg',
+                date: '2024.12.30',
+                favorite: true,
+                createdAt: new Date('2024-12-30').toISOString()
+            },
+            // 2024.12.31
+            {
+                id: 7,
+                type: 'photo',
+                url: '../img/kanghoon/2024.12.31_강훈1.jpg',
+                date: '2024.12.31',
+                favorite: false,
+                createdAt: new Date('2024-12-31').toISOString()
+            },
+            // 2025.1.24
+            {
+                id: 8,
+                type: 'photo',
+                url: '../img/kanghoon/2025.1.24_강훈1.jpg',
+                date: '2025.01.24',
+                favorite: false,
+                createdAt: new Date('2025-01-24').toISOString()
+            },
+            // 2025.02.12
+            {
+                id: 9,
+                type: 'photo',
+                url: '../img/kanghoon/2025.02.12_강훈1.jpg',
+                date: '2025.02.12',
+                favorite: false,
+                createdAt: new Date('2025-02-12').toISOString()
+            },
+            {
+                id: 10,
+                type: 'photo',
+                url: '../img/kanghoon/2025.02.12_강훈2.jpg',
+                date: '2025.02.12',
+                favorite: false,
+                createdAt: new Date('2025-02-12').toISOString()
+            },
+            {
+                id: 11,
+                type: 'photo',
+                url: '../img/kanghoon/2025.02.12_강훈3.jpg',
+                date: '2025.02.12',
+                favorite: false,
+                createdAt: new Date('2025-02-12').toISOString()
+            },
+            {
+                id: 12,
+                type: 'photo',
+                url: '../img/kanghoon/2025.02.12_강훈4.jpg',
+                date: '2025.02.12',
+                favorite: false,
+                createdAt: new Date('2025-02-12').toISOString()
+            },
+            // 2025.03.10
+            {
+                id: 13,
+                type: 'photo',
+                url: '../img/kanghoon/2025.03.10_강훈1.jpg',
+                date: '2025.03.10',
+                favorite: false,
+                createdAt: new Date('2025-03-10').toISOString()
+            },
+            {
+                id: 14,
+                type: 'photo',
+                url: '../img/kanghoon/2025.03.10_강훈2.jpg',
+                date: '2025.03.10',
+                favorite: false,
+                createdAt: new Date('2025-03-10').toISOString()
+            },
+            {
+                id: 15,
+                type: 'photo',
+                url: '../img/kanghoon/2025.03.10_강훈3.jpg',
+                date: '2025.03.10',
+                favorite: true,
+                createdAt: new Date('2025-03-10').toISOString()
+            },
+            // 2025.05.8
+            {
+                id: 16,
+                type: 'photo',
+                url: '../img/kanghoon/2025.05.8_강훈1.jpg',
+                date: '2025.05.08',
+                favorite: false,
+                createdAt: new Date('2025-05-08').toISOString()
+            },
+            {
+                id: 17,
+                type: 'photo',
+                url: '../img/kanghoon/2025.05.8_강훈2.jpg',
+                date: '2025.05.08',
+                favorite: false,
+                createdAt: new Date('2025-05-08').toISOString()
+            },
+            // 2025.7.14
+            {
+                id: 18,
+                type: 'photo',
+                url: '../img/kanghoon/2025.7.14_강훈1.jpg',
+                date: '2025.07.14',
+                favorite: false,
+                createdAt: new Date('2025-07-14').toISOString()
+            },
+            // 2025.7.28
+            {
+                id: 19,
+                type: 'photo',
+                url: '../img/kanghoon/2025.7.28_강훈1.jpg',
+                date: '2025.07.28',
+                favorite: false,
+                createdAt: new Date('2025-07-28').toISOString()
+            },
+            // 2025.08.12
+            {
+                id: 20,
+                type: 'photo',
+                url: '../img/kanghoon/2025.08.12_강훈1.jpg',
+                date: '2025.08.12',
+                favorite: false,
+                createdAt: new Date('2025-08-12').toISOString()
+            },
+            {
+                id: 21,
+                type: 'photo',
+                url: '../img/kanghoon/2025.08.12_강훈2.jpg',
+                date: '2025.08.12',
+                favorite: false,
+                createdAt: new Date('2025-08-12').toISOString()
+            },
+            // 2025.9.30
+            {
+                id: 22,
+                type: 'photo',
+                url: '../img/kanghoon/2025.9.30_강훈1.jpg',
+                date: '2025.09.30',
+                favorite: false,
+                createdAt: new Date('2025-09-30').toISOString()
+            },
+            // 2025.10.02
+            {
+                id: 23,
+                type: 'photo',
+                url: '../img/kanghoon/2025.10.02_강훈1.jpg',
+                date: '2025.10.02',
+                favorite: false,
+                createdAt: new Date('2025-10-02').toISOString()
+            },
+            {
+                id: 24,
+                type: 'photo',
+                url: '../img/kanghoon/2025.10.02_강훈2.jpg',
+                date: '2025.10.02',
+                favorite: false,
+                createdAt: new Date('2025-10-02').toISOString()
+            },
+            // 동영상
+            {
+                id: 25,
+                type: 'video',
+                url: '../img/kanghoon/동영상1.mp4',
+                date: '2025.05.08',
+                favorite: false,
+                createdAt: new Date('2025-05-08').toISOString()
+            },
+            {
+                id: 26,
+                type: 'video',
+                url: '../img/kanghoon/동영상2.mp4',
+                date: '2025.07.28',
+                favorite: false,
+                createdAt: new Date('2025-07-28').toISOString()
+            }
+        ];
+
+        localStorage.setItem(PHOTOS_KEY, JSON.stringify(kanghoonPhotos));
+        console.log('강훈 사진 초기화 완료:', kanghoonPhotos.length, '개');
+    }
+
+    // 페이지 로드 시 강훈 사진 초기화 실행
+    initializeKanghoonPhotos();
 
     // 인연별 추억 개수 계산
     function calculateMemoriesCount(personName) {
@@ -491,7 +855,15 @@ document.addEventListener('DOMContentLoaded', function() {
     const mainProfileImage = document.getElementById('mainProfileImage');
     const mainProfilePlaceholder = document.getElementById('mainProfilePlaceholder');
     if (mainProfileImage && mainProfilePlaceholder) {
-        const userProfile = JSON.parse(localStorage.getItem('mynokUserProfile') || '{}');
+        let userProfile = JSON.parse(localStorage.getItem('mynokUserProfile') || '{}');
+
+        // 미소 프로필 사진이 설정되어 있지 않으면 자동으로 설정
+        const misoProfilePath = '../img/miso/미소_01.jpg';
+        if (!userProfile.profilePhoto || userProfile.profilePhoto !== misoProfilePath) {
+            userProfile.profilePhoto = misoProfilePath;
+            localStorage.setItem('mynokUserProfile', JSON.stringify(userProfile));
+        }
+
         if (userProfile.profilePhoto) {
             mainProfileImage.src = userProfile.profilePhoto;
             mainProfileImage.style.display = 'block';
@@ -500,12 +872,78 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    // 일정 알림 모달 (테스트: 항상 표시)
+    const eventNotificationOverlay = document.getElementById('eventNotificationOverlay');
+    const eventNotificationCloseBtn = document.getElementById('eventNotificationCloseBtn');
+
+    if (eventNotificationOverlay && eventNotificationCloseBtn) {
+        // 테스트용: 날짜 체크 없이 항상 표시
+        console.log('일정 알림 표시: 졸업전시회 (테스트 모드)');
+
+        // 짧은 딜레이 후 모달 표시
+        setTimeout(() => {
+            eventNotificationOverlay.style.display = 'flex';
+        }, 500);
+
+        // 확인 버튼 클릭 시 모달 닫기
+        eventNotificationCloseBtn.addEventListener('click', function() {
+            eventNotificationOverlay.style.display = 'none';
+            console.log('일정 알림 모달 닫기');
+        });
+
+        // 오버레이 배경 클릭 시 모달 닫기
+        eventNotificationOverlay.addEventListener('click', function(e) {
+            if (e.target === this) {
+                this.style.display = 'none';
+                console.log('일정 알림 모달 닫기 (배경 클릭)');
+            }
+        });
+    }
+
     // 그룹 목록 렌더링 함수
     function renderGroups() {
         const groupsList = document.getElementById('groupsList');
         if (!groupsList) return;
 
         const groups = JSON.parse(localStorage.getItem('mynokGroups') || '[]');
+
+        // 모든 그룹 멤버의 프로필 이미지를 connections 데이터와 동기화
+        let groupsUpdated = false;
+        const misoProfilePath = '../img/miso/미소_01.jpg';
+        const connections = JSON.parse(localStorage.getItem('mynokConnections') || '[]');
+
+        groups.forEach(group => {
+            if (group.members && Array.isArray(group.members)) {
+                group.members.forEach(member => {
+                    if (typeof member === 'object') {
+                        const memberName = member.name.replace('(나)', '').trim();
+
+                        // 미소는 항상 미소 프로필 이미지로 설정
+                        if (memberName === '미소') {
+                            if (!member.profileImage || member.profileImage !== misoProfilePath) {
+                                member.profileImage = misoProfilePath;
+                                groupsUpdated = true;
+                            }
+                        } else {
+                            // 다른 멤버들은 connections에서 프로필 이미지 가져오기
+                            const connection = connections.find(conn => conn.name === memberName);
+                            if (connection && connection.avatar) {
+                                if (member.profileImage !== connection.avatar) {
+                                    member.profileImage = connection.avatar;
+                                    groupsUpdated = true;
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+        });
+
+        // 업데이트된 경우 저장
+        if (groupsUpdated) {
+            localStorage.setItem('mynokGroups', JSON.stringify(groups));
+        }
+
         groupsList.innerHTML = '';
 
         if (groups.length === 0) {
@@ -1049,16 +1487,46 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // 연락처 입력 시 자동 하이픈 포맷팅
+    const loginPhone = document.getElementById('loginPhone');
+    if (loginPhone) {
+        loginPhone.addEventListener('input', function(e) {
+            let value = e.target.value.replace(/[^0-9]/g, ''); // 숫자만 추출
+
+            if (value.length <= 3) {
+                e.target.value = value;
+            } else if (value.length <= 7) {
+                e.target.value = value.slice(0, 3) + '-' + value.slice(3);
+            } else {
+                e.target.value = value.slice(0, 3) + '-' + value.slice(3, 7) + '-' + value.slice(7, 11);
+            }
+        });
+    }
+
+    // 인증번호 저장 변수
+    let generatedVerifyCode = '';
+    let isVerified = false;
+
     const sendVerifyBtn = document.getElementById('sendVerifyBtn');
     if (sendVerifyBtn) {
         sendVerifyBtn.addEventListener('click', function() {
             const phone = document.getElementById('loginPhone').value;
-            if (phone) {
+            if (phone && phone.length >= 12) { // 010-0000-0000 형식
+                // 랜덤 6자리 인증번호 생성
+                generatedVerifyCode = Math.floor(100000 + Math.random() * 900000).toString();
+
+                // 인증번호 입력란에 자동 입력
+                document.getElementById('verifyCode').value = generatedVerifyCode;
+
                 alert('인증번호가 발송되었습니다.');
-                document.getElementById('checkVerifyBtn').style.backgroundColor = '#FF7474';
-                document.getElementById('checkVerifyBtn').style.color = 'white';
+
+                // 인증번호 확인 버튼 활성화
+                const checkBtn = document.getElementById('checkVerifyBtn');
+                checkBtn.style.backgroundColor = '#FF7474';
+                checkBtn.style.color = 'white';
+                checkBtn.disabled = false;
             } else {
-                alert('연락처를 입력해주세요.');
+                alert('연락처를 올바르게 입력해주세요.');
             }
         });
     }
@@ -1067,18 +1535,36 @@ document.addEventListener('DOMContentLoaded', function() {
     if (checkVerifyBtn) {
         checkVerifyBtn.addEventListener('click', function() {
             const code = document.getElementById('verifyCode').value;
-            if (code) {
+            if (code && code === generatedVerifyCode) {
                 alert('인증이 완료되었습니다.');
+                isVerified = true;
+
+                // 로그인 버튼 활성화
+                const loginBtn = document.getElementById('loginBtn');
+                if (loginBtn) {
+                    loginBtn.style.backgroundColor = '#FF7474';
+                    loginBtn.style.opacity = '1';
+                    loginBtn.disabled = false;
+                }
             } else {
-                alert('인증번호를 입력해주세요.');
+                alert('인증번호가 일치하지 않습니다.');
+                isVerified = false;
             }
         });
     }
 
     const loginBtn = document.getElementById('loginBtn');
     if (loginBtn) {
+        // 초기 로그인 버튼 비활성화
+        loginBtn.style.opacity = '0.5';
+        loginBtn.disabled = true;
+
         loginBtn.addEventListener('click', function() {
-            window.location.href = '01_main.html';
+            if (isVerified) {
+                window.location.href = '01_main.html';
+            } else {
+                alert('인증을 먼저 완료해주세요.');
+            }
         });
     }
 
@@ -1356,7 +1842,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // 저장된 프로필 사진 불러오기
     if (mypageProfileImage && mypageProfilePlaceholder) {
-        const userProfile = JSON.parse(localStorage.getItem('mynokUserProfile') || '{}');
+        let userProfile = JSON.parse(localStorage.getItem('mynokUserProfile') || '{}');
+
+        // 미소 프로필 사진이 설정되어 있지 않으면 자동으로 설정
+        const misoProfilePath = '../img/miso/미소_01.jpg';
+        if (!userProfile.profilePhoto || userProfile.profilePhoto !== misoProfilePath) {
+            userProfile.profilePhoto = misoProfilePath;
+            localStorage.setItem('mynokUserProfile', JSON.stringify(userProfile));
+        }
+
         if (userProfile.profilePhoto) {
             mypageProfileImage.src = userProfile.profilePhoto;
             mypageProfileImage.style.display = 'block';
@@ -1596,25 +2090,41 @@ document.addEventListener('DOMContentLoaded', function() {
                 document.getElementById('bannerDays').textContent = `${memoriesCount}개`;
 
                 // 초기 상태 텍스트 설정
-                // 반려동물, 추모 인연, 또는 연락처 없는 경우 간직중으로 표시
+                // 반려동물, 추모 인연은 공유 불가
                 const shareToggleElement = document.getElementById('shareToggle');
-                const isShareable = person.connectionType === 'person' && person.contact !== '정보 없음';
+                const isShareable = person.connectionType === 'person';
 
                 if (isShareable) {
-                    // 공유 가능 - 공유중으로 초기화
-                    document.getElementById('bannerStatus').textContent = '공유중이에요';
-                    if (shareToggleElement) {
-                        shareToggleElement.classList.add('active');
-                    }
+                    // 공유 가능 - isSharing 상태에 따라 초기화
+                    const isSharing = person.isSharing === true;
 
-                    // share-label 텍스트 업데이트
-                    const shareLabel = document.querySelector('.share-label');
-                    if (shareLabel) {
-                        shareLabel.textContent = '공유중';
-                        shareLabel.style.color = '#FF7474';
+                    if (isSharing) {
+                        document.getElementById('bannerStatus').textContent = '공유중이에요';
+                        if (shareToggleElement) {
+                            shareToggleElement.classList.add('active');
+                        }
+
+                        // share-label 텍스트 업데이트
+                        const shareLabel = document.querySelector('.share-label');
+                        if (shareLabel) {
+                            shareLabel.textContent = '공유중';
+                            shareLabel.style.color = '#FF7474';
+                        }
+                    } else {
+                        document.getElementById('bannerStatus').textContent = '간직중이에요';
+                        if (shareToggleElement) {
+                            shareToggleElement.classList.remove('active');
+                        }
+
+                        // share-label 텍스트 업데이트
+                        const shareLabel = document.querySelector('.share-label');
+                        if (shareLabel) {
+                            shareLabel.textContent = '간직중';
+                            shareLabel.style.color = '#999';
+                        }
                     }
                 } else {
-                    // 공유 불가 - 간직중으로 초기화
+                    // 공유 불가 (반려동물, 추모 인연) - 간직중으로 초기화
                     document.getElementById('bannerStatus').textContent = '간직중이에요';
                     if (shareToggleElement) {
                         shareToggleElement.classList.remove('active');
@@ -1699,6 +2209,19 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (bannerStatus) {
                     bannerStatus.textContent = '공유중이에요';
                 }
+
+                // localStorage에 isSharing 상태 저장
+                const urlParams = new URLSearchParams(window.location.search);
+                const personName = urlParams.get('name');
+                if (personName) {
+                    const connections = getConnections();
+                    const person = connections.find(c => c.name === personName);
+                    if (person) {
+                        person.isSharing = true;
+                        localStorage.setItem('mynokConnections', JSON.stringify(connections));
+                        console.log('공유 상태 변경: 공유중', personName);
+                    }
+                }
             }
         });
 
@@ -1718,6 +2241,19 @@ document.addEventListener('DOMContentLoaded', function() {
             const bannerStatus = document.getElementById('bannerStatus');
             if (bannerStatus) {
                 bannerStatus.textContent = '간직중이에요';
+            }
+
+            // localStorage에 isSharing 상태 저장
+            const urlParams = new URLSearchParams(window.location.search);
+            const personName = urlParams.get('name');
+            if (personName) {
+                const connections = getConnections();
+                const person = connections.find(c => c.name === personName);
+                if (person) {
+                    person.isSharing = false;
+                    localStorage.setItem('mynokConnections', JSON.stringify(connections));
+                    console.log('공유 상태 변경: 간직중', personName);
+                }
             }
         });
     }
@@ -2640,6 +3176,55 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // ==================== 문장이 있어 (Letter) 페이지 기능 ====================
 
+    // 02_memory.html 및 02_groupmemory.html에서 red-dot 랜덤 표시
+    function showRandomRedDots() {
+        // 개인 추억 페이지인 경우
+        if (window.location.pathname.includes('02_memory.html')) {
+            // URL 파라미터에서 이름 가져오기
+            const urlParams = new URLSearchParams(window.location.search);
+            const personName = urlParams.get('name');
+
+            if (personName) {
+                // 해당 인연 정보 가져오기
+                const connections = getConnections();
+                const person = connections.find(conn => conn.name === personName);
+
+                // 공유중일 때만 red-dot 표시
+                if (person && person.isSharing === true) {
+                    const voiceDot = document.getElementById('voiceDot');
+                    const photoDot = document.getElementById('photoDot');
+                    const letterDot = document.getElementById('letterDot');
+
+                    // 40% 확률로 각 dot 표시 (랜덤)
+                    [voiceDot, photoDot, letterDot].forEach(dot => {
+                        if (dot && Math.random() < 0.4) {
+                            dot.classList.add('active');
+                        }
+                    });
+                }
+            }
+        }
+
+        // 그룹 추억 페이지인 경우 (그룹은 항상 공유중이므로 표시)
+        if (window.location.pathname.includes('02_groupmemory.html')) {
+            const groupVoiceDot = document.getElementById('groupVoiceDot');
+            const groupPhotoDot = document.getElementById('groupPhotoDot');
+            const groupLetterDot = document.getElementById('groupLetterDot');
+
+            // 40% 확률로 각 dot 표시 (랜덤)
+            [groupVoiceDot, groupPhotoDot, groupLetterDot].forEach(dot => {
+                if (dot && Math.random() < 0.4) {
+                    dot.classList.add('active');
+                }
+            });
+        }
+    }
+
+    // 페이지 로드 시 red-dot 표시
+    if (window.location.pathname.includes('02_memory.html') || window.location.pathname.includes('02_groupmemory.html')) {
+        showRandomRedDots();
+    }
+
     // 02_memory.html에서 "문장이 있어" 버튼 클릭
     const memoryTypeItems = document.querySelectorAll('.memory-type-item');
     if (memoryTypeItems.length > 0) {
@@ -2647,6 +3232,10 @@ document.addEventListener('DOMContentLoaded', function() {
             const label = item.querySelector('.memory-type-label');
             if (label && label.textContent === '문장이 있어') {
                 item.addEventListener('click', function() {
+                    // red-dot 제거
+                    const dot = item.querySelector('.red-dot');
+                    if (dot) dot.classList.remove('active');
+
                     // URL 파라미터에서 이름 가져오기
                     const urlParams = new URLSearchParams(window.location.search);
                     const personName = urlParams.get('name');
@@ -2662,6 +3251,10 @@ document.addEventListener('DOMContentLoaded', function() {
             // "소리가 있어" 버튼 클릭
             if (label && label.textContent === '소리가 있어') {
                 item.addEventListener('click', function() {
+                    // red-dot 제거
+                    const dot = item.querySelector('.red-dot');
+                    if (dot) dot.classList.remove('active');
+
                     // URL 파라미터에서 이름 가져오기
                     const urlParams = new URLSearchParams(window.location.search);
                     const personName = urlParams.get('name');
@@ -2677,6 +3270,10 @@ document.addEventListener('DOMContentLoaded', function() {
             // "사진이 있어" 버튼 클릭
             if (label && label.textContent === '사진이 있어') {
                 item.addEventListener('click', function() {
+                    // red-dot 제거
+                    const dot = item.querySelector('.red-dot');
+                    if (dot) dot.classList.remove('active');
+
                     // URL 파라미터에서 이름 가져오기
                     const urlParams = new URLSearchParams(window.location.search);
                     const personName = urlParams.get('name');
@@ -2828,11 +3425,86 @@ document.addEventListener('DOMContentLoaded', function() {
             viewButtons.forEach(button => {
                 button.addEventListener('click', function() {
                     const letterId = this.getAttribute('data-letter-id');
-                    alert(`편지 상세보기 기능은 추후 구현 예정입니다. (편지 ID: ${letterId})`);
+                    openLetterModal(letterId);
                 });
             });
 
             console.log('편지 목록 렌더링 완료:', filteredLetters.length, '개');
+        }
+
+        // 편지 보기 모달 열기
+        function openLetterModal(letterId) {
+            const letters = getLetters();
+            const letter = letters.find(l => l.id == letterId);
+
+            if (!letter) {
+                alert('편지를 찾을 수 없습니다.');
+                return;
+            }
+
+            // 모달 요소들
+            const modal = document.getElementById('letterViewModal');
+            const patternDiv = document.getElementById('letterViewPattern');
+            const titleEl = document.getElementById('letterViewTitle');
+            const recipientEl = document.getElementById('letterViewRecipient');
+            const dateEl = document.getElementById('letterViewDate');
+            const textEl = document.getElementById('letterViewText');
+            const photosEl = document.getElementById('letterViewPhotos');
+
+            // 편지 패턴 목록
+            const patterns = ['hearts', 'plain-pink', 'dots', 'stripes', 'flowers', 'waves'];
+
+            // 랜덤 패턴 선택 (저장된 패턴이 있으면 사용, 없으면 랜덤)
+            const selectedPattern = letter.pattern || patterns[Math.floor(Math.random() * patterns.length)];
+
+            // 기존 패턴 클래스 제거
+            patternDiv.className = 'letter-view-pattern';
+
+            // 랜덤 패턴 클래스 추가
+            patternDiv.classList.add(`pattern-${selectedPattern}`);
+
+            // 편지 내용 표시
+            titleEl.textContent = letter.title || '제목 없음';
+            recipientEl.textContent = `받는 사람: ${letter.recipient}`;
+            dateEl.textContent = letter.date;
+            textEl.textContent = letter.content;
+
+            // 사진 표시
+            photosEl.innerHTML = '';
+            if (letter.photos && letter.photos.length > 0) {
+                letter.photos.forEach(photo => {
+                    const img = document.createElement('img');
+                    img.src = photo;
+                    img.className = 'letter-view-photo';
+                    if (letter.photos.length === 1) {
+                        img.classList.add('single');
+                    }
+                    photosEl.appendChild(img);
+                });
+            }
+
+            // 모달 열기
+            modal.classList.add('active');
+            console.log('편지 모달 열기:', letter.id, '패턴:', selectedPattern);
+        }
+
+        // 편지 모달 닫기
+        const closeLetterModalBtn = document.getElementById('closeLetterModal');
+        const letterViewModal = document.getElementById('letterViewModal');
+
+        if (closeLetterModalBtn && letterViewModal) {
+            closeLetterModalBtn.addEventListener('click', function() {
+                letterViewModal.classList.remove('active');
+                console.log('편지 모달 닫기');
+            });
+
+            // 오버레이 클릭 시 닫기
+            letterViewModal.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    this.classList.remove('active');
+                    console.log('편지 모달 닫기 (배경 클릭)');
+                }
+            });
         }
 
         // 초기 렌더링
@@ -3142,7 +3814,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // URL 파라미터에서 이름 가져오기
     const voicePageContainer = document.querySelector('.voice-greeting-section');
-    if (voicePageContainer) {
+    const currentPageForVoice = window.location.pathname.split('/').pop();
+    if (voicePageContainer && currentPageForVoice === '04_voice.html') {
         const urlParams = new URLSearchParams(window.location.search);
         const personName = urlParams.get('name');
 
@@ -3950,13 +4623,21 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // 사진 아이템 HTML 생성
         function createPhotoItemHTML(photo) {
-            const iconHTML = photo.favorite ? '<div class="photo-item-icon">♥</div>' : '';
+            const heartIcon = photo.favorite ? '♥' : '♡';
+            const heartClass = photo.favorite ? 'favorite' : '';
             const videoClass = photo.type === 'video' ? ' video' : '';
+
+            let mediaHTML;
+            if (photo.type === 'video') {
+                mediaHTML = `<video src="${photo.url}" preload="metadata"></video>`;
+            } else {
+                mediaHTML = `<img src="${photo.url}" alt="사진">`;
+            }
 
             return `
                 <div class="photo-item${videoClass}" data-id="${photo.id}">
-                    <img src="${photo.url}" alt="사진">
-                    ${iconHTML}
+                    ${mediaHTML}
+                    <div class="photo-item-icon ${heartClass}">${heartIcon}</div>
                 </div>
             `;
         }
@@ -3980,8 +4661,8 @@ document.addEventListener('DOMContentLoaded', function() {
             // 최신순 정렬
             photos.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
-            // 즐겨찾는 사진 (최대 3개)
-            const favoritePhotos = photos.filter(p => p.favorite && p.type === 'photo').slice(0, 3);
+            // 즐겨찾는 사진 (모두 표시)
+            const favoritePhotos = photos.filter(p => p.favorite && p.type === 'photo');
             const favoritePhotosGrid = document.getElementById('favoritePhotosGrid');
             if (favoritePhotosGrid) {
                 favoritePhotosGrid.innerHTML = favoritePhotos.length > 0
@@ -3989,8 +4670,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     : '<p style="grid-column: 1/-1; text-align: center; color: #999; padding: 40px 0;">즐겨찾는 사진이 없습니다</p>';
             }
 
-            // 최신 사진 (6개)
-            const recentPhotos = photos.filter(p => p.type === 'photo').slice(0, 6);
+            // 최신 사진 (모두 표시)
+            const recentPhotos = photos.filter(p => p.type === 'photo');
             const recentPhotosGrid = document.getElementById('recentPhotosGrid');
             if (recentPhotosGrid) {
                 recentPhotosGrid.innerHTML = recentPhotos.length > 0
@@ -3998,8 +4679,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     : '<p style="grid-column: 1/-1; text-align: center; color: #999; padding: 40px 0;">사진이 없습니다</p>';
             }
 
-            // 최신 동영상 (6개)
-            const recentVideos = photos.filter(p => p.type === 'video').slice(0, 6);
+            // 최신 동영상 (모두 표시)
+            const recentVideos = photos.filter(p => p.type === 'video');
             const recentVideosGrid = document.getElementById('recentVideosGrid');
             if (recentVideosGrid) {
                 recentVideosGrid.innerHTML = recentVideos.length > 0
@@ -4138,21 +4819,59 @@ document.addEventListener('DOMContentLoaded', function() {
         const photoDetailModal = document.getElementById('photoDetailModal');
         const closePhotoModal = document.getElementById('closePhotoModal');
         const photoDetailImage = document.getElementById('photoDetailImage');
+        const photoDetailImageNext = document.getElementById('photoDetailImageNext');
         const photoDetailDate = document.getElementById('photoDetailDate');
         const toggleFavoriteBtn = document.getElementById('toggleFavoriteBtn');
         const deletePhotoBtn = document.getElementById('deletePhotoBtn');
         const downloadPhotoBtn = document.getElementById('downloadPhotoBtn');
+        const photoSwipeContainer = document.getElementById('photoSwipeContainer');
 
         let currentPhotoId = null;
+        let currentPhotoIndex = 0;
+        let currentPhotoList = [];
+        let touchStartX = 0;
+        let touchStartY = 0;
+        let isDragging = false;
+        let isTransitioning = false;
 
         function openPhotoDetail(photoId) {
             const photos = getPhotos();
-            const photo = photos.find(p => p.id === photoId);
 
+            // 현재 탭에 따라 필터링된 사진 목록 가져오기
+            const currentTab = document.querySelector('.photo-tab-btn.active')?.getAttribute('data-tab') || 'photos';
+            if (currentTab === 'videos') {
+                currentPhotoList = photos.filter(p => p.type === 'video');
+            } else if (currentTab === 'favorites') {
+                currentPhotoList = photos.filter(p => p.favorite);
+            } else {
+                currentPhotoList = photos.filter(p => p.type === 'photo');
+            }
+
+            // 최신순 정렬
+            currentPhotoList.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+            // 현재 사진 인덱스 찾기
+            currentPhotoIndex = currentPhotoList.findIndex(p => p.id === photoId);
+            if (currentPhotoIndex === -1) currentPhotoIndex = 0;
+
+            updatePhotoDetail(false);
+            photoDetailModal.classList.add('active');
+        }
+
+        function updatePhotoDetail(animate = true) {
+            if (currentPhotoList.length === 0) return;
+
+            const photo = currentPhotoList[currentPhotoIndex];
             if (!photo) return;
 
-            currentPhotoId = photoId;
-            photoDetailImage.src = photo.url;
+            currentPhotoId = photo.id;
+
+            if (!animate) {
+                photoDetailImage.src = photo.url;
+                photoDetailImage.style.transform = 'translateX(0) scale(1)';
+                photoDetailImage.style.opacity = '1';
+            }
+
             photoDetailDate.textContent = photo.date;
 
             // 즐겨찾기 버튼 상태
@@ -4163,8 +4882,151 @@ document.addEventListener('DOMContentLoaded', function() {
                 toggleFavoriteBtn.classList.remove('active');
                 toggleFavoriteBtn.querySelector('svg').style.fill = 'none';
             }
+        }
 
-            photoDetailModal.classList.add('active');
+        function showPrevPhoto() {
+            if (currentPhotoIndex > 0 && !isTransitioning) {
+                currentPhotoIndex--;
+                transitionPhoto('right');
+            }
+        }
+
+        function showNextPhoto() {
+            if (currentPhotoIndex < currentPhotoList.length - 1 && !isTransitioning) {
+                currentPhotoIndex++;
+                transitionPhoto('left');
+            }
+        }
+
+        function transitionPhoto(direction) {
+            if (!photoDetailImage || !photoDetailImageNext || isTransitioning) return;
+
+            const photo = currentPhotoList[currentPhotoIndex];
+            if (!photo) return;
+
+            isTransitioning = true;
+
+            // 현재 이미지를 앞으로, 다음 이미지를 뒤로
+            photoDetailImage.style.zIndex = '2';
+            photoDetailImageNext.style.zIndex = '1';
+
+            // 슬라이드 방향 설정 (짧은 거리로)
+            const slideOutDistance = direction === 'left' ? '-40%' : '40%';
+            const slideInFrom = direction === 'left' ? '40%' : '-40%';
+
+            // 다음 이미지 준비 (반대편에서 시작)
+            photoDetailImageNext.src = photo.url;
+            photoDetailImageNext.style.transition = 'none';
+            photoDetailImageNext.style.transform = `translateX(${slideInFrom}) scale(0.88)`;
+            photoDetailImageNext.style.opacity = '0';
+            photoDetailImageNext.classList.remove('photo-slide-hidden');
+
+            // 다음 프레임에 애니메이션 시작
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                    // 현재 이미지(앞): 옆으로 슬라이드 out 하면서 작아지고 페이드아웃
+                    photoDetailImage.style.transition = 'all 0.4s cubic-bezier(0.22, 0.61, 0.36, 1)';
+                    photoDetailImage.style.transform = `translateX(${slideOutDistance}) scale(0.88)`;
+                    photoDetailImage.style.opacity = '0';
+
+                    // 다음 이미지(뒤): 반대편에서 슬라이드 in 하면서 커지고 페이드인
+                    photoDetailImageNext.style.transition = 'all 0.4s cubic-bezier(0.22, 0.61, 0.36, 1)';
+                    photoDetailImageNext.style.transform = 'translateX(0) scale(1)';
+                    photoDetailImageNext.style.opacity = '1';
+                });
+            });
+
+            // 애니메이션 완료 후 이미지 교체
+            setTimeout(() => {
+                // 이미지 교체
+                photoDetailImage.src = photo.url;
+                photoDetailImage.style.transition = 'none';
+                photoDetailImage.style.transform = 'translateX(0) scale(1)';
+                photoDetailImage.style.opacity = '1';
+                photoDetailImage.style.zIndex = '1';
+
+                // 다음 이미지 숨기기
+                photoDetailImageNext.classList.add('photo-slide-hidden');
+                photoDetailImageNext.style.transition = 'none';
+                photoDetailImageNext.style.zIndex = '0';
+
+                updatePhotoDetail(true);
+                isTransitioning = false;
+            }, 400);
+        }
+
+        // 터치 스와이프 이벤트
+        if (photoSwipeContainer) {
+            photoSwipeContainer.addEventListener('touchstart', function(e) {
+                if (isTransitioning) return;
+                touchStartX = e.changedTouches[0].screenX;
+                touchStartY = e.changedTouches[0].screenY;
+                isDragging = true;
+            }, { passive: true });
+
+            photoSwipeContainer.addEventListener('touchmove', function(e) {
+                if (!isDragging || isTransitioning) return;
+
+                const touchCurrentX = e.changedTouches[0].screenX;
+                const touchCurrentY = e.changedTouches[0].screenY;
+                const diffX = touchCurrentX - touchStartX;
+                const diffY = touchCurrentY - touchStartY;
+
+                // 수평 스와이프가 수직보다 클 때만 처리
+                if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 10) {
+                    e.preventDefault();
+
+                    // 드래그 중 실시간 피드백 (더 부드럽게)
+                    const maxDistance = 200;
+                    const progress = Math.min(Math.abs(diffX) / maxDistance, 1);
+                    const scale = 1 - (progress * 0.08); // 스케일 변화 감소
+                    const translateX = (diffX / maxDistance) * 20; // 이동 거리 감소
+
+                    photoDetailImage.style.transition = 'none';
+                    photoDetailImage.style.transform = `translateX(${translateX}%) scale(${scale})`;
+                    photoDetailImage.style.opacity = `${1 - (progress * 0.25)}`; // 투명도 변화 감소
+                }
+            }, { passive: false });
+
+            photoSwipeContainer.addEventListener('touchend', function(e) {
+                if (!isDragging || isTransitioning) return;
+                isDragging = false;
+
+                const touchEndX = e.changedTouches[0].screenX;
+                const touchEndY = e.changedTouches[0].screenY;
+                const diffX = touchEndX - touchStartX;
+                const diffY = touchEndY - touchStartY;
+
+                // 수평 스와이프 확인
+                if (Math.abs(diffX) > Math.abs(diffY)) {
+                    const swipeThreshold = 80;
+
+                    if (Math.abs(diffX) > swipeThreshold) {
+                        if (diffX > 0 && currentPhotoIndex > 0) {
+                            // 오른쪽으로 스와이프 - 이전 사진
+                            showPrevPhoto();
+                        } else if (diffX < 0 && currentPhotoIndex < currentPhotoList.length - 1) {
+                            // 왼쪽으로 스와이프 - 다음 사진
+                            showNextPhoto();
+                        } else {
+                            // 경계에 도달 - 원래대로 복구
+                            photoDetailImage.style.transition = 'transform 0.35s cubic-bezier(0.22, 0.61, 0.36, 1), opacity 0.35s ease-out';
+                            photoDetailImage.style.transform = 'translateX(0) scale(1)';
+                            photoDetailImage.style.opacity = '1';
+                        }
+                    } else {
+                        // 스와이프 취소 - 원래대로 복구
+                        photoDetailImage.style.transition = 'transform 0.35s cubic-bezier(0.22, 0.61, 0.36, 1), opacity 0.35s ease-out';
+                        photoDetailImage.style.transform = 'translateX(0) scale(1)';
+                        photoDetailImage.style.opacity = '1';
+                    }
+                } else {
+                    // 수직 스와이프 - 원래대로 복구
+                    photoDetailImage.style.transition = 'transform 0.35s cubic-bezier(0.22, 0.61, 0.36, 1), opacity 0.35s ease-out';
+                    photoDetailImage.style.transform = 'translateX(0) scale(1)';
+                    photoDetailImage.style.opacity = '1';
+                }
+            }, { passive: true });
         }
 
         if (closePhotoModal) {
@@ -4648,10 +5510,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 const getShareText = (shareMethod) => {
                     const shareMap = {
                         'select': '선택공유',
-                        'private': '개인일',
+                        'private': '비공유',
                         'public': '전체보기'
                     };
-                    return shareMap[shareMethod] || '개인일';
+                    return shareMap[shareMethod] || '비공유';
                 };
 
                 // 리스트 렌더링
@@ -4664,9 +5526,9 @@ document.addEventListener('DOMContentLoaded', function() {
                             <div class="calendar-monthly-event-title">${event.title}</div>
                             <div class="calendar-monthly-event-subtitle">${event.content || '일정 내용 없음'}</div>
                             <div class="calendar-monthly-event-tags">
-                                <span class="calendar-monthly-event-tag">⚠️ ${getAlarmText(event.alarmTime)}</span>
+                                <span class="calendar-monthly-event-tag"><img src="../img/마이노크 캘린더 아이콘_on.png" class="calendar-event-icon" alt="캘린더"> ${getAlarmText(event.alarmTime)}</span>
                                 <span class="calendar-monthly-event-tag-divider">|</span>
-                                <span class="calendar-monthly-event-tag">📅 ${getRepeatText(event.repeatType)}</span>
+                                <span class="calendar-monthly-event-tag"><img src="../img/마이노크 하트 아이콘_on.png" class="calendar-event-icon" alt="하트"> ${getRepeatText(event.repeatType)}</span>
                             </div>
                         </div>
                         <div class="calendar-monthly-event-share">
@@ -4818,7 +5680,12 @@ document.addEventListener('DOMContentLoaded', function() {
             const connections = JSON.parse(localStorage.getItem('mynokConnections') || '[]');
 
             if (connections.length > 0) {
-                connectionFilterList.innerHTML = connections.map(conn => `
+                // 가나다 순으로 정렬
+                const sortedConnections = connections.sort((a, b) =>
+                    a.name.localeCompare(b.name, 'ko-KR')
+                );
+
+                connectionFilterList.innerHTML = sortedConnections.map(conn => `
                     <div class="calendar-filter-item" data-filter="connection:${conn.name}">
                         ${conn.name}
                     </div>
@@ -5390,15 +6257,9 @@ document.addEventListener('DOMContentLoaded', function() {
         // 인연 검색 기능
         const searchMembers = document.getElementById('searchMembers');
 
-        // 검색 결과 표시를 위한 드롭다운 생성
-        const searchResultsDiv = document.createElement('div');
-        searchResultsDiv.className = 'event-search-results';
-        searchWrapper.appendChild(searchResultsDiv);
-
-        // 선택된 인연 표시를 위한 영역 생성
-        const selectedMembersDiv = document.createElement('div');
-        selectedMembersDiv.className = 'event-selected-members';
-        searchWrapper.appendChild(selectedMembersDiv);
+        // 검색 결과 및 선택된 멤버 요소 가져오기 (HTML에 이미 존재)
+        const searchResultsDiv = searchWrapper.querySelector('.event-search-results');
+        const selectedMembersDiv = searchWrapper.querySelector('.event-selected-members');
 
         searchMembers.addEventListener('input', function() {
             const searchTerm = this.value.toLowerCase().trim();
@@ -6544,14 +7405,24 @@ document.addEventListener('DOMContentLoaded', function() {
             if (members.length === 0) {
                 groupMembersList.innerHTML = '<p style="text-align: center; color: #999; padding: 20px;">그룹 멤버가 없습니다.</p>';
             } else {
+                // 인연 데이터 가져오기
+                const connections = JSON.parse(localStorage.getItem('mynokConnections') || '[]');
+
                 members.forEach(member => {
                     const memberItem = document.createElement('div');
                     memberItem.className = 'group-member-item';
 
-                    // 멤버 이미지
+                    // 멤버 이름에서 실제 인연 데이터 찾기
+                    const memberName = typeof member === 'string' ? member : member.name;
+                    const cleanMemberName = memberName.replace('(나)', '').trim();
+                    const connection = connections.find(conn => conn.name === cleanMemberName);
+
+                    // 멤버 이미지 - 인연 데이터의 avatar 사용
                     let avatarHTML = '';
-                    if (member.profileImage) {
-                        avatarHTML = `<img src="${member.profileImage}" alt="${member.name}" class="group-member-avatar">`;
+                    if (connection && connection.avatar) {
+                        avatarHTML = `<img src="${connection.avatar}" alt="${memberName}" class="group-member-avatar">`;
+                    } else if (member.profileImage) {
+                        avatarHTML = `<img src="${member.profileImage}" alt="${memberName}" class="group-member-avatar">`;
                     } else {
                         avatarHTML = `<div class="group-member-avatar-placeholder">👤</div>`;
                     }
@@ -6559,7 +7430,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     memberItem.innerHTML = `
                         ${avatarHTML}
                         <div class="group-member-info">
-                            <div class="group-member-name">${member.name}</div>
+                            <div class="group-member-name">${memberName}</div>
                             <div class="group-member-relation">${member.relation || '그룹 멤버'}</div>
                         </div>
                     `;
@@ -6575,22 +7446,33 @@ document.addEventListener('DOMContentLoaded', function() {
             groupProfileImages.innerHTML = '';
             groupProfileImages.classList.add('has-members');
 
+            // 인연 데이터 가져오기
+            const connections = JSON.parse(localStorage.getItem('mynokConnections') || '[]');
+
             const displayMembers = members.slice(0, 4);
             displayMembers.forEach(member => {
-                if (member.profileImage) {
+                // 멤버 이름에서 실제 인연 데이터 찾기
+                const memberName = typeof member === 'string' ? member : member.name;
+                const cleanMemberName = memberName.replace('(나)', '').trim();
+                const connection = connections.find(conn => conn.name === cleanMemberName);
+
+                // 인연 데이터의 avatar 사용
+                const avatarSrc = (connection && connection.avatar) ? connection.avatar : member.profileImage;
+
+                if (avatarSrc) {
                     const img = document.createElement('img');
-                    img.src = member.profileImage;
-                    img.alt = member.name;
+                    img.src = avatarSrc;
+                    img.alt = memberName;
                     img.className = 'group-member-profile';
                     groupProfileImages.appendChild(img);
+                } else {
+                    // 프로필 이미지가 없으면 placeholder 표시
+                    const placeholder = document.createElement('div');
+                    placeholder.className = 'group-member-profile-placeholder';
+                    placeholder.textContent = '👤';
+                    groupProfileImages.appendChild(placeholder);
                 }
             });
-
-            // 이미지가 없으면 기본 아이콘 표시
-            if (groupProfileImages.children.length === 0) {
-                groupProfileImages.classList.remove('has-members');
-                groupProfileImages.innerHTML = '<div class="group-profile-icon">👥</div>';
-            }
         }
 
         // 뒤로가기 버튼
@@ -6736,6 +7618,57 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
 
+        // 추억 타입 카드 클릭 이벤트
+        const groupVoiceItem = document.getElementById('groupVoiceItem');
+        const groupPhotoItem = document.getElementById('groupPhotoItem');
+        const groupLetterItem = document.getElementById('groupLetterItem');
+        const groupPlacePhotoCard = document.getElementById('groupPlacePhotoCard');
+
+        console.log('추억 타입 카드 요소 확인:', {
+            groupVoiceItem,
+            groupPhotoItem,
+            groupLetterItem,
+            groupPlacePhotoCard,
+            groupId
+        });
+
+        if (groupVoiceItem) {
+            groupVoiceItem.addEventListener('click', function() {
+                console.log('소리가 있어 클릭, groupId:', groupId);
+                // red-dot 제거
+                const dot = groupVoiceItem.querySelector('.red-dot');
+                if (dot) dot.classList.remove('active');
+                window.location.href = `04_groupvoice.html?groupId=${encodeURIComponent(groupId)}`;
+            });
+        }
+
+        if (groupPhotoItem) {
+            groupPhotoItem.addEventListener('click', function() {
+                console.log('사진이 있어 클릭, groupId:', groupId);
+                // red-dot 제거
+                const dot = groupPhotoItem.querySelector('.red-dot');
+                if (dot) dot.classList.remove('active');
+                window.location.href = `03_groupphoto.html?groupId=${encodeURIComponent(groupId)}`;
+            });
+        }
+
+        if (groupLetterItem) {
+            groupLetterItem.addEventListener('click', function() {
+                console.log('문장이 있어 클릭, groupId:', groupId);
+                // red-dot 제거
+                const dot = groupLetterItem.querySelector('.red-dot');
+                if (dot) dot.classList.remove('active');
+                window.location.href = `03_groupletter.html?groupId=${encodeURIComponent(groupId)}`;
+            });
+        }
+
+        if (groupPlacePhotoCard) {
+            groupPlacePhotoCard.addEventListener('click', function() {
+                console.log('장소별 추억 클릭, groupId:', groupId);
+                window.location.href = `04_groupplacephoto.html?groupId=${encodeURIComponent(groupId)}`;
+            });
+        }
+
         console.log('그룹 추억 페이지 초기화 완료');
     }
 });
@@ -6856,5 +7789,948 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         console.log('액자 구매 페이지 초기화 완료');
+    }
+});
+
+
+// ==================== 그룹 소리가 있어 페이지 기능 ====================
+document.addEventListener('DOMContentLoaded', function() {
+    const currentPage = window.location.pathname.split('/').pop();
+
+    if (currentPage === '04_groupvoice.html') {
+        console.log('그룹 소리가 있어 페이지 초기화 시작');
+
+        const params = new URLSearchParams(window.location.search);
+        const groupId = params.get('groupId');
+
+        if (!groupId) {
+            alert('그룹 정보를 찾을 수 없습니다.');
+            window.location.href = '01_main.html';
+            return;
+        }
+
+        // 그룹 데이터 가져오기
+        const groups = JSON.parse(localStorage.getItem('mynokGroups') || '[]');
+        const currentGroup = groups.find(g => g.id === groupId);
+
+        if (!currentGroup) {
+            alert('그룹을 찾을 수 없습니다.');
+            window.location.href = '01_main.html';
+            return;
+        }
+
+        // 인연 데이터 가져오기
+        const connections = JSON.parse(localStorage.getItem('mynokConnections') || '[]');
+
+        // 그룹 멤버 프로필 표시
+        const groupVoiceProfiles = document.getElementById('groupVoiceProfiles');
+        if (groupVoiceProfiles && currentGroup.members) {
+            groupVoiceProfiles.innerHTML = `
+                <div style="text-align: center; margin-bottom: 20px;">
+                    <h3 style="color: #FF7474; font-size: 18px; margin-bottom: 10px;">${currentGroup.name} 그룹</h3>
+                    <p style="color: #666; font-size: 14px;">함께한 소중한 순간들</p>
+                </div>
+                <div style="display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;">
+                    ${currentGroup.members.slice(0, 4).map(member => {
+                        const memberName = typeof member === 'string' ? member : member.name;
+                        const cleanName = memberName.replace('(나)', '').trim();
+                        const connection = connections.find(c => c.name === cleanName);
+                        const avatarSrc = connection && connection.avatar ? connection.avatar : '';
+
+                        return `
+                            <div style="display: flex; flex-direction: column; align-items: center;">
+                                <div style="width: 60px; height: 60px; border-radius: 50%; overflow: hidden; background: #FFE8E8; display: flex; align-items: center; justify-content: center;">
+                                    ${avatarSrc ? `<img src="${avatarSrc}" style="width: 100%; height: 100%; object-fit: cover;">` : '<span style="font-size: 24px;">👤</span>'}
+                                </div>
+                                <p style="margin-top: 6px; font-size: 12px; color: #666;">${memberName}</p>
+                            </div>
+                        `;
+                    }).join('')}
+                </div>
+            `;
+        }
+
+        // 뒤로가기 버튼
+        const backBtn = document.getElementById('backFromGroupVoice');
+        if (backBtn) {
+            backBtn.addEventListener('click', function() {
+                window.location.href = `02_groupmemory.html?groupId=${encodeURIComponent(groupId)}`;
+            });
+        }
+
+        // 음성 저장소
+        const storageKey = `mynokGroupVoices_${groupId}`;
+
+        function getGroupVoices() {
+            return JSON.parse(localStorage.getItem(storageKey) || '[]');
+        }
+
+        function saveGroupVoices(voices) {
+            localStorage.setItem(storageKey, JSON.stringify(voices));
+        }
+
+        // 음성 렌더링
+        function renderVoices(tab) {
+            const voices = getGroupVoices();
+            const userName = '미소';
+            let filteredVoices = tab === 'all' ? voices : voices.filter(v => v.sender === userName);
+
+            const container = tab === 'all'
+                ? document.getElementById('groupVoiceListContainer')
+                : document.getElementById('myGroupVoiceListContainer');
+
+            if (!container) return;
+
+            if (filteredVoices.length === 0) {
+                container.innerHTML = `
+                    <div style="text-align: center; padding: 60px 20px; color: #999;">
+                        <p style="font-size: 40px; margin-bottom: 12px;">🎵</p>
+                        <p>아직 녹음된 음성이 없습니다</p>
+                        <p style="font-size: 14px; margin-top: 8px;">첫 음성을 남겨보세요!</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = filteredVoices.map(voice => `
+                <div class="voice-card" style="background: white; border-radius: 12px; padding: 16px; margin-bottom: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06);">
+                    <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 12px;">
+                        <div>
+                            <h4 style="font-size: 16px; color: #333; margin: 0 0 4px 0;">${voice.subject || '제목 없음'}</h4>
+                            <p style="font-size: 12px; color: #FF7474;">보낸 사람: ${voice.sender}</p>
+                        </div>
+                        <span style="font-size: 12px; color: #999;">${voice.date}</span>
+                    </div>
+                    ${voice.message ? `<p style="font-size: 14px; color: #666; margin-bottom: 12px;">${voice.message}</p>` : ''}
+                    <div style="display: flex; gap: 8px;">
+                        <button class="voice-play-small-btn" style="flex: 1; background: #FF7474; color: white; border: none; border-radius: 8px; padding: 10px; cursor: pointer; font-size: 14px;">재생 ▶️</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // 탭 전환
+        const voiceTabBtns = document.querySelectorAll('.voice-tab-btn');
+        const allTab = document.getElementById('allGroupVoiceList');
+        const myTab = document.getElementById('myGroupVoiceList');
+
+        voiceTabBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                voiceTabBtns.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+
+                const tab = this.getAttribute('data-tab');
+                if (tab === 'all') {
+                    if (allTab) allTab.style.display = 'block';
+                    if (myTab) myTab.style.display = 'none';
+                    renderVoices('all');
+                } else {
+                    if (allTab) allTab.style.display = 'none';
+                    if (myTab) myTab.style.display = 'block';
+                    renderVoices('my');
+                }
+            });
+        });
+
+        // 음성 가져오기 버튼
+        const importBtn = document.getElementById('importGroupVoiceBtn');
+        const voiceFileInput = document.getElementById('groupVoiceFileInput');
+
+        if (importBtn && voiceFileInput) {
+            importBtn.addEventListener('click', function() {
+                voiceFileInput.click();
+            });
+
+            voiceFileInput.addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (!file) return;
+
+                const subject = prompt('음성 제목을 입력하세요:');
+                if (!subject) return;
+
+                const message = prompt('남기고 싶은 메시지를 입력하세요:');
+
+                const newVoice = {
+                    id: Date.now(),
+                    subject: subject,
+                    message: message || '',
+                    sender: '미소',
+                    date: new Date().toISOString().split('T')[0].replace(/-/g, '.'),
+                    createdAt: new Date().toISOString(),
+                    duration: '00:00:00'
+                };
+
+                const voices = getGroupVoices();
+                voices.unshift(newVoice);
+                saveGroupVoices(voices);
+
+                alert('음성이 업로드되었습니다! 🎵');
+                renderVoices('all');
+                voiceFileInput.value = '';
+            });
+        }
+
+        // 녹음하기 버튼 (간단 구현)
+        const recordBtn = document.getElementById('recordGroupVoiceBtn');
+        if (recordBtn) {
+            recordBtn.addEventListener('click', function() {
+                const subject = prompt('음성 제목을 입력하세요:');
+                if (!subject) return;
+
+                const message = prompt('남기고 싶은 메시지를 입력하세요:');
+
+                const newVoice = {
+                    id: Date.now(),
+                    subject: subject,
+                    message: message || '',
+                    sender: '미소',
+                    date: new Date().toISOString().split('T')[0].replace(/-/g, '.'),
+                    createdAt: new Date().toISOString(),
+                    duration: '00:00:00'
+                };
+
+                const voices = getGroupVoices();
+                voices.unshift(newVoice);
+                saveGroupVoices(voices);
+
+                alert('음성이 저장되었습니다! 🎤');
+                renderVoices('all');
+            });
+        }
+
+        // 초기 렌더링
+        renderVoices('all');
+
+        console.log('그룹 소리가 있어 페이지 초기화 완료');
+    }
+});
+
+
+// ==================== 그룹 사진이 있어 페이지 기능 ====================
+document.addEventListener('DOMContentLoaded', function() {
+    const currentPage = window.location.pathname.split('/').pop();
+
+    if (currentPage === '03_groupphoto.html') {
+        console.log('그룹 사진이 있어 페이지 초기화 시작');
+
+        const params = new URLSearchParams(window.location.search);
+        const groupId = params.get('groupId');
+
+        if (!groupId) {
+            alert('그룹 정보를 찾을 수 없습니다.');
+            window.location.href = '01_main.html';
+            return;
+        }
+
+        // 그룹 데이터 가져오기
+        const groups = JSON.parse(localStorage.getItem('mynokGroups') || '[]');
+        const currentGroup = groups.find(g => g.id === groupId);
+
+        if (!currentGroup) {
+            alert('그룹을 찾을 수 없습니다.');
+            window.location.href = '01_main.html';
+            return;
+        }
+
+        // 인연 데이터 가져오기
+        const connections = JSON.parse(localStorage.getItem('mynokConnections') || '[]');
+
+        // 그룹 이름 표시
+        const groupPhotoName = document.getElementById('groupPhotoName');
+        if (groupPhotoName) {
+            groupPhotoName.textContent = currentGroup.name + ' 그룹';
+        }
+
+        // 그룹 멤버 프로필 표시 (미니 프로필)
+        const groupPhotoProfiles = document.getElementById('groupPhotoProfiles');
+        if (groupPhotoProfiles && currentGroup.members) {
+            groupPhotoProfiles.innerHTML = currentGroup.members.slice(0, 3).map(member => {
+                const memberName = typeof member === 'string' ? member : member.name;
+                const cleanName = memberName.replace('(나)', '').trim();
+                const connection = connections.find(c => c.name === cleanName);
+                const avatarSrc = connection && connection.avatar ? connection.avatar : '';
+
+                return `
+                    <div style="width: 40px; height: 40px; border-radius: 50%; overflow: hidden; background: #FFE8E8; border: 2px solid white; margin-left: -8px; display: flex; align-items: center; justify-content: center;">
+                        ${avatarSrc ? `<img src="${avatarSrc}" style="width: 100%; height: 100%; object-fit: cover;">` : '<span style="font-size: 18px;">👤</span>'}
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // 사진/동영상 저장소
+        const storageKey = `mynokGroupPhotos_${groupId}`;
+
+        function getGroupPhotos() {
+            return JSON.parse(localStorage.getItem(storageKey) || '[]');
+        }
+
+        function saveGroupPhotos(photos) {
+            localStorage.setItem(storageKey, JSON.stringify(photos));
+        }
+
+        // 카운트 업데이트
+        function updateStats() {
+            const photos = getGroupPhotos();
+            const photoCount = photos.filter(p => !p.isVideo).length;
+            const videoCount = photos.filter(p => p.isVideo).length;
+
+            const groupPhotoCount = document.getElementById('groupPhotoCount');
+            const groupVideoCount = document.getElementById('groupVideoCount');
+            if (groupPhotoCount) groupPhotoCount.textContent = photoCount;
+            if (groupVideoCount) groupVideoCount.textContent = videoCount;
+        }
+
+        // 사진 렌더링
+        function renderPhotos(type) {
+            const photos = getGroupPhotos();
+            let filteredPhotos = [];
+
+            if (type === 'photos') {
+                filteredPhotos = photos.filter(p => !p.isVideo);
+            } else if (type === 'videos') {
+                filteredPhotos = photos.filter(p => p.isVideo);
+            } else if (type === 'favorites') {
+                filteredPhotos = photos.filter(p => p.isFavorite);
+            }
+
+            // 최신순 정렬
+            filteredPhotos.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+            const favoriteGrid = document.getElementById('groupFavoritePhotosGrid');
+            const recentGrid = document.getElementById('groupRecentPhotosGrid');
+            const videosGrid = document.getElementById('groupRecentVideosGrid');
+
+            if (type === 'photos') {
+                const favorites = filteredPhotos.filter(p => p.isFavorite).slice(0, 6);
+                const recent = filteredPhotos.slice(0, 12);
+
+                if (favoriteGrid) {
+                    if (favorites.length === 0) {
+                        favoriteGrid.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: #999; padding: 40px 20px;">즐겨찾기한 사진이 없습니다</p>`;
+                    } else {
+                        favoriteGrid.innerHTML = favorites.map(photo => `
+                            <div class="photo-item" style="aspect-ratio: 1; border-radius: 8px; overflow: hidden; cursor: pointer;">
+                                <img src="${photo.data}" style="width: 100%; height: 100%; object-fit: cover;">
+                            </div>
+                        `).join('');
+                    }
+                }
+
+                if (recentGrid) {
+                    if (recent.length === 0) {
+                        recentGrid.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: #999; padding: 40px 20px;">업로드된 사진이 없습니다</p>`;
+                    } else {
+                        recentGrid.innerHTML = recent.map(photo => `
+                            <div class="photo-item" style="aspect-ratio: 1; border-radius: 8px; overflow: hidden; cursor: pointer;">
+                                <img src="${photo.data}" style="width: 100%; height: 100%; object-fit: cover;">
+                            </div>
+                        `).join('');
+                    }
+                }
+            } else if (type === 'videos') {
+                if (videosGrid) {
+                    if (filteredPhotos.length === 0) {
+                        videosGrid.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: #999; padding: 40px 20px;">업로드된 동영상이 없습니다</p>`;
+                    } else {
+                        videosGrid.innerHTML = filteredPhotos.map(video => `
+                            <div class="photo-item" style="aspect-ratio: 1; border-radius: 8px; overflow: hidden; background: #f5f5f5; display: flex; align-items: center; justify-content: center; cursor: pointer;">
+                                <span style="font-size: 40px;">▶️</span>
+                            </div>
+                        `).join('');
+                    }
+                }
+            }
+        }
+
+        // 탭 전환
+        const photoTabBtns = document.querySelectorAll('.photo-tab-btn');
+        const photosTabContent = document.getElementById('group-photo-tab-photos');
+        const videosTabContent = document.getElementById('group-photo-tab-videos');
+        const favoritesTabContent = document.getElementById('group-photo-tab-favorites');
+
+        photoTabBtns.forEach((btn, index) => {
+            btn.addEventListener('click', function() {
+                photoTabBtns.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+
+                const tab = this.getAttribute('data-tab');
+
+                if (photosTabContent) photosTabContent.style.display = 'none';
+                if (videosTabContent) videosTabContent.style.display = 'none';
+                if (favoritesTabContent) favoritesTabContent.style.display = 'none';
+
+                if (tab === 'photos') {
+                    if (photosTabContent) photosTabContent.style.display = 'block';
+                    renderPhotos('photos');
+                } else if (tab === 'videos') {
+                    if (videosTabContent) videosTabContent.style.display = 'block';
+                    renderPhotos('videos');
+                } else if (tab === 'favorites') {
+                    if (favoritesTabContent) favoritesTabContent.style.display = 'block';
+                    renderPhotos('favorites');
+                }
+            });
+        });
+
+        // 사진 업로드
+        const uploadBtn = document.getElementById('groupPhotoUploadBtn');
+        const fileInput = document.getElementById('groupPhotoFileInput');
+
+        if (uploadBtn && fileInput) {
+            uploadBtn.addEventListener('click', function() {
+                fileInput.click();
+            });
+
+            fileInput.addEventListener('change', function(e) {
+                const files = e.target.files;
+                if (!files || files.length === 0) return;
+
+                const photos = getGroupPhotos();
+
+                Array.from(files).forEach(file => {
+                    const reader = new FileReader();
+                    reader.onload = function(event) {
+                        const photoData = {
+                            id: Date.now() + Math.random(),
+                            data: event.target.result,
+                            isVideo: file.type.startsWith('video/'),
+                            isFavorite: false,
+                            createdAt: new Date().toISOString()
+                        };
+
+                        photos.push(photoData);
+                        saveGroupPhotos(photos);
+                        updateStats();
+                        renderPhotos('photos');
+                    };
+                    reader.readAsDataURL(file);
+                });
+
+                fileInput.value = '';
+                alert('사진이 업로드되었습니다! 📸');
+            });
+        }
+
+        // 초기 렌더링
+        updateStats();
+        renderPhotos('photos');
+
+        // 뒤로가기 버튼
+        const backBtn = document.getElementById('backFromGroupPhoto');
+        if (backBtn) {
+            backBtn.addEventListener('click', function() {
+                window.location.href = `02_groupmemory.html?groupId=${encodeURIComponent(groupId)}`;
+            });
+        }
+
+        console.log('그룹 사진이 있어 페이지 초기화 완료');
+    }
+});
+
+
+// ==================== 그룹 문장이 있어 페이지 기능 ====================
+document.addEventListener('DOMContentLoaded', function() {
+    const currentPage = window.location.pathname.split('/').pop();
+
+    if (currentPage === '03_groupletter.html') {
+        console.log('그룹 문장이 있어 페이지 초기화 시작');
+
+        const params = new URLSearchParams(window.location.search);
+        const groupId = params.get('groupId');
+
+        if (!groupId) {
+            alert('그룹 정보를 찾을 수 없습니다.');
+            window.location.href = '01_main.html';
+            return;
+        }
+
+        // 그룹 데이터 가져오기
+        const groups = JSON.parse(localStorage.getItem('mynokGroups') || '[]');
+        const currentGroup = groups.find(g => g.id === groupId);
+
+        if (!currentGroup) {
+            alert('그룹을 찾을 수 없습니다.');
+            window.location.href = '01_main.html';
+            return;
+        }
+
+        // 그룹 이름 표시
+        const groupLetterName = document.getElementById('groupLetterName');
+        if (groupLetterName) {
+            groupLetterName.textContent = currentGroup.name + ' 그룹과';
+        }
+
+        // 그룹 편지 데이터 가져오기
+        const storageKey = `mynokGroupLetters_${groupId}`;
+        function getGroupLetters() {
+            return JSON.parse(localStorage.getItem(storageKey) || '[]');
+        }
+
+        // 편지 렌더링
+        function renderGroupLetters(tab) {
+            const listContainer = tab === 'all'
+                ? document.getElementById('allGroupLetterList')
+                : document.getElementById('myGroupLetterList');
+
+            if (!listContainer) return;
+
+            const letters = getGroupLetters();
+            const userName = '미소'; // 현재 사용자
+
+            let filteredLetters = letters;
+            if (tab === 'my') {
+                filteredLetters = letters.filter(letter => letter.sender === userName);
+            }
+
+            if (filteredLetters.length === 0) {
+                listContainer.innerHTML = `
+                    <div style="text-align: center; padding: 60px 20px; color: #999;">
+                        <p style="font-size: 16px; margin-bottom: 8px;">📝</p>
+                        <p>아직 작성된 편지가 없습니다.</p>
+                        <p style="font-size: 14px; margin-top: 8px;">첫 편지를 작성해보세요!</p>
+                    </div>
+                `;
+                return;
+            }
+
+            listContainer.innerHTML = filteredLetters.map(letter => `
+                <div class="letter-card" style="background: white; border-radius: 12px; padding: 16px; margin-bottom: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); cursor: pointer;">
+                    <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 8px;">
+                        <h4 style="font-size: 16px; color: #333; margin: 0;">${letter.title}</h4>
+                        <span style="font-size: 12px; color: #999;">${letter.date}</span>
+                    </div>
+                    <p style="font-size: 14px; color: #666; margin: 8px 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${letter.content}</p>
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span style="font-size: 12px; color: #FF7474;">보낸 사람: ${letter.sender}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // 탭 전환
+        const letterTabBtns = document.querySelectorAll('.letter-tab-btn');
+        const allTab = document.getElementById('allGroupLetterTab');
+        const myTab = document.getElementById('myGroupLetterTab');
+
+        letterTabBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                letterTabBtns.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+
+                const tab = this.getAttribute('data-tab');
+                if (tab === 'all') {
+                    allTab.style.display = 'block';
+                    myTab.style.display = 'none';
+                    renderGroupLetters('all');
+                } else {
+                    allTab.style.display = 'none';
+                    myTab.style.display = 'block';
+                    renderGroupLetters('my');
+                }
+            });
+        });
+
+        // 편지 쓰기 버튼
+        const writeBtn = document.getElementById('writeGroupLetterBtn');
+        if (writeBtn) {
+            writeBtn.addEventListener('click', function() {
+                const title = prompt('편지 제목을 입력하세요:');
+                if (!title) return;
+
+                const content = prompt('편지 내용을 입력하세요:');
+                if (!content) return;
+
+                const newLetter = {
+                    id: Date.now(),
+                    title: title,
+                    content: content,
+                    sender: '미소',
+                    date: new Date().toISOString().split('T')[0].replace(/-/g, '.'),
+                    createdAt: new Date().toISOString()
+                };
+
+                const letters = getGroupLetters();
+                letters.unshift(newLetter);
+                localStorage.setItem(storageKey, JSON.stringify(letters));
+
+                alert('편지가 작성되었습니다! 💌');
+                renderGroupLetters('all');
+            });
+        }
+
+        // 초기 렌더링
+        renderGroupLetters('all');
+
+        // 뒤로가기 버튼
+        const backBtn = document.getElementById('backFromGroupLetter');
+        if (backBtn) {
+            backBtn.addEventListener('click', function() {
+                window.location.href = `02_groupmemory.html?groupId=${encodeURIComponent(groupId)}`;
+            });
+        }
+
+        console.log('그룹 문장이 있어 페이지 초기화 완료');
+    }
+});
+
+
+// ==================== 그룹 장소별 추억 확인 페이지 기능 ====================
+document.addEventListener('DOMContentLoaded', function() {
+    const currentPage = window.location.pathname.split('/').pop();
+
+    if (currentPage === '04_groupplacephoto.html') {
+        console.log('그룹 장소별 추억 확인 페이지 초기화 시작');
+
+        const params = new URLSearchParams(window.location.search);
+        const groupId = params.get('groupId');
+
+        if (!groupId) {
+            alert('그룹 정보를 찾을 수 없습니다.');
+            window.location.href = '01_main.html';
+            return;
+        }
+
+        // 그룹 데이터 가져오기
+        const groups = JSON.parse(localStorage.getItem('mynokGroups') || '[]');
+        const currentGroup = groups.find(g => g.id === groupId);
+
+        if (!currentGroup) {
+            alert('그룹을 찾을 수 없습니다.');
+            window.location.href = '01_main.html';
+            return;
+        }
+
+        // 그룹 이름 표시
+        const groupPlaceBannerName = document.getElementById('groupPlaceBannerName');
+        if (groupPlaceBannerName) {
+            groupPlaceBannerName.textContent = currentGroup.name + ' 그룹';
+        }
+
+        // 뒤로가기 버튼
+        const backBtn = document.getElementById('backFromGroupPlace');
+        if (backBtn) {
+            backBtn.addEventListener('click', function() {
+                window.location.href = `02_groupmemory.html?groupId=${encodeURIComponent(groupId)}`;
+            });
+        }
+
+        // localStorage 키
+        const PHOTOS_KEY = `mynokGroupPlacePhotos_${groupId}`;
+        const FAVORITES_KEY = `mynokGroupPlaceFavorites_${groupId}`;
+
+        let currentSeason = 'spring';
+        let searchQuery = '';
+
+        // localStorage에서 즐겨찾기 정보 불러오기
+        function getFavorites() {
+            return JSON.parse(localStorage.getItem(FAVORITES_KEY) || '[]');
+        }
+
+        // 즐겨찾기 저장
+        function saveFavorites(favorites) {
+            localStorage.setItem(FAVORITES_KEY, JSON.stringify(favorites));
+        }
+
+        // 지역별로 추억 데이터 그룹화
+        function groupPhotosByLocation() {
+            const allPhotos = JSON.parse(localStorage.getItem(PHOTOS_KEY) || '[]');
+
+            // SVG 샘플 데이터 제외
+            const photos = allPhotos.filter(photo => {
+                const isSample = photo.thumbnail && photo.thumbnail.includes('data:image/svg+xml');
+                return !isSample;
+            });
+
+            const grouped = {};
+            const favorites = getFavorites();
+
+            photos.forEach(photo => {
+                const location = photo.location;
+                if (!grouped[location]) {
+                    grouped[location] = {
+                        location: location,
+                        seasons: {},
+                        favorite: favorites.includes(location),
+                        totalCount: 0
+                    };
+                }
+
+                const season = photo.season;
+                if (!grouped[location].seasons[season]) {
+                    grouped[location].seasons[season] = [];
+                }
+                grouped[location].seasons[season].push(photo);
+                grouped[location].totalCount++;
+            });
+
+            return grouped;
+        }
+
+        // 기본 이미지 URL (추억에 이미지가 없을 경우 사용)
+        const defaultImages = {
+            'spring': 'https://images.unsplash.com/photo-1490750967868-88aa4486c946?w=400',
+            'summer': 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400',
+            'fall': 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400',
+            'winter': 'https://images.unsplash.com/photo-1483921020237-2ff51e8e4b22?w=400'
+        };
+
+        // 지역 카드 렌더링
+        function renderLocationCards() {
+            const cardsList = document.getElementById('groupPlaceCardsList');
+            if (!cardsList) return;
+
+            const groupedPhotos = groupPhotosByLocation();
+
+            // 필터링: 현재 계절에 해당하는 지역만 표시
+            let filtered = Object.values(groupedPhotos).filter(loc => {
+                const hasPhotosInSeason = loc.seasons[currentSeason] && loc.seasons[currentSeason].length > 0;
+                const matchesSearch = searchQuery === '' || loc.location.toLowerCase().includes(searchQuery.toLowerCase());
+                return hasPhotosInSeason && matchesSearch;
+            });
+
+            if (filtered.length === 0) {
+                cardsList.innerHTML = `
+                    <div style="text-align: center; padding: 60px 20px; color: #999;">
+                        <div style="font-size: 48px; margin-bottom: 16px;">📍</div>
+                        <div>해당하는 지역이 없습니다</div>
+                        <div style="font-size: 14px; margin-top: 8px;">+ 버튼을 눌러 추억을 추가해보세요</div>
+                    </div>
+                `;
+                return;
+            }
+
+            cardsList.innerHTML = filtered.map((loc, index) => {
+                const photoCount = loc.seasons[currentSeason].length;
+
+                // 해당 계절의 가장 최근 사진 찾기
+                const seasonPhotos = loc.seasons[currentSeason];
+                const latestPhoto = seasonPhotos.reduce((latest, photo) => {
+                    if (!latest) return photo;
+                    return new Date(photo.createdAt) > new Date(latest.createdAt) ? photo : latest;
+                }, null);
+
+                // 썸네일이 있으면 사용, 없으면 기본 이미지
+                const imageUrl = (latestPhoto && latestPhoto.thumbnail)
+                    ? latestPhoto.thumbnail
+                    : defaultImages[currentSeason];
+
+                return `
+                    <div class="place-card" data-location="${loc.location}">
+                        <img src="${imageUrl}" alt="${loc.location}" class="place-card-image">
+                        <div class="place-card-overlay">
+                            <div class="place-card-location">${loc.location}</div>
+                            <div style="font-size: 12px; margin-top: 4px; opacity: 0.9;">추억 ${photoCount}개</div>
+                        </div>
+                        <button class="place-card-favorite ${loc.favorite ? 'active' : ''}" data-location="${loc.location}">
+                            ♥
+                        </button>
+                    </div>
+                `;
+            }).join('');
+
+            // 즐겨찾기 버튼 이벤트
+            document.querySelectorAll('.place-card-favorite').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const location = this.getAttribute('data-location');
+                    let favorites = getFavorites();
+
+                    if (favorites.includes(location)) {
+                        favorites = favorites.filter(f => f !== location);
+                        this.classList.remove('active');
+                    } else {
+                        favorites.push(location);
+                        this.classList.add('active');
+                    }
+
+                    saveFavorites(favorites);
+                });
+            });
+
+            // 카드 클릭 이벤트 - 그룹용 상세 페이지로 이동
+            document.querySelectorAll('.place-card').forEach(card => {
+                card.addEventListener('click', function() {
+                    const location = this.getAttribute('data-location');
+                    // 추후 그룹용 place detail 페이지 구현 시 groupId 전달
+                    alert(`${location} 상세 페이지 (준비중)`);
+                });
+            });
+        }
+
+        // 배너 통계 업데이트
+        function updateBannerStats() {
+            const allPhotos = JSON.parse(localStorage.getItem(PHOTOS_KEY) || '[]');
+
+            // SVG 샘플 데이터 제외
+            const photos = allPhotos.filter(photo => {
+                const isSample = photo.thumbnail && photo.thumbnail.includes('data:image/svg+xml');
+                return !isSample;
+            });
+
+            const groupedPhotos = groupPhotosByLocation();
+
+            // 총 지역 수
+            const totalPlaceCount = Object.keys(groupedPhotos).length;
+            const totalPlaceCountEl = document.getElementById('groupTotalPlaceCount');
+            if (totalPlaceCountEl) {
+                totalPlaceCountEl.textContent = totalPlaceCount;
+            }
+
+            // 계절별 추억 개수
+            const seasonCounts = {
+                spring: 0,
+                summer: 0,
+                fall: 0,
+                winter: 0
+            };
+
+            photos.forEach(photo => {
+                if (seasonCounts.hasOwnProperty(photo.season)) {
+                    seasonCounts[photo.season]++;
+                }
+            });
+
+            const springCountEl = document.getElementById('groupSpringCount');
+            const summerCountEl = document.getElementById('groupSummerCount');
+            const fallCountEl = document.getElementById('groupFallCount');
+            const winterCountEl = document.getElementById('groupWinterCount');
+
+            if (springCountEl) springCountEl.textContent = seasonCounts.spring;
+            if (summerCountEl) summerCountEl.textContent = seasonCounts.summer;
+            if (fallCountEl) fallCountEl.textContent = seasonCounts.fall;
+            if (winterCountEl) winterCountEl.textContent = seasonCounts.winter;
+        }
+
+        // 계절 탭 이벤트
+        const seasonTabs = document.querySelectorAll('.place-season-tab');
+        seasonTabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                seasonTabs.forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                currentSeason = this.getAttribute('data-season');
+                renderLocationCards();
+            });
+        });
+
+        // 검색 기능
+        const searchInput = document.getElementById('groupPlaceSearchInput');
+        if (searchInput) {
+            searchInput.addEventListener('input', function() {
+                searchQuery = this.value.trim();
+                renderLocationCards();
+            });
+        }
+
+        // FAB 버튼 이벤트
+        const favoriteFab = document.getElementById('groupFavoriteFab');
+        if (favoriteFab) {
+            favoriteFab.addEventListener('click', function() {
+                const favorites = getFavorites();
+                if (favorites.length === 0) {
+                    alert('즐겨찾기한 지역이 없습니다.');
+                    return;
+                }
+
+                // 즐겨찾기 필터링 토글
+                const cardsList = document.getElementById('groupPlaceCardsList');
+                if (!cardsList) return;
+
+                const groupedPhotos = groupPhotosByLocation();
+                const favoritePlaces = Object.values(groupedPhotos).filter(loc =>
+                    loc.favorite &&
+                    loc.seasons[currentSeason] &&
+                    loc.seasons[currentSeason].length > 0
+                );
+
+                if (favoritePlaces.length === 0) {
+                    alert('현재 계절에 즐겨찾기한 지역이 없습니다.');
+                    return;
+                }
+
+                cardsList.innerHTML = favoritePlaces.map((loc) => {
+                    const photoCount = loc.seasons[currentSeason].length;
+                    const seasonPhotos = loc.seasons[currentSeason];
+                    const latestPhoto = seasonPhotos.reduce((latest, photo) => {
+                        if (!latest) return photo;
+                        return new Date(photo.createdAt) > new Date(latest.createdAt) ? photo : latest;
+                    }, null);
+
+                    const imageUrl = (latestPhoto && latestPhoto.thumbnail)
+                        ? latestPhoto.thumbnail
+                        : defaultImages[currentSeason];
+
+                    return `
+                        <div class="place-card" data-location="${loc.location}">
+                            <img src="${imageUrl}" alt="${loc.location}" class="place-card-image">
+                            <div class="place-card-overlay">
+                                <div class="place-card-location">${loc.location}</div>
+                                <div style="font-size: 12px; margin-top: 4px; opacity: 0.9;">추억 ${photoCount}개</div>
+                            </div>
+                            <button class="place-card-favorite active" data-location="${loc.location}">
+                                ♥
+                            </button>
+                        </div>
+                    `;
+                }).join('');
+
+                // 즐겨찾기 버튼 이벤트 재등록
+                document.querySelectorAll('.place-card-favorite').forEach(btn => {
+                    btn.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        const location = this.getAttribute('data-location');
+                        let favorites = getFavorites();
+                        favorites = favorites.filter(f => f !== location);
+                        saveFavorites(favorites);
+                        renderLocationCards(); // 다시 전체 보기로 돌아감
+                    });
+                });
+
+                // 카드 클릭 이벤트 재등록
+                document.querySelectorAll('.place-card').forEach(card => {
+                    card.addEventListener('click', function() {
+                        const location = this.getAttribute('data-location');
+                        alert(`${location} 상세 페이지 (준비중)`);
+                    });
+                });
+            });
+        }
+
+        const addPlaceFab = document.getElementById('addGroupPlaceFab');
+        if (addPlaceFab) {
+            addPlaceFab.addEventListener('click', function() {
+                // 그룹용 장소 추억 추가 기능 (준비중)
+                alert('그룹 장소 추억 추가 기능은 준비중입니다.');
+            });
+        }
+
+        // 초기 렌더링
+        updateBannerStats();
+        renderLocationCards();
+
+        // 하단 네비게이션
+        const navHome = document.getElementById('navHome');
+        const navCalendar = document.getElementById('navCalendar');
+        const navMypage = document.getElementById('navMypage');
+
+        if (navHome) {
+            navHome.addEventListener('click', function() {
+                window.location.href = '01_main.html';
+            });
+        }
+
+        if (navCalendar) {
+            navCalendar.addEventListener('click', function() {
+                window.location.href = '03_calendar.html';
+            });
+        }
+
+        if (navMypage) {
+            navMypage.addEventListener('click', function() {
+                window.location.href = '01_mypage.html';
+            });
+        }
+
+        console.log('그룹 장소별 추억 확인 페이지 초기화 완료');
     }
 });
