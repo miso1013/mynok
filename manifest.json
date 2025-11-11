@@ -16,7 +16,7 @@
       "purpose": "any maskable"
     },
     {
-      "src": "/img/마이노크 홈 아이콘_on.png",
+      "src": "/img/00_로고.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
@@ -25,3 +25,4 @@
   "categories": ["social", "lifestyle"],
   "lang": "ko"
 }
+
