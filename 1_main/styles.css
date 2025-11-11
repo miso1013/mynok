@@ -26,7 +26,7 @@ body {
     background-color: white;
     min-height: 100vh;
     padding-bottom: 80px;
-    color: #333;
+    color: #5d5d5d;
     position: relative;
     font-size: 14px; /* 기본 크기 */
 }
@@ -61,6 +61,7 @@ body.font-xlarge {
     margin: 0 auto;
     background-color: white;
     padding: 16px 20px;
+    padding-top: calc(16px + env(safe-area-inset-top));
     text-align: center;
     border-bottom: 1px solid #f0f0f0;
     z-index: 100;
@@ -69,13 +70,13 @@ body.font-xlarge {
 .logo {
     font-size: 18px;
     font-weight: 700;
-    color: #333;
+    color: #333333;
 }
 
 .header-title {
     font-size: 16px;
     font-weight: 600;
-    color: #333;
+    color: #333333;
     font-family: 'Pretendard', -apple-system, sans-serif;
     line-height: 1.4;
 }
@@ -107,12 +108,12 @@ body.font-xlarge {
 .user-name {
     font-size: 18px;
     font-weight: 700;
-    color: #333;
+    color: #5d5d5d;
     margin-bottom: 12px;
 }
 
 .user-name .suffix {
-    color: #333;
+    color: #5d5d5d;
 }
 
 .message {
@@ -489,7 +490,7 @@ body.font-xlarge {
 .group-name {
     font-size: 16px;
     font-weight: 700;
-    color: #333;
+    color: #5d5d5d;
 }
 
 .member-count {
@@ -592,10 +593,20 @@ body.font-xlarge {
     display: flex;
     justify-content: space-around;
     background-color: white;
-    padding: 12px 0;
+    padding: 12px 0 24px 0;
     border-top: 1px solid #f0f0f0;
     box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
-    z-index: 100;
+    z-index: 1000;
+}
+
+.bottom-nav::after {
+    content: '';
+    position: absolute;
+    bottom: -12px;
+    left: 0;
+    right: 0;
+    height: 12px;
+    background-color: white;
 }
 
 .nav-item {
@@ -643,7 +654,7 @@ body.font-xlarge {
     background: none;
     border: none;
     font-size: 28px;
-    color: #333;
+    color: #333333;
     cursor: pointer;
     padding: 0;
     line-height: 1;
@@ -654,7 +665,7 @@ body.font-xlarge {
 .page-title {
     font-size: 16px;
     font-weight: 700;
-    color: #333;
+    color: #333333;
 }
 
 .profile-greeting {
@@ -672,7 +683,7 @@ body.font-xlarge {
 .greeting-name {
     font-size: 18px;
     font-weight: 700;
-    color: #333;
+    color: #5d5d5d;
     margin-bottom: 8px;
 }
 
@@ -711,7 +722,7 @@ body.font-xlarge {
     display: block;
     font-size: 14px;
     font-weight: 600;
-    color: #333;
+    color: #5d5d5d;
     margin-bottom: 12px;
 }
 
@@ -749,7 +760,7 @@ body.font-xlarge {
     border: 1px solid #E0E0E0;
     border-radius: 8px;
     font-size: 14px;
-    color: #333;
+    color: #5d5d5d;
     outline: none;
     transition: border-color 0.3s ease;
 }
@@ -889,10 +900,16 @@ body.font-xlarge {
     text-align: center;
 }
 
+.type-icon-img {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+}
+
 .type-text {
     font-size: 15px;
     font-weight: 600;
-    color: #333;
+    color: #5d5d5d;
 }
 
 .connection-type-option:has(.type-radio:checked) .type-text {
@@ -1170,7 +1187,7 @@ body.font-xlarge {
 .join-title {
     font-size: 24px;
     font-weight: 700;
-    color: #333;
+    color: #5d5d5d;
     line-height: 1.5;
     margin-bottom: 40px;
 }
@@ -1197,7 +1214,7 @@ body.font-xlarge {
 .font-setting-title {
     font-size: 18px;
     font-weight: 700;
-    color: #333;
+    color: #5d5d5d;
     margin-bottom: 24px;
 }
 
@@ -1255,7 +1272,7 @@ body.font-xlarge {
 
 .font-label {
     font-size: 16px;
-    color: #333;
+    color: #5d5d5d;
     cursor: pointer;
 }
 
@@ -1362,7 +1379,7 @@ body.font-xlarge {
 .mypage-profile-name {
     font-size: 20px;
     font-weight: 700;
-    color: #333;
+    color: #5d5d5d;
     margin-bottom: 16px;
 }
 
@@ -1409,7 +1426,7 @@ body.font-xlarge {
 .mypage-accordion-title {
     font-size: 16px;
     font-weight: 700;
-    color: #333;
+    color: #5d5d5d;
 }
 
 .mypage-accordion-icon {
@@ -1459,7 +1476,7 @@ body.font-xlarge {
 }
 
 .mypage-menu-item:active {
-    color: #333;
+    color: #5d5d5d;
 }
 
 /* 메뉴 열 (1개 텍스트씩 전체 너비) */
@@ -1482,7 +1499,7 @@ body.font-xlarge {
 }
 
 .mypage-menu-item-full:active {
-    color: #333;
+    color: #5d5d5d;
 }
 
 /* 고객센터 정보 */
@@ -1507,7 +1524,7 @@ body.font-xlarge {
     border-radius: 12px;
     font-size: 16px;
     font-weight: 600;
-    color: #333;
+    color: #5d5d5d;
     cursor: pointer;
     transition: all 0.3s ease;
 }
@@ -1528,7 +1545,7 @@ body.font-xlarge {
 .remove-info-text {
     font-size: 18px;
     font-weight: 700;
-    color: #333;
+    color: #5d5d5d;
     margin-bottom: 8px;
 }
 
@@ -1736,11 +1753,13 @@ body:has(.edit-list-section) .tab-container {
     max-width: 393px;
     margin: 0 auto;
     height: 60px;
+    padding-top: env(safe-area-inset-top);
     background-color: white;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0 16px;
+    padding-left: 16px;
+    padding-right: 16px;
     z-index: 1000;
     border-bottom: 1px solid #f0f0f0;
 }
@@ -1753,7 +1772,7 @@ body:has(.edit-list-section) .tab-container {
 .memory-person-name {
     font-size: 18px;
     font-weight: 700;
-    color: #333;
+    color: #333333;
     text-align: center;
 }
 
@@ -1820,7 +1839,7 @@ body:has(.edit-list-section) .tab-container {
 .memory-banner-title {
     font-size: 19px;
     font-weight: 700;
-    color: #333;
+    color: #5d5d5d;
     line-height: 1.5;
     margin-bottom: 16px;
 }
@@ -1870,7 +1889,7 @@ body:has(.edit-list-section) .tab-container {
 .memory-types-title {
     font-size: 16px;
     font-weight: 700;
-    color: #333;
+    color: #5d5d5d;
     margin-bottom: 20px;
 }
 
@@ -1957,6 +1976,10 @@ body:has(.edit-list-section) .tab-container {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
     cursor: pointer;
     transition: transform 0.3s ease;
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .memory-feature-card:active {
@@ -1966,7 +1989,7 @@ body:has(.edit-list-section) .tab-container {
 .feature-card-title {
     font-size: 15px;
     font-weight: 700;
-    color: #333;
+    color: #5d5d5d;
     margin-bottom: 12px;
     line-height: 1.3;
 }
@@ -1974,9 +1997,23 @@ body:has(.edit-list-section) .tab-container {
 .feature-card-icon {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-end;
     font-size: 50px;
-    margin-top: 16px;
+    flex: 1;
+}
+
+.feature-icon-img {
+    width: 90px;
+    height: 90px;
+    object-fit: contain;
+}
+
+.feature-icon-img[alt="캘린더"] {
+    margin-top: 0;
+}
+
+.feature-icon-img[alt="장소별 추억"] {
+    margin-top: -20px;
 }
 
 /* 선물 카드 */
@@ -2001,7 +2038,7 @@ body:has(.edit-list-section) .tab-container {
 .gift-card-description {
     font-size: 16px;
     font-weight: 600;
-    color: #333;
+    color: #5d5d5d;
     line-height: 1.5;
 }
 
@@ -2081,7 +2118,7 @@ body:has(.edit-list-section) .tab-container {
 
 .share-modal-text {
     font-size: 15px;
-    color: #333;
+    color: #5d5d5d;
     line-height: 1.6;
     margin-bottom: 16px;
 }
@@ -2093,7 +2130,7 @@ body:has(.edit-list-section) .tab-container {
 
 .share-modal-question {
     font-size: 15px;
-    color: #333;
+    color: #5d5d5d;
     font-weight: 600;
     margin-bottom: 24px;
 }
@@ -2226,7 +2263,7 @@ body:has(.edit-list-section) .tab-container {
 .member-checkbox-name {
     font-size: 15px;
     font-weight: 600;
-    color: #333;
+    color: #5d5d5d;
     margin-bottom: 2px;
 }
 
@@ -2287,7 +2324,7 @@ body:has(.edit-list-section) .tab-container {
     border: 1px solid #e5e5e5;
     border-radius: 12px;
     font-size: 15px;
-    color: #333;
+    color: #5d5d5d;
     background-color: white;
     cursor: pointer;
     appearance: none;
@@ -2355,7 +2392,7 @@ body:has(.edit-list-section) .tab-container {
 .letter-person-name {
     font-size: 20px;
     font-weight: 700;
-    color: #333;
+    color: #5d5d5d;
     margin-bottom: 8px;
 }
 
@@ -2447,7 +2484,7 @@ body:has(.edit-list-section) .tab-container {
     border: 1px solid #e5e5e5;
     border-radius: 12px;
     font-size: 14px;
-    color: #333;
+    color: #5d5d5d;
     background-color: #f9f9f9;
 }
 
@@ -2495,7 +2532,7 @@ body:has(.edit-list-section) .tab-container {
 .letter-recipient {
     font-size: 16px;
     font-weight: 700;
-    color: #333;
+    color: #5d5d5d;
 }
 
 .letter-date {
@@ -2506,7 +2543,7 @@ body:has(.edit-list-section) .tab-container {
 .letter-title {
     font-size: 15px;
     font-weight: 600;
-    color: #333;
+    color: #5d5d5d;
     margin: 8px 0;
 }
 
@@ -2570,7 +2607,7 @@ body:has(.edit-list-section) .tab-container {
 .letter-write-user-name {
     font-size: 18px;
     font-weight: 700;
-    color: #333;
+    color: #5d5d5d;
     margin-bottom: 8px;
 }
 
@@ -2618,7 +2655,7 @@ body:has(.edit-list-section) .tab-container {
 .letter-write-label {
     font-size: 15px;
     font-weight: 600;
-    color: #333;
+    color: #5d5d5d;
 }
 
 .letter-write-note {
@@ -2694,7 +2731,7 @@ body:has(.edit-list-section) .tab-container {
     border: 1px solid #e5e5e5;
     border-radius: 12px;
     font-size: 15px;
-    color: #333;
+    color: #5d5d5d;
     background-color: white;
 }
 
@@ -2715,7 +2752,7 @@ body:has(.edit-list-section) .tab-container {
     border: 1px solid #e5e5e5;
     border-radius: 12px;
     font-size: 15px;
-    color: #333;
+    color: #5d5d5d;
     background-color: white;
     resize: vertical;
     font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -3180,7 +3217,7 @@ body:has(.edit-list-section) .tab-container {
 .voice-card-name {
     font-size: 16px;
     font-weight: 600;
-    color: #333;
+    color: #5d5d5d;
     margin: 0 0 4px 0;
 }
 
@@ -3316,7 +3353,7 @@ body:has(.edit-list-section) .tab-container {
 .voice-player-subject {
     font-size: 16px;
     font-weight: 600;
-    color: #333;
+    color: #5d5d5d;
     margin: 0 0 12px 0;
     text-align: center;
     word-break: keep-all;
@@ -3575,7 +3612,7 @@ body:has(.edit-list-section) .tab-container {
     font-size: 16px;
     font-weight: 600;
     line-height: 1.6;
-    color: #333;
+    color: #5d5d5d;
     margin-bottom: 12px;
 }
 
@@ -3613,7 +3650,39 @@ body:has(.edit-list-section) .tab-container {
 .group-profile-mini {
     display: flex;
     align-items: center;
-    padding-left: 8px;
+    justify-content: center;
+    width: 95px;
+    height: 95px;
+}
+
+/* 그룹 프로필 미니 - 4분할 그리드 */
+.group-profile-mini.has-members {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 4px;
+    width: 95px;
+    height: 95px;
+    padding: 0;
+}
+
+.group-profile-mini .group-member-profile-mini {
+    width: 100%;
+    height: 100%;
+    border-radius: 6px;
+    object-fit: cover;
+}
+
+.group-profile-mini .group-member-profile-placeholder-mini {
+    width: 100%;
+    height: 100%;
+    border-radius: 6px;
+    background: linear-gradient(135deg, #FFE8E8 0%, #FFD4D4 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    color: #FF9595;
 }
 
 /* 사진 검색바 */
@@ -3774,7 +3843,7 @@ body:has(.edit-list-section) .tab-container {
 
 .highlight-intro-text p {
     font-size: 14px;
-    color: #333;
+    color: #5d5d5d;
     margin: 4px 0;
     line-height: 1.5;
 }
@@ -3928,7 +3997,7 @@ body:has(.edit-list-section) .tab-container {
 .photo-section-title {
     font-size: 15px;
     font-weight: 700;
-    color: #333;
+    color: #5d5d5d;
     padding: 20px 20px 12px;
 }
 
@@ -4207,7 +4276,7 @@ body:has(.edit-list-section) .tab-container {
     font-size: 17px;
     font-weight: 600;
     flex: 1;
-    color: #333;
+    color: #333333;
 }
 
 .calendar-nav-btn {
@@ -4262,7 +4331,7 @@ body:has(.edit-list-section) .tab-container {
     border: 1.5px solid #FFD1D3;
     border-radius: 10px;
     font-size: 14px;
-    color: #333;
+    color: #5d5d5d;
     background: #FFF5F5;
     transition: all 0.2s ease;
 }
@@ -4297,7 +4366,7 @@ body:has(.edit-list-section) .tab-container {
     border: 1.5px solid #FFD1D3;
     border-radius: 10px;
     background: white;
-    color: #333;
+    color: #5d5d5d;
     font-size: 13px;
     font-weight: 500;
     cursor: pointer;
@@ -4352,7 +4421,7 @@ body:has(.edit-list-section) .tab-container {
 .calendar-filter-item {
     padding: 10px 16px;
     font-size: 14px;
-    color: #333;
+    color: #5d5d5d;
     cursor: pointer;
     transition: background 0.2s ease;
 }
@@ -4507,7 +4576,7 @@ body:has(.edit-list-section) .tab-container {
 .calendar-holidays-title {
     font-size: 14px;
     font-weight: 600;
-    color: #333;
+    color: #5d5d5d;
     margin-bottom: 12px;
 }
 
@@ -4537,7 +4606,7 @@ body:has(.edit-list-section) .tab-container {
 .calendar-holiday-name-text {
     font-size: 14px;
     font-weight: 500;
-    color: #333;
+    color: #5d5d5d;
     flex: 1;
 }
 
@@ -4566,13 +4635,15 @@ body:has(.edit-list-section) .tab-container {
 }
 
 .calendar-selected-date-icon {
-    font-size: 20px;
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
 }
 
 #selectedDateText {
     font-size: 15px;
     font-weight: 600;
-    color: #333;
+    color: #5d5d5d;
 }
 
 .calendar-show-all-btn {
@@ -4636,7 +4707,7 @@ body:has(.edit-list-section) .tab-container {
 .calendar-monthly-event-title {
     font-size: 15px;
     font-weight: 700;
-    color: #333;
+    color: #5d5d5d;
     line-height: 1.3;
 }
 
@@ -4701,7 +4772,7 @@ body:has(.edit-list-section) .tab-container {
 .calendar-events-title {
     font-size: 16px;
     font-weight: 700;
-    color: #333;
+    color: #5d5d5d;
 }
 
 .calendar-add-event-btn {
@@ -4756,7 +4827,7 @@ body:has(.edit-list-section) .tab-container {
 .calendar-event-title {
     font-size: 15px;
     font-weight: 600;
-    color: #333;
+    color: #5d5d5d;
     margin-bottom: 6px;
 }
 
@@ -4841,7 +4912,7 @@ body:has(.edit-list-section) .tab-container {
 .calendar-modal-title {
     font-size: 18px;
     font-weight: 700;
-    color: #333;
+    color: #5d5d5d;
     margin-bottom: 24px;
 }
 
@@ -4854,7 +4925,7 @@ body:has(.edit-list-section) .tab-container {
     display: block;
     font-size: 14px;
     font-weight: 600;
-    color: #333;
+    color: #5d5d5d;
     margin-bottom: 8px;
 }
 
@@ -4916,7 +4987,7 @@ body:has(.edit-list-section) .tab-container {
 }
 
 .calendar-color-option.selected {
-    border-color: #333;
+    border-color: #5d5d5d;
     transform: scale(1.15);
 }
 
@@ -5012,12 +5083,12 @@ body:has(.edit-list-section) .tab-container {
 .place-banner-text {
     font-size: 18px;
     font-weight: 400;
-    color: #333;
+    color: #5d5d5d;
 }
 
 .place-banner-message {
     font-size: 15px;
-    color: #333;
+    color: #5d5d5d;
     margin-bottom: 16px;
     line-height: 1.5;
 }
@@ -5031,7 +5102,7 @@ body:has(.edit-list-section) .tab-container {
 .place-total-count {
     font-size: 14px;
     font-weight: 600;
-    color: #333;
+    color: #5d5d5d;
 }
 
 .place-count-number {
@@ -5064,7 +5135,7 @@ body:has(.edit-list-section) .tab-container {
     border-bottom: 2px solid #FFD1D3;
     border-radius: 0;
     font-size: 14px;
-    color: #333;
+    color: #5d5d5d;
     background: white;
     transition: all 0.2s ease;
 }
@@ -5278,7 +5349,7 @@ body:has(.edit-list-section) .tab-container {
 .event-header-title {
     font-size: 18px;
     font-weight: 600;
-    color: #333;
+    color: #5d5d5d;
     margin: 0;
     line-height: 1.4;
     font-family: 'Pretendard', -apple-system, sans-serif;
@@ -5314,7 +5385,7 @@ body:has(.edit-list-section) .tab-container {
     border-radius: 8px;
     font-size: 14px;
     font-weight: 400;
-    color: #333;
+    color: #5d5d5d;
     background: white;
     font-family: 'Pretendard', -apple-system, sans-serif;
     line-height: 1.4;
@@ -5362,7 +5433,7 @@ body:has(.edit-list-section) .tab-container {
 .event-date-card span:nth-child(2) {
     font-size: 14px;
     font-weight: 500;
-    color: #333;
+    color: #5d5d5d;
     flex: 1;
     line-height: 1.4;
 }
@@ -5386,7 +5457,7 @@ body:has(.edit-list-section) .tab-container {
 .event-section-title {
     font-size: 14px;
     font-weight: 600;
-    color: #333;
+    color: #5d5d5d;
     margin-bottom: 12px;
     margin-top: 20px;
     line-height: 1.4;
@@ -5449,7 +5520,7 @@ body:has(.edit-list-section) .tab-container {
     cursor: pointer;
     font-size: 14px;
     font-weight: 400;
-    color: #333;
+    color: #5d5d5d;
     line-height: 1.4;
     transition: background 0.2s;
     font-family: 'Pretendard', -apple-system, sans-serif;
@@ -5514,7 +5585,7 @@ body:has(.edit-list-section) .tab-container {
     border-radius: 8px;
     font-size: 14px;
     font-weight: 400;
-    color: #333;
+    color: #5d5d5d;
     background: white;
     font-family: 'Pretendard', -apple-system, sans-serif;
     line-height: 1.4;
@@ -5573,7 +5644,7 @@ body:has(.edit-list-section) .tab-container {
 .event-search-result-item span:first-child {
     font-size: 14px;
     font-weight: 400;
-    color: #333;
+    color: #5d5d5d;
     font-family: 'Pretendard', -apple-system, sans-serif;
     line-height: 1.4;
 }
@@ -5611,7 +5682,7 @@ body:has(.edit-list-section) .tab-container {
     border-radius: 16px;
     font-size: 13px;
     font-weight: 500;
-    color: #333;
+    color: #5d5d5d;
     font-family: 'Pretendard', -apple-system, sans-serif;
     line-height: 1.4;
 }
@@ -5653,7 +5724,7 @@ body:has(.edit-list-section) .tab-container {
     background: white;
     min-height: 120px;
     line-height: 1.6;
-    color: #333;
+    color: #5d5d5d;
 }
 
 .event-content-textarea::placeholder {
@@ -5765,7 +5836,7 @@ body:has(.edit-list-section) .tab-container {
 .photo-plus-section-title {
     font-size: 17px;
     font-weight: 700;
-    color: #333;
+    color: #5d5d5d;
     margin: 0 0 16px 0;
 }
 
@@ -5865,7 +5936,7 @@ body:has(.edit-list-section) .tab-container {
 
 .photo-plus-search-result-text {
     font-size: 14px;
-    color: #333;
+    color: #5d5d5d;
     font-weight: 500;
 }
 
@@ -5991,7 +6062,7 @@ body:has(.edit-list-section) .tab-container {
     transition: all 0.2s;
     border-bottom: 1px solid #f5f5f5;
     font-size: 14px;
-    color: #333;
+    color: #5d5d5d;
 }
 
 .photo-plus-member-result-item:last-child {
@@ -6365,7 +6436,7 @@ body:has(.edit-list-section) .tab-container {
 
 .place-detail-photo-memo {
     font-size: 13px;
-    color: #333;
+    color: #5d5d5d;
     line-height: 1.5;
     margin-bottom: 8px;
     display: -webkit-box;
@@ -6670,7 +6741,7 @@ body:has(.edit-list-section) .tab-container {
 .gift-stats-title {
     font-size: 19px;
     font-weight: 700;
-    color: #333;
+    color: #5d5d5d;
     line-height: 1.5;
     margin-bottom: 16px;
 }
@@ -6881,7 +6952,7 @@ body:has(.edit-list-section) .tab-container {
 }
 
 .gift-product-description strong {
-    color: #333;
+    color: #5d5d5d;
     font-weight: 700;
     font-size: 14px;
 }
@@ -6986,7 +7057,7 @@ body:has(.edit-list-section) .tab-container {
 .group-members-title {
     font-size: 16px;
     font-weight: 700;
-    color: #333;
+    color: #5d5d5d;
     display: flex;
     align-items: center;
     gap: 8px;
@@ -7070,7 +7141,7 @@ body:has(.edit-list-section) .tab-container {
 .group-member-name {
     font-size: 15px;
     font-weight: 600;
-    color: #333;
+    color: #5d5d5d;
     margin-bottom: 4px;
 }
 
@@ -7145,7 +7216,7 @@ body:has(.edit-list-section) .tab-container {
 .product-title {
     font-size: 22px;
     font-weight: 700;
-    color: #333;
+    color: #5d5d5d;
     margin-bottom: 16px;
     line-height: 1.3;
 }
@@ -7186,7 +7257,7 @@ body:has(.edit-list-section) .tab-container {
 .product-final-price {
     font-size: 28px;
     font-weight: 700;
-    color: #333;
+    color: #5d5d5d;
 }
 
 /* 배송 섹션 */
@@ -7198,7 +7269,7 @@ body:has(.edit-list-section) .tab-container {
 .delivery-title {
     font-size: 18px;
     font-weight: 700;
-    color: #333;
+    color: #5d5d5d;
     margin-bottom: 16px;
 }
 
@@ -7225,7 +7296,7 @@ body:has(.edit-list-section) .tab-container {
 .delivery-date {
     font-size: 15px;
     font-weight: 600;
-    color: #333;
+    color: #5d5d5d;
     margin-bottom: 4px;
 }
 
@@ -7285,7 +7356,7 @@ body:has(.edit-list-section) .tab-container {
 }
 
 .detail-value {
-    color: #333;
+    color: #5d5d5d;
     font-weight: 500;
 }
 
@@ -7330,7 +7401,7 @@ body:has(.edit-list-section) .tab-container {
 .product-detail-title {
     font-size: 20px;
     font-weight: 700;
-    color: #333;
+    color: #5d5d5d;
     margin-bottom: 24px;
     padding-bottom: 12px;
     border-bottom: 2px solid #333;
@@ -7383,7 +7454,7 @@ body:has(.edit-list-section) .tab-container {
 .detail-card-title {
     font-size: 18px;
     font-weight: 700;
-    color: #333;
+    color: #5d5d5d;
     margin-bottom: 8px;
 }
 
@@ -7444,7 +7515,7 @@ body:has(.edit-list-section) .tab-container {
 
 .spec-value {
     font-size: 15px;
-    color: #333;
+    color: #5d5d5d;
     font-weight: 600;
 }
 
@@ -7458,7 +7529,7 @@ body:has(.edit-list-section) .tab-container {
 .detail-info-title {
     font-size: 17px;
     font-weight: 700;
-    color: #333;
+    color: #5d5d5d;
     margin-bottom: 12px;
     margin-top: 24px;
 }
@@ -7544,7 +7615,7 @@ body:has(.edit-list-section) .tab-container {
 .event-notification-message {
     font-size: 17px;
     font-weight: 600;
-    color: #333;
+    color: #5d5d5d;
     line-height: 1.6;
     margin-bottom: 12px;
 }
@@ -7697,7 +7768,7 @@ body:has(.edit-list-section) .tab-container {
 .letter-view-title {
     font-size: 20px;
     font-weight: 600;
-    color: #333;
+    color: #5d5d5d;
     margin: 0 0 12px 0;
     font-family: 'Pretendard', -apple-system, sans-serif;
 }
@@ -7721,7 +7792,7 @@ body:has(.edit-list-section) .tab-container {
 .letter-view-text {
     font-size: 15px;
     line-height: 1.8;
-    color: #333;
+    color: #5d5d5d;
     white-space: pre-wrap;
     word-wrap: break-word;
     margin-bottom: 24px;

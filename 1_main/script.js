@@ -8041,21 +8041,33 @@ document.addEventListener('DOMContentLoaded', function() {
             groupPhotoName.textContent = currentGroup.name + ' 그룹';
         }
 
-        // 그룹 멤버 프로필 표시 (미니 프로필)
+        // 그룹 멤버 프로필 표시 (4분할 그리드)
         const groupPhotoProfiles = document.getElementById('groupPhotoProfiles');
-        if (groupPhotoProfiles && currentGroup.members) {
-            groupPhotoProfiles.innerHTML = currentGroup.members.slice(0, 3).map(member => {
-                const memberName = typeof member === 'string' ? member : member.name;
-                const cleanName = memberName.replace('(나)', '').trim();
-                const connection = connections.find(c => c.name === cleanName);
-                const avatarSrc = connection && connection.avatar ? connection.avatar : '';
+        if (groupPhotoProfiles && currentGroup.members && currentGroup.members.length > 0) {
+            groupPhotoProfiles.innerHTML = '';
+            groupPhotoProfiles.classList.add('has-members');
 
-                return `
-                    <div style="width: 40px; height: 40px; border-radius: 50%; overflow: hidden; background: #FFE8E8; border: 2px solid white; margin-left: -8px; display: flex; align-items: center; justify-content: center;">
-                        ${avatarSrc ? `<img src="${avatarSrc}" style="width: 100%; height: 100%; object-fit: cover;">` : '<span style="font-size: 18px;">👤</span>'}
-                    </div>
-                `;
-            }).join('');
+            const displayMembers = currentGroup.members.slice(0, 4);
+            displayMembers.forEach(member => {
+                const memberName = typeof member === 'string' ? member : member.name;
+                const cleanMemberName = memberName.replace('(나)', '').trim();
+                const connection = connections.find(conn => conn.name === cleanMemberName);
+
+                const avatarSrc = (connection && connection.avatar) ? connection.avatar : (typeof member === 'object' ? member.profileImage : null);
+
+                if (avatarSrc) {
+                    const img = document.createElement('img');
+                    img.src = avatarSrc;
+                    img.alt = memberName;
+                    img.className = 'group-member-profile-mini';
+                    groupPhotoProfiles.appendChild(img);
+                } else {
+                    const placeholder = document.createElement('div');
+                    placeholder.className = 'group-member-profile-placeholder-mini';
+                    placeholder.textContent = '👤';
+                    groupPhotoProfiles.appendChild(placeholder);
+                }
+            });
         }
 
         // 사진/동영상 저장소
