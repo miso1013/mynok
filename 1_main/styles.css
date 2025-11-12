@@ -3247,6 +3247,12 @@ body:has(.edit-list-section) .tab-container {
     font-size: 32px;
 }
 
+.voice-card-icon-img {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+}
+
 .voice-listen-btn {
     padding: 8px 16px;
     background: linear-gradient(135deg, #FF9595 0%, #FF8A8A 100%);
