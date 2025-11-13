@@ -2,21 +2,21 @@
   "name": "마이노크",
   "short_name": "마이노크",
   "description": "소중한 인연과 추억을 공유하는 모바일 웹 애플리케이션",
-  "start_url": "/00_loading.html",
+  "start_url": "./00_loading.html",
   "display": "standalone",
   "background_color": "#FFFFFF",
   "theme_color": "#FF9595",
   "orientation": "portrait",
-  "scope": "/",
+  "scope": "./",
   "icons": [
     {
-      "src": "/img/마이노크 홈 아이콘_on.png",
+      "src": "../img/00_로고.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "/img/마이노크 홈 아이콘_on.png",
+      "src": "../img/마이노크 홈 아이콘_on.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"

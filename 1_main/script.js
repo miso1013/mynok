@@ -3971,8 +3971,10 @@ document.addEventListener('DOMContentLoaded', function() {
                         <p class="voice-card-preview">${voice.duration} | ${voice.subject}</p>
                     </div>
                     <div class="voice-card-actions">
-                        <img src="../img/소리가 있어 아이콘_01.png" alt="음성 듣기" class="voice-card-icon-img">
-                        <button class="voice-listen-btn" data-voice-id="${voice.id}">음성 듣기</button>
+                        <button class="voice-listen-btn" data-voice-id="${voice.id}">
+                            <img src="../img/음성듣기 아이콘.png" alt="음성 듣기" class="voice-card-icon-img">
+                            음성 듣기
+                        </button>
                     </div>
                 `;
 
