@@ -1,7 +1,8 @@
 // ==================== PWA Service Worker 등록 ====================
-if ('serviceWorker' in navigator) {
+// http/https 프로토콜에서만 작동 (file:// 프로토콜에서는 비활성화)
+if ('serviceWorker' in navigator && (location.protocol === 'http:' || location.protocol === 'https:')) {
     window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/service-worker.js')
+        navigator.serviceWorker.register('/1_main/service-worker.js')
             .then(registration => {
                 console.log('[PWA] Service Worker 등록 성공:', registration.scope);
             })
@@ -65,7 +66,7 @@ function initializeSampleData() {
         },
         {
             name: '할머니',
-            birthday: '8월 15일',
+            birthday: '4월 4일',
             contact: '01056789887',
             connectionType: 'person',
             memories: 654,
@@ -83,16 +84,16 @@ function initializeSampleData() {
         },
         {
             name: '아빠',
-            birthday: '정보 없음',
+            birthday: '5월 7일',
             contact: '정보 없음',
             connectionType: 'person',
             memories: 0,
-            avatar: '../img/miso/아빠_01.jpg',
+            avatar: '../img/miso/아빠_01.png',
             isSharing: true
         },
         {
             name: '엄마',
-            birthday: '정보 없음',
+            birthday: '2월 7일',
             contact: '정보 없음',
             connectionType: 'person',
             memories: 0,
@@ -132,6 +133,26 @@ function initializeSampleData() {
     const existingConnections = localStorage.getItem('mynokConnections');
     if (!existingConnections) {
         localStorage.setItem('mynokConnections', JSON.stringify(sampleConnections));
+    } else {
+        // 기존 데이터가 있으면 생일 정보 업데이트
+        const connections = JSON.parse(existingConnections);
+        const birthdayUpdates = {
+            '엄마': '2월 7일',
+            '아빠': '5월 7일',
+            '할머니': '4월 4일'
+        };
+
+        let updated = false;
+        connections.forEach(conn => {
+            if (birthdayUpdates[conn.name]) {
+                conn.birthday = birthdayUpdates[conn.name];
+                updated = true;
+            }
+        });
+
+        if (updated) {
+            localStorage.setItem('mynokConnections', JSON.stringify(connections));
+        }
     }
 
     // 일정 샘플 데이터 추가 (항상 추가)
@@ -254,7 +275,7 @@ function initializeSampleData() {
             members: [
                 { name: '할머니', relation: '그룹 멤버', profileImage: '../img/miso/할머니_01.png' },
                 { name: '엄마', relation: '그룹 멤버', profileImage: '../img/miso/엄마_01.png' },
-                { name: '아빠', relation: '그룹 멤버', profileImage: '../img/miso/아빠_01.jpg' },
+                { name: '아빠', relation: '그룹 멤버', profileImage: '../img/miso/아빠_01.png' },
                 { name: '미소', relation: '나', profileImage: '../img/miso/미소_01.jpg' }
             ],
             memoryKeeper: '미소',
@@ -267,6 +288,7 @@ function initializeSampleData() {
             members: [
                 { name: '지혜', relation: '그룹 멤버', profileImage: '../img/miso/지혜_01.jpg' },
                 { name: '혜진언니', relation: '그룹 멤버', profileImage: '../img/miso/혜진_01.jpg' },
+                { name: '찬희', relation: '그룹 멤버', profileImage: '../img/miso/찬희_01.jpg' },
                 { name: '미소', relation: '나', profileImage: '../img/miso/미소_01.jpg' }
             ],
             memoryKeeper: '미소',
@@ -280,6 +302,594 @@ function initializeSampleData() {
     if (!savedGroups) {
         localStorage.setItem('mynokGroups', JSON.stringify(defaultGroups));
     }
+
+    // 장소별 추억 샘플 데이터 추가 (강훈)
+    const placePhotosKey = 'mynokPlacePhotos';
+    const existingPlacePhotos = localStorage.getItem(placePhotosKey);
+    if (!existingPlacePhotos) {
+        const samplePlacePhotos = [
+            {
+                id: Date.now() + 1,
+                location: '제주도, 서귀포시',
+                season: 'winter',
+                shareMethod: 'select',
+                sharedWith: ['강훈'],
+                memo: '제주도 겨울 여행 🍊',
+                fileCount: 2,
+                thumbnails: ['../img/kanghoon/2024.12.30_강훈1.jpg', '../img/kanghoon/2024.12.30_강훈2.jpg'],
+                thumbnail: '../img/kanghoon/2024.12.30_강훈1.jpg',
+                createdAt: '2024-12-30T00:00:00.000Z'
+            },
+            {
+                id: Date.now() + 2,
+                location: '서울, 성동구',
+                season: 'spring',
+                shareMethod: 'select',
+                sharedWith: ['강훈'],
+                memo: '성동구 봄 산책',
+                fileCount: 1,
+                thumbnails: ['../img/kanghoon/2025.05.8_강훈1.jpg'],
+                thumbnail: '../img/kanghoon/2025.05.8_강훈1.jpg',
+                createdAt: '2025-05-08T00:00:00.000Z'
+            },
+            {
+                id: Date.now() + 3,
+                location: '서울, 강남구',
+                season: 'summer',
+                shareMethod: 'select',
+                sharedWith: ['강훈'],
+                memo: '여름 데이트 🌞',
+                fileCount: 1,
+                thumbnails: ['../img/kanghoon/2025.08.12_강훈1.jpg'],
+                thumbnail: '../img/kanghoon/2025.08.12_강훈1.jpg',
+                createdAt: '2025-08-12T00:00:00.000Z'
+            },
+            {
+                id: Date.now() + 4,
+                location: '경기도, 가평군',
+                season: 'spring',
+                shareMethod: 'select',
+                sharedWith: ['강훈'],
+                memo: '가평 드라이브',
+                fileCount: 1,
+                thumbnails: ['../img/kanghoon/2024.05.26_강훈1.jpg'],
+                thumbnail: '../img/kanghoon/2024.05.26_강훈1.jpg',
+                createdAt: '2024-05-26T00:00:00.000Z'
+            },
+            {
+                id: Date.now() + 5,
+                location: '인천, 중구',
+                season: 'spring',
+                shareMethod: 'select',
+                sharedWith: ['강훈'],
+                memo: '차이나타운 나들이',
+                fileCount: 1,
+                thumbnails: ['../img/kanghoon/2025.03.10_강훈1.jpg'],
+                thumbnail: '../img/kanghoon/2025.03.10_강훈1.jpg',
+                createdAt: '2025-03-10T00:00:00.000Z'
+            },
+            {
+                id: Date.now() + 6,
+                location: '강원도, 강릉시',
+                season: 'summer',
+                shareMethod: 'select',
+                sharedWith: ['강훈'],
+                memo: '강릉 바다 여행 🌊',
+                fileCount: 1,
+                thumbnails: ['../img/kanghoon/2025.7.14_강훈1.jpg'],
+                thumbnail: '../img/kanghoon/2025.7.14_강훈1.jpg',
+                createdAt: '2025-07-14T00:00:00.000Z'
+            },
+            {
+                id: Date.now() + 7,
+                location: '부산, 해운대구',
+                season: 'fall',
+                shareMethod: 'select',
+                sharedWith: ['강훈'],
+                memo: '부산 가을 여행 🍂',
+                fileCount: 1,
+                thumbnails: ['../img/kanghoon/2024.9.28_강훈1.jpg'],
+                thumbnail: '../img/kanghoon/2024.9.28_강훈1.jpg',
+                createdAt: '2024-09-28T00:00:00.000Z'
+            }
+        ];
+        localStorage.setItem(placePhotosKey, JSON.stringify(samplePlacePhotos));
+        console.log('장소별 추억 샘플 데이터 추가 완료:', samplePlacePhotos.length, '개');
+    }
+
+    // 시월이 사진/영상 샘플 데이터 (2022년 6월까지)
+    const sewerPhotosKey = 'mynokPhotos_시월이';
+    // 항상 새 데이터로 덮어쓰기
+    const sampleSewerPhotos = [
+        {
+            id: Date.now() + 101,
+            type: 'photo',
+            url: '../img/seewer/시월이_01.jpg',
+            date: '2021.10.02',
+            memo: '시월이 생일 🎂',
+            tags: [],
+            favorite: true,
+            createdAt: '2021-10-02T00:00:00.000Z'
+        },
+        {
+            id: Date.now() + 102,
+            type: 'photo',
+            url: '../img/seewer/시월이_03.jpg',
+            date: '2021.10.15',
+            memo: '창가에서 노는 시월이 🐾',
+            tags: [],
+            favorite: false,
+            createdAt: '2021-10-15T00:00:00.000Z'
+        },
+        {
+            id: Date.now() + 103,
+            type: 'photo',
+            url: '../img/seewer/시월이_05.jpg',
+            date: '2021.11.20',
+            memo: '겨울 시월이',
+            tags: [],
+            favorite: false,
+            createdAt: '2021-11-20T00:00:00.000Z'
+        },
+        {
+            id: Date.now() + 104,
+            type: 'photo',
+            url: '../img/seewer/시월이_07.jpg',
+            date: '2021.12.25',
+            memo: '크리스마스 시월이 🎄',
+            tags: [],
+            favorite: true,
+            createdAt: '2021-12-25T00:00:00.000Z'
+        },
+        {
+            id: Date.now() + 105,
+            type: 'photo',
+            url: '../img/seewer/시월이_09.jpg',
+            date: '2022.01.01',
+            memo: '새해 첫날',
+            tags: [],
+            favorite: false,
+            createdAt: '2022-01-01T00:00:00.000Z'
+        },
+        {
+            id: Date.now() + 106,
+            type: 'photo',
+            url: '../img/seewer/시월이_11.jpg',
+            date: '2022.02.14',
+            memo: '발렌타인 데이 🍫',
+            tags: [],
+            favorite: true,
+            createdAt: '2022-02-14T00:00:00.000Z'
+        },
+        {
+            id: Date.now() + 107,
+            type: 'photo',
+            url: '../img/seewer/시월이_13.jpg',
+            date: '2022.03.21',
+            memo: '봄맞이 시월이 🌸',
+            tags: [],
+            favorite: false,
+            createdAt: '2022-03-21T00:00:00.000Z'
+        },
+        {
+            id: Date.now() + 108,
+            type: 'photo',
+            url: '../img/seewer/시월이_15.jpg',
+            date: '2022.04.05',
+            memo: '벚꽃 계절',
+            tags: [],
+            favorite: false,
+            createdAt: '2022-04-05T00:00:00.000Z'
+        },
+        {
+            id: Date.now() + 109,
+            type: 'photo',
+            url: '../img/seewer/시월이_17.jpg',
+            date: '2022.05.15',
+            memo: '햇살 좋은 날 ☀️',
+            tags: [],
+            favorite: true,
+            createdAt: '2022-05-15T00:00:00.000Z'
+        },
+        {
+            id: Date.now() + 110,
+            type: 'photo',
+            url: '../img/seewer/시월이_19.jpg',
+            date: '2022.06.10',
+            memo: '집에서 놀기',
+            tags: [],
+            favorite: false,
+            createdAt: '2022-06-10T00:00:00.000Z'
+        },
+        {
+            id: Date.now() + 111,
+            type: 'photo',
+            url: '../img/seewer/시월이_21.jpg',
+            date: '2021.07.20',
+            memo: '여름 나기',
+            tags: [],
+            favorite: false,
+            createdAt: '2021-07-20T00:00:00.000Z'
+        },
+        {
+            id: Date.now() + 112,
+            type: 'photo',
+            url: '../img/seewer/시월이_23.jpg',
+            date: '2021.08.15',
+            memo: '더운 여름 🌞',
+            tags: [],
+            favorite: false,
+            createdAt: '2021-08-15T00:00:00.000Z'
+        }
+    ];
+    localStorage.setItem(sewerPhotosKey, JSON.stringify(sampleSewerPhotos));
+    console.log('시월이 사진 샘플 데이터 추가 완료:', sampleSewerPhotos.length, '개');
+
+    // 시월이 편지 샘플 데이터
+    const sewerLettersKey = 'mynokLetters_시월이';
+    // 항상 새 데이터로 덮어쓰기 (기존 조건 제거)
+    const sampleSewerLetters = [
+            // 2021년 - 행복했던 시절
+            {
+                id: Date.now() + 201,
+                type: 'sent',
+                sender: '미소',
+                recipient: '시월이',
+                subject: '우리 시월이에게',
+                content: '시월아, 오늘도 너무 귀여워! 같이 집에서 노는 시간이 제일 행복해 🐾',
+                date: '2021.02.10',
+                image: '../img/seewer/시월이_01.jpg',
+                createdAt: '2021-02-10T00:00:00.000Z'
+            },
+            {
+                id: Date.now() + 202,
+                type: 'sent',
+                sender: '미소',
+                recipient: '시월이',
+                subject: '같이 놀자!',
+                content: '시월아, 날씨가 좋으니까 창가에서 햇살 쬐면서 놀자! 네가 제일 좋아하는 장난감으로 💚',
+                date: '2021.04.15',
+                image: '../img/seewer/시월이_03.jpg',
+                createdAt: '2021-04-15T00:00:00.000Z'
+            },
+            {
+                id: Date.now() + 203,
+                type: 'sent',
+                sender: '미소',
+                recipient: '시월이',
+                subject: '여름이야',
+                content: '시월아, 더워도 집에서 신나게 뛰어노는 우리 시월이! 오늘도 엄청 귀여웠어 🌞',
+                date: '2021.07.20',
+                image: '../img/seewer/시월이_05.jpg',
+                createdAt: '2021-07-20T00:00:00.000Z'
+            },
+            {
+                id: Date.now() + 204,
+                type: 'sent',
+                sender: '미소',
+                recipient: '시월이',
+                subject: '추석 잘 보냈어',
+                content: '시월아, 오늘 추석이라 맛있는 거 많이 줬지? 엄마랑 할머니가 시월이 좋아하는 거 많이 챙겨주셨어 🌕',
+                date: '2021.09.21',
+                image: '../img/seewer/시월이_07.jpg',
+                createdAt: '2021-09-21T00:00:00.000Z'
+            },
+            {
+                id: Date.now() + 205,
+                type: 'sent',
+                sender: '미소',
+                recipient: '시월이',
+                subject: '생일 축하해',
+                content: '시월아, 우리 시월이 생일 축하해! 건강하게 오래오래 엄마 곁에 있어줘 🎂',
+                date: '2021.10.02',
+                image: '../img/seewer/시월이_02.jpg',
+                createdAt: '2021-10-02T00:00:00.000Z'
+            },
+            {
+                id: Date.now() + 206,
+                type: 'sent',
+                sender: '미소',
+                recipient: '시월이',
+                subject: '가을이야',
+                content: '시월아, 오늘 창밖에 가을 단풍이 너무 예뻐! 시월이도 창가에서 구경했지? 🍂',
+                date: '2021.11.05',
+                image: '../img/seewer/시월이_09.jpg',
+                createdAt: '2021-11-05T00:00:00.000Z'
+            },
+            {
+                id: Date.now() + 207,
+                type: 'sent',
+                sender: '미소',
+                recipient: '시월이',
+                subject: '메리 크리스마스',
+                content: '시월아, 메리 크리스마스! 올해도 너와 함께 크리스마스를 보낼 수 있어서 행복했어 🎄',
+                date: '2021.12.25',
+                image: '../img/seewer/시월이_11.jpg',
+                createdAt: '2021-12-25T00:00:00.000Z'
+            },
+            // 2022년 - 아픔과 이별
+            {
+                id: Date.now() + 208,
+                type: 'sent',
+                sender: '미소',
+                recipient: '시월이',
+                subject: '시월아 안녕',
+                content: '시월아 오늘은 너가 많이 아프다는 말을 병원에서 들었어. 엄마라는 사람이 우리 시월이 아픈걸 너무 늦게 알았다. 어서 나아서 엄마 옆에서 오래오래 행복해줘',
+                date: '2022.06.15',
+                image: '../img/seewer/시월이_13.jpg',
+                createdAt: '2022-06-15T00:00:00.000Z'
+            },
+            {
+                id: Date.now() + 209,
+                type: 'sent',
+                sender: '미소',
+                recipient: '시월이',
+                subject: '시월아',
+                content: '약을 먹어도 많이 힘들어하는 모습을 보니까 너무너무 마음이 아파. 그래도 잘 견뎌주고있는 모습에 대견하면서도 너무 불안해지는 것 같아 엄마가 너무 늦게 알아줘서 미안해',
+                date: '2022.06.26',
+                image: '../img/seewer/시월이_15.jpg',
+                createdAt: '2022-06-26T00:00:00.000Z'
+            },
+            {
+                id: Date.now() + 210,
+                type: 'sent',
+                sender: '미소',
+                recipient: '시월이',
+                subject: '세상에서 제일 이쁜 시월이에게',
+                content: '있잖아 시월아 오늘 우리 시월이가 엄마 곁에서 별나라로 간 날이야 엄마는 아직 시월이가 없는 하루를 견딜 자신이 없는데 우리 시월이는 엄마가 힘들까봐 일주일동안 꿈에 나와서 둘째를 데려와줬구나? 덕분에 엄마는 유월이를 보면서 더 나은 엄마가 되려 노력할 것 같아. 그치만 시월아 엄마는 계속 더 못해줬던 날들이 떠오르고 더 잘해주지 못한 날들에 미안해진다. 먼훗날 엄마가 시월이 있는 곳으로 가면 그때 꼭 더 행복하게 해줄게 엄마가 서투르고 지켜주지 못해서 너무 미안해 많이 많이 사랑해 우리 시월이',
+                date: '2022.06.30',
+                image: '../img/seewer/시월이_17.jpg',
+                createdAt: '2022-06-30T00:00:00.000Z'
+            },
+            // 2024년 이후 - 그리움
+            {
+                id: Date.now() + 211,
+                type: 'sent',
+                sender: '미소',
+                recipient: '시월이',
+                subject: '시월이 보고싶어',
+                content: '시월아, 벌써 2년이 지났는데 엄마는 아직도 너를 너무 보고싶어. 유월이를 보면서 너를 더 잘해주지 못한 날들이 계속 떠올라. 별나라에서 행복하게 잘 지내고 있지?',
+                date: '2024.06.30',
+                image: '../img/seewer/시월이_19.jpg',
+                createdAt: '2024-06-30T00:00:00.000Z'
+            },
+            {
+                id: Date.now() + 212,
+                type: 'sent',
+                sender: '미소',
+                recipient: '시월이',
+                subject: '너의 생일',
+                content: '시월아, 오늘은 네 생일이야. 네가 없는 생일은 너무 슬프다. 맛있는 거 챙겨주지 못해서, 함께 축하해주지 못해서 미안해. 별나라에서도 건강하게 지내길 엄마가 매일 기도할게',
+                date: '2024.10.02',
+                image: '../img/seewer/시월이_04.jpg',
+                createdAt: '2024-10-02T00:00:00.000Z'
+            },
+            {
+                id: Date.now() + 213,
+                type: 'sent',
+                sender: '미소',
+                recipient: '시월이',
+                subject: '가을이 왔어',
+                content: '시월아, 너가 좋아하던 가을이 왔어. 창밖 단풍을 보니 창가에서 유월이랑 같이 바깥 구경하던 시월이 모습이 떠올라. 집안을 신나게 뛰어다니던 너의 모습이 자꾸 생각나서 엄마가 많이 울었어',
+                date: '2024.11.10',
+                image: '../img/seewer/시월이_21.jpg',
+                createdAt: '2024-11-10T00:00:00.000Z'
+            },
+            {
+                id: Date.now() + 214,
+                type: 'sent',
+                sender: '미소',
+                recipient: '시월이',
+                subject: '크리스마스를 맞이하며',
+                content: '시월아, 너랑 함께했던 크리스마스가 그립다. 유월이 덕분에 조금은 견딜만 해졌지만, 여전히 네가 너무 보고싶어. 별나라에도 산타 할아버지가 찾아갈까?',
+                date: '2024.12.24',
+                image: '../img/seewer/시월이_23.jpg',
+                createdAt: '2024-12-24T00:00:00.000Z'
+            },
+            {
+                id: Date.now() + 215,
+                type: 'sent',
+                sender: '미소',
+                recipient: '시월이',
+                subject: '새해가 밝았어',
+                content: '시월아, 새해가 밝았어. 2025년에도 엄마는 시월이 생각하면서 살 것 같아. 너는 별나라에서 아프지 않고 편안하게 지내고 있겠지? 엄마가 더 잘해주지 못해서 미안해',
+                date: '2025.01.01',
+                image: '../img/seewer/시월이_06.jpg',
+                createdAt: '2025-01-01T00:00:00.000Z'
+            },
+            {
+                id: Date.now() + 216,
+                type: 'sent',
+                sender: '미소',
+                recipient: '시월이',
+                subject: '꿈에서 만났어',
+                content: '시월아, 어젯밤 꿈에서 너를 만났어. 네가 웃으면서 엄마한테 달려오는데 너무 반가워서 깼더니 눈물이 나더라. 다음에는 꿈에서라도 더 오래 함께 있고싶어',
+                date: '2025.03.15',
+                image: '../img/seewer/시월이_08.jpg',
+                createdAt: '2025-03-15T00:00:00.000Z'
+            },
+            {
+                id: Date.now() + 217,
+                type: 'sent',
+                sender: '미소',
+                recipient: '시월이',
+                subject: '봄날의 그리움',
+                content: '시월아, 너가 좋아하던 봄이 왔어. 따뜻한 햇살이 창가로 들어오면 거기 앉아있던 우리의 모습이 떠올라. 너 없는 봄은 엄마에게는 여전히 낯설고 외로워. 별나라에는 아름다운 봄꽃이 피었을까?',
+                date: '2025.04.20',
+                image: '../img/seewer/시월이_12.jpg',
+                createdAt: '2025-04-20T00:00:00.000Z'
+            },
+            {
+                id: Date.now() + 218,
+                type: 'sent',
+                sender: '미소',
+                recipient: '시월이',
+                subject: '시월이를 사랑해',
+                content: '시월아, 엄마는 오늘도 너를 사랑해. 더 많은 시간을 함께 하지 못한 게, 더 많이 사랑해주지 못한 게 너무 후회돼. 그래도 우리가 함께했던 시간들은 엄마에게 가장 소중한 보물이야',
+                date: '2025.05.28',
+                image: '../img/seewer/시월이_16.jpg',
+                createdAt: '2025-05-28T00:00:00.000Z'
+            }
+    ];
+    localStorage.setItem(sewerLettersKey, JSON.stringify(sampleSewerLetters));
+    console.log('시월이 편지 샘플 데이터 추가 완료:', sampleSewerLetters.length, '개');
+
+    // 시월이 장소별 추억 데이터 추가 (정확히 5개만 유지)
+    const existingPlacePhotosForSewer = localStorage.getItem(placePhotosKey);
+    if (existingPlacePhotosForSewer) {
+        let currentPlacePhotos = JSON.parse(existingPlacePhotosForSewer);
+
+        // 시월이 관련 데이터 카운트
+        const sewerPhotos = currentPlacePhotos.filter(photo =>
+            photo.sharedWith && photo.sharedWith.includes('시월이')
+        );
+
+        // 정확히 5개가 아니면 초기화
+        if (sewerPhotos.length !== 5) {
+            // 모든 시월이 데이터 제거
+            currentPlacePhotos = currentPlacePhotos.filter(photo =>
+                !photo.sharedWith || !photo.sharedWith.includes('시월이')
+            );
+
+            // 정확히 5개의 새 데이터 추가
+            const sewerPlacePhotos = [
+                {
+                    id: 1645416000301,
+                    location: '서울, 용산구',
+                    season: 'spring',
+                    shareMethod: 'select',
+                    sharedWith: ['시월이'],
+                    memo: '창가에서 바라본 한강 🌸',
+                    fileCount: 2,
+                    thumbnails: ['../img/seewer/시월이_10.jpg', '../img/seewer/시월이_11.jpg'],
+                    thumbnail: '../img/seewer/시월이_10.jpg',
+                    createdAt: '2022-04-10T00:00:00.000Z'
+                },
+                {
+                    id: 1652583600302,
+                    location: '서울, 강남구',
+                    season: 'spring',
+                    shareMethod: 'select',
+                    sharedWith: ['시월이'],
+                    memo: '집 근처 풍경',
+                    fileCount: 2,
+                    thumbnails: ['../img/seewer/시월이_18.jpg', '../img/seewer/시월이_19.jpg'],
+                    thumbnail: '../img/seewer/시월이_18.jpg',
+                    createdAt: '2022-05-15T00:00:00.000Z'
+                },
+                {
+                    id: 1634688000303,
+                    location: '서울, 마포구',
+                    season: 'fall',
+                    shareMethod: 'select',
+                    sharedWith: ['시월이'],
+                    memo: '창밖 가을 풍경 🍂',
+                    fileCount: 2,
+                    thumbnails: ['../img/seewer/시월이_22.jpg', '../img/seewer/시월이_23.jpg'],
+                    thumbnail: '../img/seewer/시월이_22.jpg',
+                    createdAt: '2021-10-20T00:00:00.000Z'
+                },
+                {
+                    id: 1639094400304,
+                    location: '경기도, 남양주시',
+                    season: 'winter',
+                    shareMethod: 'select',
+                    sharedWith: ['시월이'],
+                    memo: '첫 눈 구경 ❄️',
+                    fileCount: 1,
+                    thumbnails: ['../img/seewer/시월이_24.jpg'],
+                    thumbnail: '../img/seewer/시월이_24.jpg',
+                    createdAt: '2021-12-10T00:00:00.000Z'
+                },
+                {
+                    id: 1648166400305,
+                    location: '서울, 성동구',
+                    season: 'spring',
+                    shareMethod: 'select',
+                    sharedWith: ['시월이'],
+                    memo: '뚝섬 공원 풍경',
+                    fileCount: 2,
+                    thumbnails: ['../img/seewer/시월이_14.jpg', '../img/seewer/시월이_15.jpg'],
+                    thumbnail: '../img/seewer/시월이_14.jpg',
+                    createdAt: '2022-03-25T00:00:00.000Z'
+                }
+            ];
+
+            const updatedPlacePhotos = [...currentPlacePhotos, ...sewerPlacePhotos];
+            localStorage.setItem(placePhotosKey, JSON.stringify(updatedPlacePhotos));
+            console.log('시월이 장소별 추억 데이터 초기화 완료: 5개');
+        } else {
+            console.log('시월이 장소별 추억 데이터 정상 (5개)');
+        }
+    }
+
+    // 시월이 음성 메시지 샘플 데이터 (2022년 6월까지)
+    const sewerVoicesKey = 'mynokVoices_시월이';
+    // 항상 새 데이터로 덮어쓰기
+    const sampleSewerVoices = [
+            {
+                id: 1,
+                type: 'sent',
+                sender: '미소',
+                date: '2021.10.02',
+                duration: '02분 15초',
+                subject: '시월아 생일 축하해 🎂',
+                message: '우리 시월이 생일 축하해! 오늘은 네가 제일 좋아하는 간식 많이 줄게',
+                createdAt: '2021-10-02T10:00:00'
+            },
+            {
+                id: 2,
+                type: 'sent',
+                sender: '미소',
+                date: '2021.11.15',
+                duration: '01분 30초',
+                subject: '같이 놀자 시월아! 🐾',
+                message: '시월아 날씨 너무 좋다! 오늘은 집에서 신나게 놀자',
+                createdAt: '2021-11-15T14:00:00'
+            },
+            {
+                id: 3,
+                type: 'sent',
+                sender: '미소',
+                date: '2021.12.25',
+                duration: '03분 20초',
+                subject: '메리 크리스마스 시월아 🎄',
+                message: '시월아 메리 크리스마스! 오늘 산타 할아버지가 선물 가져다줬어. 새 장난감이랑 맛있는 간식!',
+                createdAt: '2021-12-25T09:00:00'
+            },
+            {
+                id: 4,
+                type: 'sent',
+                sender: '미소',
+                date: '2022.01.01',
+                duration: '02분 45초',
+                subject: '새해 복 많이 받아 🎊',
+                message: '시월아 새해 복 많이 받아! 2022년에도 건강하게 같이 오래오래 행복하자',
+                createdAt: '2022-01-01T00:30:00'
+            },
+            {
+                id: 5,
+                type: 'sent',
+                sender: '미소',
+                date: '2022.03.21',
+                duration: '01분 50초',
+                subject: '봄이 왔어 시월아 🌸',
+                message: '시월아 봄꽃이 피었어! 창밖 보니 너무 예쁘다. 같이 창가에서 구경하자',
+                createdAt: '2022-03-21T15:00:00'
+            },
+            {
+                id: 6,
+                type: 'sent',
+                sender: '미소',
+                date: '2022.05.20',
+                duration: '02분 10초',
+                subject: '시월아 사랑해 💕',
+                message: '우리 시월이 오늘 엄청 귀엽다. 너는 정말 세상에서 제일 사랑스러운 고양이야',
+                createdAt: '2022-05-20T12:00:00'
+            }
+    ];
+    localStorage.setItem(sewerVoicesKey, JSON.stringify(sampleSewerVoices));
+    console.log('시월이 음성 메시지 샘플 데이터 추가 완료:', sampleSewerVoices.length, '개');
 }
 
 // 탭 전환 기능
@@ -448,8 +1058,8 @@ document.addEventListener('DOMContentLoaded', function() {
             // 아빠 프로필 이미지 및 공유 상태 업데이트
             const dad = connections.find(conn => conn.name === '아빠');
             if (dad) {
-                if (dad.avatar !== '../img/miso/아빠_01.jpg') {
-                    dad.avatar = '../img/miso/아빠_01.jpg';
+                if (dad.avatar !== '../img/miso/아빠_01.png') {
+                    dad.avatar = '../img/miso/아빠_01.png';
                     updated = true;
                 }
                 if (dad.isSharing !== true) {
@@ -2284,6 +2894,24 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // 마이페이지에서 그룹 인연 만들기 버튼 클릭
+    const createGroupBtn = document.getElementById('createGroupBtn');
+    if (createGroupBtn) {
+        createGroupBtn.addEventListener('click', function() {
+            window.location.href = 'new_group.html';
+        });
+    }
+
+    // 마이페이지에서 로그아웃 버튼 클릭
+    const logoutBtn = document.getElementById('logoutBtn');
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', function() {
+            if (confirm('로그아웃 하시겠습니까?')) {
+                window.location.href = '00_login.html';
+            }
+        });
+    }
+
     // 그룹 만들기 페이지 - 뒤로 가기 버튼
     const backFromNewGroup = document.getElementById('backFromNewGroup');
     if (backFromNewGroup) {
@@ -2659,7 +3287,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
             item.innerHTML = `
                 <input type="checkbox" class="remove-checkbox" data-name="${group.name}" data-type="group">
-                <div class="remove-connection-avatar">👥</div>
+                <div class="remove-connection-avatar">
+                    <img src="../img/마이노크 전체보기 아이콘.png" alt="그룹" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
+                </div>
                 <div class="remove-connection-info">
                     <div class="remove-connection-name">${group.name}</div>
                     <div class="remove-connection-details">멤버 ${group.members.length}명 • 추억장: ${group.memoryKeeper}</div>
@@ -3298,8 +3928,13 @@ document.addEventListener('DOMContentLoaded', function() {
                     window.location.href = '03_calendar.html';
                 });
             }
-            // 장소별 추억 확인 카드 클릭
+            // 장소별 추억 확인 카드 클릭 (개인 메모리 페이지만)
             if (title && (title.textContent.includes('장소별') || title.textContent.includes('추억 확인'))) {
+                // 그룹 카드는 별도 이벤트가 있으므로 제외
+                if (card.id === 'groupPlacePhotoCard') {
+                    return;
+                }
+
                 card.addEventListener('click', function() {
                     // URL 파라미터에서 인연 이름 가져오기
                     const urlParams = new URLSearchParams(window.location.search);
@@ -3323,10 +3958,43 @@ document.addEventListener('DOMContentLoaded', function() {
         const urlParams = new URLSearchParams(window.location.search);
         const personName = urlParams.get('name');
 
-        if (personName) {
-            letterPersonName.textContent = `${personName} 님과`;
+        // 인연 정보 가져오기
+        const connections = JSON.parse(localStorage.getItem('mynokConnections') || '[]');
+        const person = connections.find(c => c.name === personName);
+
+        // 반려동물인 경우 텍스트와 탭 UI 변경
+        if (person && person.connectionType === 'pet') {
+            // 인사말 텍스트 변경
+            letterPersonName.textContent = `${personName}님께`;
+            const greetingMessage = document.querySelector('.letter-greeting-message');
+            if (greetingMessage) {
+                greetingMessage.innerHTML = '보낸 소중한 문장들이<br>지금 여기에 간직되고 있어요.';
+            }
+
+            // 탭 컨테이너 완전히 숨기기
+            const tabContainer = document.querySelector('.letter-tab-container');
+            if (tabContainer) {
+                tabContainer.style.display = 'none';
+            }
+
+            // 받은 편지함 콘텐츠 숨기기
+            const receivedContent = document.getElementById('receivedLetterTab');
+            if (receivedContent) {
+                receivedContent.style.display = 'none';
+            }
+
+            // 보낸 편지함 콘텐츠만 표시
+            const sentContent = document.getElementById('sentLetterTab');
+            if (sentContent) {
+                sentContent.style.display = 'block';
+            }
         } else {
-            letterPersonName.textContent = '소중한 인연과';
+            // 일반 인연인 경우
+            if (personName) {
+                letterPersonName.textContent = `${personName} 님과`;
+            } else {
+                letterPersonName.textContent = '소중한 인연과';
+            }
         }
 
         // localStorage 키 설정
@@ -3863,13 +4531,24 @@ document.addEventListener('DOMContentLoaded', function() {
             connectionProfileName.textContent = person.name;
         }
 
-        // 반려동물인 경우 받은 음성함 탭 숨기기
+        // 반려동물인 경우 받은 편지함/음성함 탭 숨기기
         const receivedTab = document.getElementById('receivedTab');
         const sentTab = document.getElementById('sentTab');
         const receivedVoiceTab = document.getElementById('receivedVoiceTab');
         const sentVoiceTab = document.getElementById('sentVoiceTab');
+        const receivedLetterTabBtn = document.querySelector('.letter-tab-btn[data-tab="received"]');
+        const sentLetterTabBtn = document.querySelector('.letter-tab-btn[data-tab="sent"]');
 
         if (person.connectionType === 'pet') {
+            // 받은 편지함 탭 버튼 숨기기
+            if (receivedLetterTabBtn) {
+                receivedLetterTabBtn.style.display = 'none';
+            }
+            // 보낸 편지함 탭 활성화
+            if (sentLetterTabBtn) {
+                sentLetterTabBtn.classList.add('active');
+            }
+
             // 받은 음성함 탭 숨기기
             if (receivedTab) {
                 receivedTab.style.display = 'none';
@@ -3913,8 +4592,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     sender: '미소',
                     date: '2025.06.03',
                     duration: '03분 47초',
-                    subject: '오빠랑 같이 대통령 선거 투표...',
-                    message: '오빠랑 같이 대통령 선거 투표하러 갔어',
+                    subject: '오늘 하루 어땠는지 들려줘',
+                    message: '오늘 하루 정말 좋았어. 너랑 함께한 시간이 행복했어',
                     createdAt: '2025-06-03T14:30:00'
                 }
             ];
@@ -3959,8 +4638,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 const voiceCard = document.createElement('div');
                 voiceCard.className = 'voice-card';
 
-                const avatarStyle = person.avatar
-                    ? `background-image: url(${person.avatar})`
+                // 받은 음성함: 상대방 프로필, 보낸 음성함: 미소 프로필
+                let avatarUrl;
+                if (filterType === 'received') {
+                    avatarUrl = person.avatar || null;
+                } else {
+                    avatarUrl = '../img/miso/미소_01.jpg';
+                }
+
+                const avatarStyle = avatarUrl
+                    ? `background-image: url(${avatarUrl})`
                     : 'background-color: #f5f5f5';
 
                 voiceCard.innerHTML = `
@@ -3973,7 +4660,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <div class="voice-card-actions">
                         <button class="voice-listen-btn" data-voice-id="${voice.id}">
                             <img src="../img/음성듣기 아이콘.png" alt="음성 듣기" class="voice-card-icon-img">
-                            음성 듣기
+                            <span class="voice-listen-btn-text">음성 듣기</span>
                         </button>
                     </div>
                 `;
@@ -4714,8 +5401,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 highlightConnectionNameEl.textContent = personName;
             }
 
-            // 사진 하이라이트 (가장 많이 본 사진 6개)
-            const photoHighlights = photos.filter(p => p.type === 'photo').slice(0, 6);
+            // 사진 하이라이트 (favorite 사진 우선, 최대 6개)
+            const allPhotos = photos.filter(p => p.type === 'photo');
+            const favoritePhotos = allPhotos.filter(p => p.favorite === true);
+            const otherPhotos = allPhotos.filter(p => p.favorite !== true);
+            const photoHighlights = [...favoritePhotos, ...otherPhotos].slice(0, 6);
             const highlightPhotosGrid = document.getElementById('highlightPhotosGrid');
 
             if (highlightPhotosGrid) {
@@ -7490,14 +8180,17 @@ document.addEventListener('DOMContentLoaded', function() {
         const groupShareModalOverlay = document.getElementById('groupShareModalOverlay');
         const groupModalBtnNo = document.getElementById('groupModalBtnNo');
         const groupModalBtnYes = document.getElementById('groupModalBtnYes');
+        const groupShareLabel = document.querySelector('.memory-share-toggle .share-label');
 
         if (groupShareToggle) {
             // 초기 상태 설정
             if (currentGroup.isSharing !== undefined) {
                 if (currentGroup.isSharing) {
                     groupShareToggle.classList.add('active');
+                    if (groupShareLabel) groupShareLabel.textContent = '공유중';
                 } else {
                     groupShareToggle.classList.remove('active');
+                    if (groupShareLabel) groupShareLabel.textContent = '간직중';
                 }
             }
 
@@ -7520,7 +8213,10 @@ document.addEventListener('DOMContentLoaded', function() {
                     );
                     localStorage.setItem('mynokGroups', JSON.stringify(updatedGroups));
 
-                    // 배너 상태 업데이트
+                    // 라벨 및 배너 상태 업데이트
+                    if (groupShareLabel) {
+                        groupShareLabel.textContent = '공유중';
+                    }
                     if (bannerGroupStatus) {
                         bannerGroupStatus.textContent = '공유중이에요';
                     }
@@ -7542,7 +8238,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 );
                 localStorage.setItem('mynokGroups', JSON.stringify(updatedGroups));
 
-                // 배너 상태 업데이트
+                // 라벨 및 배너 상태 업데이트
+                if (groupShareLabel) {
+                    groupShareLabel.textContent = '간직중';
+                }
                 if (bannerGroupStatus) {
                     bannerGroupStatus.textContent = '간직중이에요';
                 }
@@ -8165,10 +8864,33 @@ document.addEventListener('DOMContentLoaded', function() {
 
         photoTabBtns.forEach((btn, index) => {
             btn.addEventListener('click', function() {
-                photoTabBtns.forEach(b => b.classList.remove('active'));
+                photoTabBtns.forEach(b => {
+                    b.classList.remove('active');
+                    const icon = b.querySelector('.photo-tab-icon');
+                    const btnTab = b.getAttribute('data-tab');
+                    if (icon) {
+                        if (btnTab === 'photos') {
+                            icon.src = '../img/마이노크 갤러리 아이콘_off.png';
+                        } else if (btnTab === 'videos') {
+                            icon.src = '../img/마이노크 동영상 아이콘_off.png';
+                        } else if (btnTab === 'favorites') {
+                            icon.src = '../img/마이노크 하트 아이콘_off.png';
+                        }
+                    }
+                });
                 this.classList.add('active');
 
                 const tab = this.getAttribute('data-tab');
+                const activeIcon = this.querySelector('.photo-tab-icon');
+                if (activeIcon) {
+                    if (tab === 'photos') {
+                        activeIcon.src = '../img/마이노크 갤러리 아이콘_on.png';
+                    } else if (tab === 'videos') {
+                        activeIcon.src = '../img/마이노크 동영상 아이콘_on.png';
+                    } else if (tab === 'favorites') {
+                        activeIcon.src = '../img/마이노크 하트 아이콘_on.png';
+                    }
+                }
 
                 if (photosTabContent) photosTabContent.style.display = 'none';
                 if (videosTabContent) videosTabContent.style.display = 'none';
@@ -8349,27 +9071,14 @@ document.addEventListener('DOMContentLoaded', function() {
         const writeBtn = document.getElementById('writeGroupLetterBtn');
         if (writeBtn) {
             writeBtn.addEventListener('click', function() {
-                const title = prompt('편지 제목을 입력하세요:');
-                if (!title) return;
+                const urlParams = new URLSearchParams(window.location.search);
+                const groupName = urlParams.get('name');
 
-                const content = prompt('편지 내용을 입력하세요:');
-                if (!content) return;
-
-                const newLetter = {
-                    id: Date.now(),
-                    title: title,
-                    content: content,
-                    sender: '미소',
-                    date: new Date().toISOString().split('T')[0].replace(/-/g, '.'),
-                    createdAt: new Date().toISOString()
-                };
-
-                const letters = getGroupLetters();
-                letters.unshift(newLetter);
-                localStorage.setItem(storageKey, JSON.stringify(letters));
-
-                alert('편지가 작성되었습니다! 💌');
-                renderGroupLetters('all');
+                if (groupName) {
+                    window.location.href = `letter_write.html?name=${encodeURIComponent(groupName)}&type=group`;
+                } else {
+                    window.location.href = 'letter_write.html?type=group';
+                }
             });
         }
 
@@ -8748,3 +9457,21 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('그룹 장소별 추억 확인 페이지 초기화 완료');
     }
 });
+
+// ========================================
+// 선물 내역 페이지 (gift_history.html)
+// ========================================
+
+if (document.getElementById('backFromGiftHistory')) {
+    const backBtn = document.getElementById('backFromGiftHistory');
+    backBtn.addEventListener('click', () => {
+        window.location.href = '01_mypage.html';
+    });
+}
+
+// 마이페이지 - 선물 내역 버튼
+if (document.getElementById('giftHistoryBtn')) {
+    document.getElementById('giftHistoryBtn').addEventListener('click', () => {
+        window.location.href = 'gift_history.html';
+    });
+}

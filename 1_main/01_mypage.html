@@ -8,8 +8,8 @@
     <title>마이페이지 - 마이노크</title>
 
     <!-- PWA 설정 -->
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#FF9595">
+    <!-- <link rel="manifest" href="manifest.json"> -->
+    <meta name="theme-color" content="#FF7474">
     <link rel="icon" type="image/png" href="../img/00_로고.png">
     <link rel="apple-touch-icon" href="../img/00_로고.png">
 
@@ -36,16 +36,19 @@
     <!-- 아코디언 섹션들 -->
     <div class="mypage-accordion-container">
 
-        <!-- 프로필 정보 -->
+        <!-- 추억 정보 -->
         <div class="mypage-accordion-item">
-            <button class="mypage-accordion-header" data-section="profile">
-                <span class="mypage-accordion-title">프로필 정보</span>
+            <button class="mypage-accordion-header" data-section="memory">
+                <span class="mypage-accordion-title">추억 정보</span>
                 <span class="mypage-accordion-icon">^</span>
             </button>
-            <div class="mypage-accordion-content" id="profileContent">
+            <div class="mypage-accordion-content" id="memoryContent">
                 <div class="mypage-menu-row">
-                    <button class="mypage-menu-item">프로필 수정하기</button>
-                    <button class="mypage-menu-item">로그아웃 하기</button>
+                    <button class="mypage-menu-item" id="createGroupBtn">그룹 인연 만들기</button>
+                    <button class="mypage-menu-item" id="editMemoryBtn">추억 인연 수정하기</button>
+                </div>
+                <div class="mypage-menu-row">
+                    <button class="mypage-menu-item" id="addConnectionBtn">인연 추가하기</button>
                 </div>
             </div>
         </div>
@@ -58,26 +61,20 @@
             </button>
             <div class="mypage-accordion-content" id="paymentContent">
                 <div class="mypage-menu-column">
-                    <button class="mypage-menu-item-full">선물 내역</button>
-                    <button class="mypage-menu-item-full">결제 정보 변경</button>
+                    <button class="mypage-menu-item-full" id="giftHistoryBtn">선물 내역</button>
                 </div>
             </div>
         </div>
 
-        <!-- 추억 정보 -->
+        <!-- 로그인 정보 -->
         <div class="mypage-accordion-item">
-            <button class="mypage-accordion-header" data-section="memory">
-                <span class="mypage-accordion-title">추억 정보</span>
+            <button class="mypage-accordion-header" data-section="profile">
+                <span class="mypage-accordion-title">로그인 정보</span>
                 <span class="mypage-accordion-icon">^</span>
             </button>
-            <div class="mypage-accordion-content" id="memoryContent">
+            <div class="mypage-accordion-content" id="profileContent">
                 <div class="mypage-menu-row">
-                    <button class="mypage-menu-item">추억 복구하기</button>
-                    <button class="mypage-menu-item">그룹 인연 만들기</button>
-                </div>
-                <div class="mypage-menu-row">
-                    <button class="mypage-menu-item" id="editMemoryBtn">추억 인연 수정하기</button>
-                    <button class="mypage-menu-item" id="addConnectionBtn">인연 추가하기</button>
+                    <button class="mypage-menu-item" id="logoutBtn">로그아웃 하기</button>
                 </div>
             </div>
         </div>

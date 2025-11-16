@@ -8,8 +8,8 @@
     <title id="pageTitle">추억 - 마이노크</title>
 
     <!-- PWA 설정 -->
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#FF9595">
+    <!-- <link rel="manifest" href="manifest.json"> -->
+    <meta name="theme-color" content="#FF7474">
     <link rel="icon" type="image/png" href="../img/00_로고.png">
     <link rel="apple-touch-icon" href="../img/00_로고.png">
 
@@ -46,46 +46,49 @@
     <!-- 추억 콘텐츠 -->
     <div class="memory-content-wrapper">
 
-        <!-- 나와 강훈의 추억에는 -->
-        <section class="memory-types-card">
-            <h3 class="memory-types-title" id="memoryTypesTitle">나와 ...의 추억에는</h3>
-            <div class="memory-types-grid">
-                <div class="memory-type-item" data-type="voice">
-                    <div class="memory-type-icon">
-                        <img src="../img/소리가 있어 아이콘_00.png" alt="소리가 있어" class="memory-type-img">
-                        <span class="red-dot" id="voiceDot"></span>
+        <!-- 핑크 배경 영역 -->
+        <div class="memory-pink-section">
+            <!-- 나와 강훈의 추억에는 -->
+            <section class="memory-types-card">
+                <h3 class="memory-types-title" id="memoryTypesTitle">나와 ...의 추억에는</h3>
+                <div class="memory-types-grid">
+                    <div class="memory-type-item" data-type="voice">
+                        <div class="memory-type-icon">
+                            <img src="../img/소리가 있어 아이콘_00.png" alt="소리가 있어" class="memory-type-img">
+                            <span class="red-dot" id="voiceDot"></span>
+                        </div>
+                        <p class="memory-type-label">소리가 있어</p>
                     </div>
-                    <p class="memory-type-label">소리가 있어</p>
-                </div>
-                <div class="memory-type-item" data-type="photo">
-                    <div class="memory-type-icon">
-                        <img src="../img/사진이 있어 아이콘_00.png" alt="사진이 있어" class="memory-type-img">
-                        <span class="red-dot" id="photoDot"></span>
+                    <div class="memory-type-item" data-type="photo">
+                        <div class="memory-type-icon">
+                            <img src="../img/사진이 있어 아이콘_00.png" alt="사진이 있어" class="memory-type-img">
+                            <span class="red-dot" id="photoDot"></span>
+                        </div>
+                        <p class="memory-type-label">사진이 있어</p>
                     </div>
-                    <p class="memory-type-label">사진이 있어</p>
-                </div>
-                <div class="memory-type-item" data-type="letter">
-                    <div class="memory-type-icon">
-                        <img src="../img/문장이 있어 아이콘_00.png" alt="문장이 있어" class="memory-type-img">
-                        <span class="red-dot" id="letterDot"></span>
+                    <div class="memory-type-item" data-type="letter">
+                        <div class="memory-type-icon">
+                            <img src="../img/문장이 있어 아이콘_00.png" alt="문장이 있어" class="memory-type-img">
+                            <span class="red-dot" id="letterDot"></span>
+                        </div>
+                        <p class="memory-type-label">문장이 있어</p>
                     </div>
-                    <p class="memory-type-label">문장이 있어</p>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- 캘린더 & 장소 카드 -->
-        <div class="memory-cards-row">
-            <div class="memory-feature-card">
-                <h3 class="feature-card-title">캘린더</h3>
-                <div class="feature-card-icon">
-                    <img src="../img/캘린더 아이콘_00.png" alt="캘린더" class="feature-icon-img">
+            <!-- 캘린더 & 장소 카드 -->
+            <div class="memory-cards-row">
+                <div class="memory-feature-card">
+                    <h3 class="feature-card-title">캘린더</h3>
+                    <div class="feature-card-icon">
+                        <img src="../img/캘린더 아이콘_00.png" alt="캘린더" class="feature-icon-img">
+                    </div>
                 </div>
-            </div>
-            <div class="memory-feature-card" id="placePhotoCard">
-                <h3 class="feature-card-title">장소별<br>추억 확인</h3>
-                <div class="feature-card-icon">
-                    <img src="../img/장소별 추억 아이콘_00.png" alt="장소별 추억" class="feature-icon-img">
+                <div class="memory-feature-card" id="placePhotoCard">
+                    <h3 class="feature-card-title">장소별<br>추억 확인</h3>
+                    <div class="feature-card-icon">
+                        <img src="../img/장소별 추억 아이콘_00.png" alt="장소별 추억" class="feature-icon-img">
+                    </div>
                 </div>
             </div>
         </div>

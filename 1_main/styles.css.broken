@@ -1,7 +1,7 @@
-/* Pretendard 폰트 */
+/* Pretendard ?�트 */
 @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css');
 
-/* 전역 설정 */
+/* ?�역 ?�정 */
 * {
     margin: 0;
     padding: 0;
@@ -13,7 +13,7 @@ button, input, select, textarea {
     font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
-/* 아이폰 14 Pro 사이즈 (393px × 852px) */
+/* ?�이??14 Pro ?�이�?(393px × 852px) */
 html, body {
     width: 100%;
     max-width: 393px;
@@ -28,30 +28,30 @@ body {
     padding-bottom: 80px;
     color: #5d5d5d;
     position: relative;
-    font-size: 14px; /* 기본 크기 */
+    font-size: 14px; /* 기본 ?�기 */
 }
 
-/* 폰트 크기 설정 - 작게 (12pt 기준) */
+/* ?�트 ?�기 ?�정 - ?�게 (12pt 기�?) */
 body.font-small {
     font-size: 12px;
 }
 
-/* 폰트 크기 설정 - 보통 (14pt 기준) */
+/* ?�트 ?�기 ?�정 - 보통 (14pt 기�?) */
 body.font-medium {
     font-size: 14px;
 }
 
-/* 폰트 크기 설정 - 크게 (16pt 기준) */
+/* ?�트 ?�기 ?�정 - ?�게 (16pt 기�?) */
 body.font-large {
     font-size: 16px;
 }
 
-/* 폰트 크기 설정 - 매우 크게 (18pt 기준) */
+/* ?�트 ?�기 ?�정 - 매우 ?�게 (18pt 기�?) */
 body.font-xlarge {
     font-size: 18px;
 }
 
-/* 헤더 */
+/* ?�더 */
 .header {
     position: fixed;
     top: 0;
@@ -81,7 +81,7 @@ body.font-xlarge {
     line-height: 1.4;
 }
 
-/* 프로필 섹션 */
+/* ?�로???�션 */
 .profile-section {
     position: fixed;
     top: 50px;
@@ -113,16 +113,13 @@ body.font-xlarge {
 }
 
 .user-name .suffix {
-    color: #666;
-    font-weight: 500;
+    color: #FF7474;
 }
 
 .message {
-    font-size: 19px;
-    line-height: 1.3;
+    font-size: 18px;
+    line-height: 1.6;
     color: #666;
-    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    font-weight: 300;
 }
 
 .profile-image-container {
@@ -153,7 +150,7 @@ body.font-xlarge {
     border-radius: 8px;
 }
 
-/* 검색바 */
+/* 검?�바 */
 .search-container {
     position: fixed;
     top: 198px;
@@ -188,7 +185,7 @@ body.font-xlarge {
     height: 20px;
 }
 
-/* 탭 버튼 */
+/* ??버튼 */
 .tab-container {
     position: fixed;
     top: 274px;
@@ -226,7 +223,7 @@ body.font-xlarge {
     font-weight: 500;
 }
 
-/* 인연 목록 */
+/* ?�연 목록 */
 .connections-section {
     padding: 20px;
     padding-top: 377px;
@@ -317,7 +314,7 @@ body.font-xlarge {
     background-color: #FFF5F5;
 }
 
-/* 인연 추가 버튼 */
+/* ?�연 추�? 버튼 */
 .add-connection-btn {
     width: 100%;
     padding: 16px;
@@ -336,11 +333,11 @@ body.font-xlarge {
     background-color: #FF6060;
 }
 
-/* 선물 섹션 */
+/* ?�물 ?�션 */
 .gift-section {
-    background: white;
+    background: linear-gradient(135deg, rgba(255, 180, 182, 0.08) 0%, rgba(255, 149, 149, 0.12) 100%);
     padding: 20px;
-    margin: 24px 0 10px 0;
+    margin: 16px 0 10px 0;
     border-radius: 12px;
     border: 1px solid rgba(255, 149, 149, 0.25);
     position: relative;
@@ -351,7 +348,7 @@ body.font-xlarge {
     box-sizing: border-box;
 }
 
-/* 메인 페이지의 선물 섹션 (하단 네비게이션 고려) */
+/* 메인 ?�이지???�물 ?�션 (?�단 ?�비게이??고려) */
 .connections-section .gift-section {
     margin-bottom: 100px;
 }
@@ -398,14 +395,14 @@ body.font-xlarge {
 }
 
 .gift-icon-img:nth-child(1) {
-    /* 오디오 키링 - 위에 배치, 살짝 회전 */
+    /* ?�디???�링 - ?�에 배치, ?�짝 ?�전 */
     animation-name: floatIconRotate;
     animation-delay: 0s;
     transform: rotate(-8deg);
 }
 
 .gift-icon-img:nth-child(2) {
-    /* 디스플레이 액자 - 크기 크게, 위로 이동 */
+    /* ?�스?�레???�자 - ?�기 ?�게, ?�로 ?�동 */
     animation-delay: 0.5s;
     width: 100px;
     height: 100px;
@@ -461,7 +458,7 @@ body.font-xlarge {
     transform: translateY(0);
 }
 
-/* 그룹 섹션 */
+/* 그룹 ?�션 */
 .groups-section {
     padding: 20px;
     padding-top: 377px;
@@ -512,11 +509,11 @@ body.font-xlarge {
 }
 
 .member-tag {
-    padding: 5px 10px;
+    padding: 6px 12px;
     background-color: #FFE5E5;
     color: #FF7474;
     border-radius: 16px;
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 500;
 }
 
@@ -585,7 +582,7 @@ body.font-xlarge {
     margin-bottom: 80px;
 }
 
-/* 하단 네비게이션 */
+/* ?�단 ?�비게이??*/
 .bottom-nav {
     position: fixed;
     bottom: 12px;
@@ -643,7 +640,7 @@ body.font-xlarge {
     font-weight: 600;
 }
 
-/* 인연 추가 페이지 */
+/* ?�연 추�? ?�이지 */
 .add-connection-header {
     display: flex;
     align-items: center;
@@ -684,28 +681,23 @@ body.font-xlarge {
 }
 
 .greeting-name {
-    font-size: 22px;
+    font-size: 18px;
     font-weight: 700;
-    color: #FF7474;
-    margin-bottom: 12px;
-}
-
-.greeting-name .greeting-suffix {
-    color: #666;
-    font-weight: 500;
+    color: #5d5d5d;
+    margin-bottom: 8px;
 }
 
 .greeting-text {
-    font-size: 19px;
-    line-height: 1.3;
+    font-size: 14px;
+    line-height: 1.6;
     color: #666;
-    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    font-weight: 300;
 }
 
 .greeting-icon {
-    width: 120px;
-    height: 120px;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #D5F5E3 0%, #ABEBC6 100%);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -714,18 +706,6 @@ body.font-xlarge {
 
 .icon-people {
     font-size: 40px;
-}
-
-.icon-people-img {
-    width: 120px;
-    height: 120px;
-    object-fit: contain;
-}
-
-.greeting-divider {
-    height: 1px;
-    background-color: #F0F2F6;
-    margin: 6px 0 20px 0;
 }
 
 .add-connection-form {
@@ -848,40 +828,34 @@ body.font-xlarge {
 
 .toggle-buttons {
     display: flex;
-    background-color: white;
-    border: 2px solid #FF7474;
-    border-radius: 10px;
-    padding: 3px;
-    gap: 3px;
-    max-width: 280px;
+    gap: 12px;
 }
 
 .toggle-btn {
     flex: 1;
-    padding: 16px 12px;
-    border: none;
-    border-radius: 8px;
-    background-color: transparent;
-    color: #FF7474;
+    padding: 14px;
+    border: 2px solid #E0E0E0;
+    border-radius: 10px;
+    background-color: white;
+    color: #999;
     font-size: 15px;
-    font-weight: 500;
+    font-weight: 600;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.3s ease;
 }
 
 .toggle-btn.active {
     background-color: #FF7474;
     border-color: #FF7474;
     color: white;
-    font-weight: 600;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .toggle-btn:not(.active):hover {
+    border-color: #FF7474;
     background-color: #FFF5F5;
 }
 
-/* 인연 유형 선택 */
+/* ?�연 ?�형 ?�택 */
 .connection-type-options {
     display: flex;
     flex-direction: column;
@@ -964,7 +938,7 @@ body.font-xlarge {
     background-color: #FFCACA;
 }
 
-/* 로딩 페이지 */
+/* 로딩 ?�이지 */
 .loading-body {
     background-color: #fafafa;
     display: flex;
@@ -1115,7 +1089,7 @@ body.font-xlarge {
     background-color: #FF5050;
 }
 
-/* 로그인 페이지 */
+/* 로그???�이지 */
 .login-container {
     padding: 40px 20px 100px;
     background-color: white;
@@ -1192,7 +1166,7 @@ body.font-xlarge {
     text-decoration: none;
 }
 
-/* 회원가입 페이지 */
+/* ?�원가???�이지 */
 .join-step {
     display: none;
     opacity: 0;
@@ -1366,9 +1340,9 @@ body.font-xlarge {
     line-height: 1.6;
 }
 
-/* ==================== 마이페이지 스타일 ==================== */
+/* ==================== 마이?�이지 ?��???==================== */
 
-/* 프로필 섹션 */
+/* ?�로???�션 */
 .mypage-profile-section {
     display: flex;
     flex-direction: column;
@@ -1379,8 +1353,8 @@ body.font-xlarge {
 }
 
 .mypage-profile-image-container {
-    width: 100px;
-    height: 100px;
+    width: 140px;
+    height: 140px;
     margin-bottom: 16px;
 }
 
@@ -1425,13 +1399,13 @@ body.font-xlarge {
     background-color: #f5f5f5;
 }
 
-/* 아코디언 컨테이너 */
+/* ?�코?�언 컨테?�너 */
 .mypage-accordion-container {
     padding-bottom: 100px;
     background-color: white;
 }
 
-/* 아코디언 아이템 */
+/* ?�코?�언 ?�이??*/
 .mypage-accordion-item {
     border-bottom: 1px solid #f0f0f0;
     background-color: white;
@@ -1465,7 +1439,7 @@ body.font-xlarge {
     transform: rotate(180deg);
 }
 
-/* 아코디언 콘텐츠 */
+/* ?�코?�언 콘텐�?*/
 .mypage-accordion-content {
     max-height: 0;
     overflow: hidden;
@@ -1478,7 +1452,7 @@ body.font-xlarge {
     padding: 8px 20px 24px;
 }
 
-/* 메뉴 행 (2개 텍스트 버튼) */
+/* 메뉴 ??(2�??�스??버튼) */
 .mypage-menu-row {
     display: flex;
     gap: 0;
@@ -1505,7 +1479,7 @@ body.font-xlarge {
     color: #5d5d5d;
 }
 
-/* 메뉴 열 (1개 텍스트씩 전체 너비) */
+/* 메뉴 ??(1�??�스?�씩 ?�체 ?�비) */
 .mypage-menu-column {
     display: flex;
     flex-direction: column;
@@ -1528,7 +1502,7 @@ body.font-xlarge {
     color: #5d5d5d;
 }
 
-/* 고객센터 정보 */
+/* 고객?�터 ?�보 */
 .mypage-support-info {
     margin: 20px 0 24px;
     padding: 0;
@@ -1541,7 +1515,7 @@ body.font-xlarge {
     line-height: 1.6;
 }
 
-/* 1:1 문의하기 버튼 */
+/* 1:1 문의?�기 버튼 */
 .mypage-contact-btn {
     width: 100%;
     padding: 16px;
@@ -1559,9 +1533,9 @@ body.font-xlarge {
     background-color: #f5f5f5;
 }
 
-/* ==================== 추억 지우기 페이지 스타일 ==================== */
+/* ==================== 추억 지?�기 ?�이지 ?��???==================== */
 
-/* 안내 섹션 */
+/* ?�내 ?�션 */
 .remove-info-section {
     padding: 30px 20px 20px;
     background-color: white;
@@ -1581,13 +1555,13 @@ body.font-xlarge {
     line-height: 1.5;
 }
 
-/* 인연 목록 섹션 */
+/* ?�연 목록 ?�션 */
 .remove-list-section {
     padding: 20px;
     padding-bottom: 120px;
 }
 
-/* 체크박스 포함 인연 아이템 */
+/* 체크박스 ?�함 ?�연 ?�이??*/
 .remove-connection-item {
     display: flex;
     align-items: center;
@@ -1616,7 +1590,7 @@ body.font-xlarge {
     accent-color: #FF7474;
 }
 
-/* 인연 정보 (체크박스 옆) */
+/* ?�연 ?�보 (체크박스 ?? */
 .remove-connection-content {
     display: flex;
     align-items: center;
@@ -1652,7 +1626,7 @@ body.font-xlarge {
     color: #999;
 }
 
-/* 삭제 버튼 컨테이너 */
+/* ??�� 버튼 컨테?�너 */
 .remove-button-container {
     position: fixed;
     bottom: 100px;
@@ -1690,15 +1664,15 @@ body.font-xlarge {
     transform: scale(0.98);
 }
 
-/* ==================== 추억 인연 수정하기 페이지 스타일 ==================== */
+/* ==================== 추억 ?�연 ?�정?�기 ?�이지 ?��???==================== */
 
-/* 01_list_edit.html 페이지의 tab-container */
+/* 01_list_edit.html ?�이지??tab-container */
 body:has(.edit-list-section) .tab-container {
     position: relative;
     top: 0;
 }
 
-/* 수정 목록 섹션 */
+/* ?�정 목록 ?�션 */
 .edit-list-section {
     width: 100%;
     max-width: 393px;
@@ -1708,7 +1682,7 @@ body:has(.edit-list-section) .tab-container {
     box-sizing: border-box;
 }
 
-/* 수정/삭제 버튼 컨테이너 */
+/* ?�정/??�� 버튼 컨테?�너 */
 .edit-button-container {
     position: fixed;
     bottom: 83px;
@@ -1768,9 +1742,9 @@ body:has(.edit-list-section) .tab-container {
     transform: scale(0.98);
 }
 
-/* ==================== 추억 페이지 (강훈) 스타일 ==================== */
+/* ==================== 추억 ?�이지 (강훈) ?��???==================== */
 
-/* 헤더 */
+/* ?�더 */
 .memory-header {
     position: fixed;
     top: 0;
@@ -1851,8 +1825,8 @@ body:has(.edit-list-section) .tab-container {
 /* 메인 배너 */
 .memory-banner {
     margin-top: 60px;
-    background: #FFF5F5;
-    padding: 24px 20px 20px;
+    background: linear-gradient(135deg, #FFE5E5 0%, #FFF0F0 100%);
+    padding: 30px 20px;
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
@@ -1897,23 +1871,13 @@ body:has(.edit-list-section) .tab-container {
     object-fit: cover;
 }
 
-/* 콘텐츠 래퍼 */
+/* 콘텐�??�퍼 */
 .memory-content-wrapper {
     padding: 20px;
     padding-bottom: 30px;
 }
 
-/* 핑크 배경 영역 */
-.memory-pink-section {
-    background: #FFF5F5;
-    padding: 20px;
-    margin: -20px;
-    margin-bottom: 8px;
-    border-radius: 0 0 20px 20px;
-    box-shadow: 0 8px 12px -4px rgba(255, 116, 116, 0.22);
-}
-
-/* 추억 타입 카드 */
+/* 추억 ?�??카드 */
 .memory-types-card {
     background-color: white;
     border-radius: 16px;
@@ -1960,7 +1924,7 @@ body:has(.edit-list-section) .tab-container {
 
 .red-dot {
     position: absolute;
-    top: -8px;
+    top: -5px;
     right: 2px;
     width: 10px;
     height: 10px;
@@ -1997,11 +1961,11 @@ body:has(.edit-list-section) .tab-container {
     text-align: center;
 }
 
-/* 캘린더 & 장소 카드 */
+/* 캘린??& ?�소 카드 */
 .memory-cards-row {
     display: flex;
     gap: 12px;
-    margin-bottom: 0;
+    margin-bottom: 16px;
 }
 
 .memory-feature-card {
@@ -2044,15 +2008,15 @@ body:has(.edit-list-section) .tab-container {
     object-fit: contain;
 }
 
-.feature-icon-img[alt="캘린더"] {
+.feature-icon-img[alt="캘린??] {
     margin-top: 0;
 }
 
-.feature-icon-img[alt="장소별 추억"] {
+.feature-icon-img[alt="?�소�?추억"] {
     margin-top: -20px;
 }
 
-/* 선물 카드 */
+/* ?�물 카드 */
 .memory-gift-card {
     background: linear-gradient(135deg, #FFF5F5 0%, #FFE5E5 100%);
     border-radius: 16px;
@@ -2118,7 +2082,7 @@ body:has(.edit-list-section) .tab-container {
     background-color: #f5f5f5;
 }
 
-/* 간직중 전환 모달 */
+/* 간직�??�환 모달 */
 .share-modal-overlay {
     position: fixed;
     top: 0;
@@ -2217,7 +2181,7 @@ body:has(.edit-list-section) .tab-container {
     line-height: 1.5;
 }
 
-/* 그룹 만들기 페이지 */
+/* 그룹 만들�??�이지 */
 .required-mark {
     color: #FF4444;
     font-weight: 600;
@@ -2407,9 +2371,9 @@ body:has(.edit-list-section) .tab-container {
     margin: 0;
 }
 
-/* ==================== 문장이 있어 (Letter) 페이지 ==================== */
+/* ==================== 문장???�어 (Letter) ?�이지 ==================== */
 
-/* 인사 섹션 */
+/* ?�사 ?�션 */
 .letter-greeting-section {
     padding: 24px 20px;
     background-color: white;
@@ -2454,15 +2418,7 @@ body:has(.edit-list-section) .tab-container {
     font-size: 28px;
 }
 
-.letter-icon-img {
-    width: 60px;
-    height: 60px;
-    object-fit: contain;
-    flex-shrink: 0;
-    margin-left: 16px;
-}
-
-/* 편지 쓰기 버튼 */
+/* ?��? ?�기 버튼 */
 .letter-write-btn-container {
     padding: 0 20px 20px 20px;
 }
@@ -2485,7 +2441,7 @@ body:has(.edit-list-section) .tab-container {
     transform: scale(0.98);
 }
 
-/* 탭 버튼 */
+/* ??버튼 */
 .letter-tab-container {
     display: flex;
     padding: 0 20px;
@@ -2515,7 +2471,7 @@ body:has(.edit-list-section) .tab-container {
     transform: scale(0.98);
 }
 
-/* 검색바 */
+/* 검?�바 */
 .letter-search-container {
     padding: 0 20px;
     margin-bottom: 20px;
@@ -2551,12 +2507,12 @@ body:has(.edit-list-section) .tab-container {
     height: 20px;
 }
 
-/* 편지 목록 섹션 */
+/* ?��? 목록 ?�션 */
 .letter-list-section {
     padding: 0 20px 20px 20px;
 }
 
-/* 편지 카드 */
+/* ?��? 카드 */
 .letter-card {
     background-color: white;
     border: 1px solid #f0f0f0;
@@ -2621,7 +2577,7 @@ body:has(.edit-list-section) .tab-container {
     transform: scale(0.98);
 }
 
-/* 빈 상태 메시지 */
+/* �??�태 메시지 */
 .letter-empty-message {
     text-align: center;
     padding: 60px 20px;
@@ -2630,13 +2586,13 @@ body:has(.edit-list-section) .tab-container {
     line-height: 1.6;
 }
 
-/* ==================== 편지 쓰기 (Letter Write) 페이지 ==================== */
+/* ==================== ?��? ?�기 (Letter Write) ?�이지 ==================== */
 
 .letter-write-container {
     padding: 0 20px 120px 20px;
 }
 
-/* 인사 섹션 */
+/* ?�사 ?�션 */
 .letter-write-greeting {
     display: flex;
     justify-content: space-between;
@@ -2683,7 +2639,7 @@ body:has(.edit-list-section) .tab-container {
     transform: rotate(5deg);
 }
 
-/* 편지 쓰기 폼 */
+/* ?��? ?�기 ??*/
 .letter-write-form {
     display: flex;
     flex-direction: column;
@@ -2708,7 +2664,7 @@ body:has(.edit-list-section) .tab-container {
     line-height: 1.5;
 }
 
-/* 받는이 섹션 */
+/* 받는???�션 */
 .letter-recipient-container {
     display: flex;
     gap: 8px;
@@ -2768,7 +2724,7 @@ body:has(.edit-list-section) .tab-container {
     height: 20px;
 }
 
-/* 제목 입력 */
+/* ?�목 ?�력 */
 .letter-write-input {
     width: 100%;
     padding: 14px 16px;
@@ -2788,7 +2744,7 @@ body:has(.edit-list-section) .tab-container {
     color: #ccc;
 }
 
-/* 편지내용 텍스트영역 */
+/* ?��??�용 ?�스?�영??*/
 .letter-write-textarea {
     width: 100%;
     min-height: 150px;
@@ -2812,7 +2768,7 @@ body:has(.edit-list-section) .tab-container {
     color: #ccc;
 }
 
-/* 편지지 패턴 그리드 */
+/* ?��?지 ?�턴 그리??*/
 .letter-pattern-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -2837,7 +2793,7 @@ body:has(.edit-list-section) .tab-container {
     transform: scale(0.98);
 }
 
-/* 패턴 스타일 */
+/* ?�턴 ?��???*/
 .pattern-hearts {
     width: 100%;
     height: 100%;
@@ -2900,9 +2856,9 @@ body:has(.edit-list-section) .tab-container {
         );
 }
 
-/* 사진 추가 레이아웃 */
+/* ?�진 추�? ?�이?�웃 */
 
-/* 메인 사진 박스 (큰 가로) */
+/* 메인 ?�진 박스 (??가�? */
 .letter-photo-main-box {
     width: 100%;
     height: 200px;
@@ -2914,7 +2870,7 @@ body:has(.edit-list-section) .tab-container {
     margin-bottom: 12px;
 }
 
-/* 작은 사진 3개 그리드 */
+/* ?��? ?�진 3�?그리??*/
 .letter-photo-small-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -2988,7 +2944,7 @@ body:has(.edit-list-section) .tab-container {
     background-color: rgba(0, 0, 0, 0.8);
 }
 
-/* 하단 버튼 */
+/* ?�단 버튼 */
 .letter-write-buttons {
     display: flex;
     gap: 12px;
@@ -3026,9 +2982,9 @@ body:has(.edit-list-section) .tab-container {
     transform: scale(0.98);
 }
 
-/* ==================== 소리가 있어 페이지 ==================== */
+/* ==================== ?�리가 ?�어 ?�이지 ==================== */
 
-/* 프로필 인사 섹션 */
+/* ?�로???�사 ?�션 */
 .voice-greeting-section {
     background-color: white;
     padding: 30px 20px 24px;
@@ -3144,7 +3100,7 @@ body:has(.edit-list-section) .tab-container {
     margin: 0;
 }
 
-/* 녹음/보내기 버튼 */
+/* ?�음/보내�?버튼 */
 .voice-action-buttons {
     display: flex;
     gap: 12px;
@@ -3183,7 +3139,7 @@ body:has(.edit-list-section) .tab-container {
     box-shadow: 0 4px 12px rgba(255, 116, 116, 0.3);
 }
 
-/* 검색바 */
+/* 검?�바 */
 .voice-search-container {
     position: relative;
     padding: 20px 20px 16px;
@@ -3212,7 +3168,7 @@ body:has(.edit-list-section) .tab-container {
     height: 20px;
 }
 
-/* 탭 버튼 */
+/* ??버튼 */
 .voice-tab-container {
     display: flex;
     padding: 0 20px;
@@ -3239,7 +3195,7 @@ body:has(.edit-list-section) .tab-container {
     color: white;
 }
 
-/* 음성 리스트 */
+/* ?�성 리스??*/
 .voice-list-section {
     padding: 16px 20px 100px;
     background-color: white;
@@ -3305,31 +3261,26 @@ body:has(.edit-list-section) .tab-container {
 }
 
 .voice-card-icon-img {
-    width: 36px;
-    height: 36px;
+    width: 32px;
+    height: 32px;
     object-fit: contain;
+    margin-bottom: 4px;
 }
 
 .voice-listen-btn {
-    background: transparent;
+    padding: 12px 16px;
+    background: linear-gradient(135deg, #FF7474 0%, #FF8A8A 100%);
+    color: white;
     border: none;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
     cursor: pointer;
+    white-space: nowrap;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 8px;
-    padding: 0;
-}
-
-.voice-listen-btn-text {
-    padding: 10px 16px;
-    background: linear-gradient(135deg, #FF7474 0%, #FF8A8A 100%);
-    color: white;
-    border-radius: 8px;
-    font-size: 13px;
-    font-weight: 600;
-    white-space: nowrap;
 }
 
 .voice-listen-btn:hover {
@@ -3337,7 +3288,7 @@ body:has(.edit-list-section) .tab-container {
     box-shadow: 0 2px 8px rgba(255, 116, 116, 0.3);
 }
 
-/* 공유하기 FAB */
+/* 공유?�기 FAB */
 .voice-share-fab {
     position: fixed;
     right: 20px;
@@ -3366,7 +3317,7 @@ body:has(.edit-list-section) .tab-container {
     box-shadow: 0 6px 16px rgba(255, 116, 116, 0.5);
 }
 
-/* 음성 듣기 모달 */
+/* ?�성 ?�기 모달 */
 .voice-player-modal {
     display: none;
     position: fixed;
@@ -3525,7 +3476,7 @@ body:has(.edit-list-section) .tab-container {
     height: 32px;
 }
 
-/* 음성 보내기 모달 */
+/* ?�성 보내�?모달 */
 .voice-send-modal {
     display: none;
     position: fixed;
@@ -3664,9 +3615,9 @@ body:has(.edit-list-section) .tab-container {
     box-shadow: 0 4px 12px rgba(255, 116, 116, 0.3);
 }
 
-/* ==================== 사진이 있어 페이지 ==================== */
+/* ==================== ?�진???�어 ?�이지 ==================== */
 
-/* 사진 헤더 배너 */
+/* ?�진 ?�더 배너 */
 .photo-header-banner {
     background: linear-gradient(135deg, #FFF9F5 0%, #FFF5F5 100%);
     padding: 24px 20px;
@@ -3682,7 +3633,7 @@ body:has(.edit-list-section) .tab-container {
 }
 
 .photo-header-title {
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 600;
     line-height: 1.6;
     color: #5d5d5d;
@@ -3692,10 +3643,11 @@ body:has(.edit-list-section) .tab-container {
 .photo-header-title .highlight {
     color: #FF7474;
     font-weight: 700;
+    font-size: 24px;
 }
 
 .photo-header-stats {
-    font-size: 13px;
+    font-size: 18px;
     color: #666;
 }
 
@@ -3719,29 +3671,29 @@ body:has(.edit-list-section) .tab-container {
     object-fit: cover;
 }
 
-/* 그룹 프로필 미니 (겹쳐서 표시) */
+/* 그룹 ?�로??미니 (겹쳐???�시) */
 .group-profile-mini {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 100px;
-    height: 100px;
+    width: 95px;
+    height: 95px;
 }
 
-/* 그룹 프로필 미니 - 4분할 그리드 */
+/* 그룹 ?�로??미니 - 4분할 그리??*/
 .group-profile-mini.has-members {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(2, 1fr);
     gap: 4px;
-    width: 100px;
-    height: 100px;
+    width: 95px;
+    height: 95px;
     padding: 0;
 }
 
 .group-profile-mini .group-member-profile-mini {
     width: 100%;
-    height: 48px;
+    height: 100%;
     border-radius: 6px;
     object-fit: cover;
 }
@@ -3758,7 +3710,7 @@ body:has(.edit-list-section) .tab-container {
     color: #FF7474;
 }
 
-/* 사진 검색바 */
+/* ?�진 검?�바 */
 .photo-search-bar {
     padding: 16px 20px;
     padding-bottom: 20px;
@@ -3796,7 +3748,7 @@ body:has(.edit-list-section) .tab-container {
     pointer-events: none;
 }
 
-/* 사진 탭 */
+/* ?�진 ??*/
 .photo-tabs {
     display: flex;
     background: white;
@@ -3840,16 +3792,16 @@ body:has(.edit-list-section) .tab-container {
 
 .photo-tab-divider {
     width: 1px;
-    background: #F0F2F6;
+    background: #f0f0f0;
 }
 
-/* 사진 탭 콘텐츠 */
+/* ?�진 ??콘텐�?*/
 .photo-tab-content {
     background: white;
     padding-bottom: 100px;
 }
 
-/* 하이라이트 배너 */
+/* ?�이?�이??배너 */
 .highlight-banner {
     display: flex;
     justify-content: space-between;
@@ -3899,7 +3851,7 @@ body:has(.edit-list-section) .tab-container {
     object-fit: cover;
 }
 
-/* 하이라이트 소개 카드 */
+/* ?�이?�이???�개 카드 */
 .highlight-intro-card {
     margin: 24px 20px 20px 20px;
     padding: 20px;
@@ -3932,7 +3884,7 @@ body:has(.edit-list-section) .tab-container {
     height: 100%;
 }
 
-/* 하이라이트 섹션 */
+/* ?�이?�이???�션 */
 .highlight-section {
     margin-bottom: 32px;
     position: relative;
@@ -3945,7 +3897,7 @@ body:has(.edit-list-section) .tab-container {
     padding: 0 20px 16px;
 }
 
-/* 사진 하이라이트 - 가로 스크롤 */
+/* ?�진 ?�이?�이??- 가�??�크�?*/
 .highlight-photo-scroll {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
@@ -3956,7 +3908,7 @@ body:has(.edit-list-section) .tab-container {
     display: none;
 }
 
-/* 양 옆 그라데이션 효과 (부모 기준으로 고정) */
+/* ????그라?�이???�과 (부�?기�??�로 고정) */
 .highlight-section::before,
 .highlight-section::after {
     content: '';
@@ -3999,7 +3951,7 @@ body:has(.edit-list-section) .tab-container {
     object-fit: cover;
 }
 
-/* 영상 하이라이트 - 큰 카드 */
+/* ?�상 ?�이?�이??- ??카드 */
 .highlight-video-card {
     margin: 0 20px;
     position: relative;
@@ -4074,7 +4026,7 @@ body:has(.edit-list-section) .tab-container {
     padding: 20px 20px 12px;
 }
 
-/* 사진 그리드 */
+/* ?�진 그리??*/
 .photo-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -4120,7 +4072,7 @@ body:has(.edit-list-section) .tab-container {
 }
 
 .photo-item.video::before {
-    content: '▶';
+    content: '??;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -4131,7 +4083,7 @@ body:has(.edit-list-section) .tab-container {
     z-index: 1;
 }
 
-/* 업로드 FAB 버튼 */
+/* ?�로??FAB 버튼 */
 .photo-upload-fab {
     position: fixed;
     bottom: 110px;
@@ -4165,7 +4117,7 @@ body:has(.edit-list-section) .tab-container {
     height: 28px;
 }
 
-/* 사진 상세 모달 */
+/* ?�진 ?�세 모달 */
 .photo-detail-modal {
     display: none;
     position: fixed;
@@ -4331,9 +4283,9 @@ body:has(.edit-list-section) .tab-container {
     transform: scale(0.95);
 }
 
-/* ==================== 캘린더 페이지 ==================== */
+/* ==================== 캘린???�이지 ==================== */
 
-/* 캘린더 헤더 */
+/* 캘린???�더 */
 .calendar-header {
     padding: 16px 8px;
     background: white;
@@ -4381,7 +4333,7 @@ body:has(.edit-list-section) .tab-container {
     font-size: 24px;
 }
 
-/* 검색 및 필터 섹션 */
+/* 검??�??�터 ?�션 */
 .calendar-filter-section {
     padding: 12px 16px;
     background: white;
@@ -4511,7 +4463,7 @@ body:has(.edit-list-section) .tab-container {
 
 .calendar-filter-divider {
     height: 1px;
-    background: #F0F2F6;
+    background: #f0f0f0;
     margin: 8px 0;
 }
 
@@ -4523,7 +4475,7 @@ body:has(.edit-list-section) .tab-container {
     text-transform: uppercase;
 }
 
-/* 캘린더 그리드 */
+/* 캘린??그리??*/
 .calendar-grid {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
@@ -4597,7 +4549,7 @@ body:has(.edit-list-section) .tab-container {
 }
 
 
-/* 주말 및 공휴일 */
+/* 주말 �?공휴??*/
 .calendar-day.weekend-holiday {
     color: #FF7474 !important;
 }
@@ -4612,7 +4564,7 @@ body:has(.edit-list-section) .tab-container {
     color: white !important;
 }
 
-/* 공휴일 날짜 및 이름 */
+/* 공휴???�짜 �??�름 */
 .calendar-date-number {
     display: block;
     font-size: 11px;
@@ -4639,7 +4591,7 @@ body:has(.edit-list-section) .tab-container {
     color: white;
 }
 
-/* 공휴일 리스트 섹션 */
+/* 공휴??리스???�션 */
 .calendar-holidays-section {
     padding: 16px 20px;
     background: white;
@@ -4683,7 +4635,7 @@ body:has(.edit-list-section) .tab-container {
     flex: 1;
 }
 
-/* 이번 달 일정 리스트 */
+/* ?�번 ???�정 리스??*/
 .calendar-monthly-events-section {
     padding: 16px 20px;
     background: white;
@@ -4828,7 +4780,7 @@ body:has(.edit-list-section) .tab-container {
     white-space: nowrap;
 }
 
-/* 이벤트 섹션 */
+/* ?�벤???�션 */
 .calendar-events-section {
     padding: 20px;
     background: white;
@@ -4869,7 +4821,7 @@ body:has(.edit-list-section) .tab-container {
     transform: translateY(0);
 }
 
-/* 이벤트 리스트 */
+/* ?�벤??리스??*/
 .calendar-events-list {
     display: flex;
     flex-direction: column;
@@ -4910,7 +4862,7 @@ body:has(.edit-list-section) .tab-container {
     line-height: 1.5;
 }
 
-/* 빈 상태 */
+/* �??�태 */
 .calendar-empty-state {
     padding: 60px 20px;
     text-align: center;
@@ -4989,7 +4941,7 @@ body:has(.edit-list-section) .tab-container {
     margin-bottom: 24px;
 }
 
-/* 폼 그룹 */
+/* ??그룹 */
 .calendar-form-group {
     margin-bottom: 16px;
 }
@@ -5040,7 +4992,7 @@ body:has(.edit-list-section) .tab-container {
     gap: 8px;
 }
 
-/* 색상 선택 */
+/* ?�상 ?�택 */
 .calendar-color-picker {
     display: flex;
     gap: 12px;
@@ -5064,7 +5016,7 @@ body:has(.edit-list-section) .tab-container {
     transform: scale(1.15);
 }
 
-/* 모달 액션 */
+/* 모달 ?�션 */
 .calendar-modal-actions {
     display: flex;
     gap: 12px;
@@ -5105,7 +5057,7 @@ body:has(.edit-list-section) .tab-container {
     transform: scale(0.95);
 }
 
-/* ==================== 캘린더 FAB 버튼 ==================== */
+/* ==================== 캘린??FAB 버튼 ==================== */
 .calendar-fab-btn {
     position: fixed;
     bottom: 110px;
@@ -5136,20 +5088,11 @@ body:has(.edit-list-section) .tab-container {
     transform: scale(0.95);
 }
 
-/* ==================== 장소별 추억 페이지 ==================== */
+/* ==================== ?�소�?추억 ?�이지 ==================== */
 .place-header-banner {
     background: white;
     padding: 20px;
-    margin-top: 66px;
     border-bottom: 1px solid #f0f0f0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 16px;
-}
-
-.place-banner-content {
-    flex: 1;
 }
 
 .place-banner-person {
@@ -5169,9 +5112,8 @@ body:has(.edit-list-section) .tab-container {
 }
 
 .place-banner-message {
-    font-size: 18px;
+    font-size: 15px;
     color: #5d5d5d;
-    margin-top: 0;
     margin-bottom: 16px;
     line-height: 1.5;
 }
@@ -5183,7 +5125,7 @@ body:has(.edit-list-section) .tab-container {
 }
 
 .place-total-count {
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 600;
     color: #5d5d5d;
 }
@@ -5194,20 +5136,8 @@ body:has(.edit-list-section) .tab-container {
 }
 
 .place-season-stats {
-    font-size: 16px;
+    font-size: 13px;
     color: #666;
-    margin-bottom: 12px;
-}
-
-.place-banner-icon {
-    flex-shrink: 0;
-}
-
-.place-icon-img {
-    width: 100px;
-    height: 100px;
-    object-fit: contain;
-    margin-top: -99px;
 }
 
 .season-count {
@@ -5422,8 +5352,8 @@ body:has(.edit-list-section) .tab-container {
     transform: scale(0.95);
 }
 
-/* ==================== 일정 추가 페이지 ==================== */
-/* 페이지 헤더 */
+/* ==================== ?�정 추�? ?�이지 ==================== */
+/* ?�이지 ?�더 */
 .event-page-header {
     background: white;
     padding: 20px;
@@ -5459,7 +5389,7 @@ body:has(.edit-list-section) .tab-container {
     font-family: 'Pretendard', -apple-system, sans-serif;
 }
 
-/* 폼 래퍼 */
+/* ???�퍼 */
 .event-form-wrapper {
     padding: 20px;
     background: white;
@@ -5467,7 +5397,7 @@ body:has(.edit-list-section) .tab-container {
     padding-bottom: 100px;
 }
 
-/* 입력 그룹 */
+/* ?�력 그룹 */
 .event-input-group {
     margin-bottom: 16px;
 }
@@ -5496,7 +5426,7 @@ body:has(.edit-list-section) .tab-container {
     border-color: #FF7474;
 }
 
-/* 날짜 선택기 */
+/* ?�짜 ?�택�?*/
 .event-date-picker-wrapper {
     display: flex;
     align-items: center;
@@ -5548,7 +5478,7 @@ body:has(.edit-list-section) .tab-container {
     color: #FF7474;
 }
 
-/* 섹션 제목 */
+/* ?�션 ?�목 */
 .event-section-title {
     font-size: 14px;
     font-weight: 600;
@@ -5559,7 +5489,7 @@ body:has(.edit-list-section) .tab-container {
     font-family: 'Pretendard', -apple-system, sans-serif;
 }
 
-/* 드롭다운 */
+/* ?�롭?�운 */
 .event-dropdown-wrapper {
     margin-bottom: 12px;
     position: relative;
@@ -5629,7 +5559,7 @@ body:has(.edit-list-section) .tab-container {
     background: #FFE5E6;
 }
 
-/* 공유 탭 */
+/* 공유 ??*/
 .event-share-tabs {
     display: flex;
     gap: 8px;
@@ -5662,7 +5592,7 @@ body:has(.edit-list-section) .tab-container {
     background: #FFF5F5;
 }
 
-/* 검색 입력 */
+/* 검???�력 */
 .event-search-wrapper {
     margin-bottom: 16px;
 }
@@ -5706,7 +5636,7 @@ body:has(.edit-list-section) .tab-container {
     pointer-events: none;
 }
 
-/* 검색 결과 드롭다운 */
+/* 검??결과 ?�롭?�운 */
 .event-search-results {
     position: absolute;
     top: 100%;
@@ -5760,7 +5690,7 @@ body:has(.edit-list-section) .tab-container {
     line-height: 1.4;
 }
 
-/* 선택된 멤버 태그 */
+/* ?�택??멤버 ?�그 */
 .event-selected-members {
     display: none;
     flex-wrap: wrap;
@@ -5802,7 +5732,7 @@ body:has(.edit-list-section) .tab-container {
     color: #FF5A5F;
 }
 
-/* 일정 내용 */
+/* ?�정 ?�용 */
 .event-content-wrapper {
     margin-bottom: 20px;
 }
@@ -5832,7 +5762,7 @@ body:has(.edit-list-section) .tab-container {
     border-color: #FF7474;
 }
 
-/* 액션 버튼 */
+/* ?�션 버튼 */
 .event-action-buttons {
     display: flex;
     gap: 12px;
@@ -5941,7 +5871,7 @@ body:has(.edit-list-section) .tab-container {
     margin: 0 0 16px 0;
 }
 
-/* 지역 검색 */
+/* 지??검??*/
 .photo-plus-location-search {
     position: relative;
     margin-bottom: 12px;
@@ -5987,7 +5917,7 @@ body:has(.edit-list-section) .tab-container {
     text-align: center;
 }
 
-/* 지역 검색 결과 */
+/* 지??검??결과 */
 .photo-plus-search-results {
     position: absolute;
     top: calc(100% + 4px);
@@ -6035,7 +5965,7 @@ body:has(.edit-list-section) .tab-container {
     font-weight: 500;
 }
 
-/* 계절 탭 */
+/* 계절 ??*/
 .photo-plus-season-tabs {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -6065,7 +5995,7 @@ body:has(.edit-list-section) .tab-container {
     color: white;
 }
 
-/* 공유 설정 탭 */
+/* 공유 ?�정 ??*/
 .photo-plus-share-tabs {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -6096,7 +6026,7 @@ body:has(.edit-list-section) .tab-container {
     color: #FF7474;
 }
 
-/* 인연 검색 */
+/* ?�연 검??*/
 .photo-plus-member-search {
     position: relative;
 }
@@ -6131,7 +6061,7 @@ body:has(.edit-list-section) .tab-container {
     pointer-events: none;
 }
 
-/* 인연 검색 결과 */
+/* ?�연 검??결과 */
 .photo-plus-member-results {
     position: absolute;
     top: calc(100% + 4px);
@@ -6169,7 +6099,7 @@ body:has(.edit-list-section) .tab-container {
     color: #FF7474;
 }
 
-/* 선택된 인연 표시 */
+/* ?�택???�연 ?�시 */
 .photo-plus-selected-members {
     display: flex;
     flex-wrap: wrap;
@@ -6210,7 +6140,7 @@ body:has(.edit-list-section) .tab-container {
     color: #FF4444;
 }
 
-/* 사진 업로드 영역 */
+/* ?�진 ?�로???�역 */
 .photo-plus-upload-area {
     width: 100%;
     height: 200px;
@@ -6237,7 +6167,7 @@ body:has(.edit-list-section) .tab-container {
     line-height: 1;
 }
 
-/* 미리보기 그리드 */
+/* 미리보기 그리??*/
 .photo-plus-preview-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -6316,7 +6246,7 @@ body:has(.edit-list-section) .tab-container {
     transform: translateY(-2px) scale(1);
 }
 
-/* 메모 영역 */
+/* 메모 ?�역 */
 .photo-plus-memo-textarea {
     width: 100%;
     padding: 16px;
@@ -6338,7 +6268,7 @@ body:has(.edit-list-section) .tab-container {
     border-color: #FF7474;
 }
 
-/* 저장 버튼 */
+/* ?�??버튼 */
 .photo-plus-save-btn {
     width: 100%;
     height: 56px;
@@ -6371,7 +6301,6 @@ body:has(.edit-list-section) .tab-container {
     display: flex;
     gap: 8px;
     padding: 16px 20px;
-    margin-top: 66px;
     background-color: white;
     border-bottom: 1px solid #f0f0f0;
     overflow-x: auto;
@@ -6569,7 +6498,7 @@ body:has(.edit-list-section) .tab-container {
     color: #999;
 }
 
-/* 빈 상태 */
+/* �??�태 */
 .place-detail-empty {
     text-align: center;
     padding: 80px 20px;
@@ -6813,9 +6742,9 @@ body:has(.edit-list-section) .tab-container {
 }
 
 
-/* ==================== 추억 선물하기 페이지 스타일 ==================== */
+/* ==================== 추억 ?�물?�기 ?�이지 ?��???==================== */
 
-/* 선물 통계 배너 */
+/* ?�물 ?�계 배너 */
 .gift-stats-banner {
     background: linear-gradient(135deg, #FFF9F9 0%, #FFE8E8 100%);
     padding: 20px 28px 24px 28px;
@@ -6897,8 +6826,8 @@ body:has(.edit-list-section) .tab-container {
     position: absolute;
     bottom: 5px;
     right: 0;
-    width: 110px;
-    height: 90px;
+    width: 90px;
+    height: 100px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -6921,7 +6850,7 @@ body:has(.edit-list-section) .tab-container {
     }
 }
 
-/* 선물 상품 목록 */
+/* ?�물 ?�품 목록 */
 .gift-products-wrapper {
     padding: 28px 20px;
     padding-bottom: 100px;
@@ -6968,7 +6897,7 @@ body:has(.edit-list-section) .tab-container {
     position: relative;
 }
 
-/* NFC 키링 비주얼 */
+/* NFC ?�링 비주??*/
 .nfc-keyring-visual {
     position: relative;
     width: 100%;
@@ -6985,7 +6914,7 @@ body:has(.edit-list-section) .tab-container {
     filter: drop-shadow(0 8px 20px rgba(255, 116, 116, 0.28));
 }
 
-/* 액자 비주얼 */
+/* ?�자 비주??*/
 .frame-visual {
     position: relative;
     width: 100%;
@@ -7032,7 +6961,7 @@ body:has(.edit-list-section) .tab-container {
     filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.15));
 }
 
-/* 선물 상품 정보 */
+/* ?�물 ?�품 ?�보 */
 .gift-product-info {
     flex: 1;
     display: flex;
@@ -7074,9 +7003,9 @@ body:has(.edit-list-section) .tab-container {
 }
 
 
-/* ==================== 그룹 추억 페이지 스타일 ==================== */
+/* ==================== 그룹 추억 ?�이지 ?��???==================== */
 
-/* 그룹 배너 이미지 */
+/* 그룹 배너 ?��?지 */
 .group-banner-image {
     display: flex;
     align-items: center;
@@ -7104,7 +7033,7 @@ body:has(.edit-list-section) .tab-container {
     box-shadow: 0 4px 12px rgba(255, 116, 116, 0.2);
 }
 
-/* 그룹 멤버 프로필 이미지들 (여러 개일 때) */
+/* 그룹 멤버 ?�로???��?지??(?�러 개일 ?? */
 .group-profile-images.has-members {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -7247,9 +7176,9 @@ body:has(.edit-list-section) .tab-container {
 }
 
 
-/* ==================== 키링 구매 페이지 스타일 ==================== */
+/* ==================== ?�링 구매 ?�이지 ?��???==================== */
 
-/* 상품 상세 래퍼 */
+/* ?�품 ?�세 ?�퍼 */
 .product-detail-wrapper {
     width: 100%;
     max-width: 393px;
@@ -7258,7 +7187,7 @@ body:has(.edit-list-section) .tab-container {
     background-color: white;
 }
 
-/* 상품 이미지 슬라이더 */
+/* ?�품 ?��?지 ?�라?�더 */
 .product-image-slider {
     position: relative;
     width: 100%;
@@ -7297,7 +7226,7 @@ body:has(.edit-list-section) .tab-container {
     font-weight: 500;
 }
 
-/* 상품 정보 섹션 */
+/* ?�품 ?�보 ?�션 */
 .product-info-section {
     padding: 24px 20px;
     border-bottom: 8px solid #F5F5F5;
@@ -7356,7 +7285,7 @@ body:has(.edit-list-section) .tab-container {
     color: #5d5d5d;
 }
 
-/* 배송 섹션 */
+/* 배송 ?�션 */
 .delivery-section {
     padding: 24px 20px;
     border-bottom: 8px solid #F5F5F5;
@@ -7431,7 +7360,7 @@ body:has(.edit-list-section) .tab-container {
 
 .delivery-detail-divider {
     height: 1px;
-    background: #F0F2F6;
+    background: #E0E0E0;
     margin: 16px 0;
 }
 
@@ -7456,7 +7385,7 @@ body:has(.edit-list-section) .tab-container {
     font-weight: 500;
 }
 
-/* 구매하기 버튼 */
+/* 구매?�기 버튼 */
 .purchase-button-container {
     position: fixed;
     bottom: 0;
@@ -7488,7 +7417,7 @@ body:has(.edit-list-section) .tab-container {
     box-shadow: 0 2px 8px rgba(255, 116, 116, 0.4);
 }
 
-/* 상품 상세 정보 섹션 */
+/* ?�품 ?�세 ?�보 ?�션 */
 .product-detail-section {
     padding: 24px 20px;
     background-color: white;
@@ -7503,7 +7432,7 @@ body:has(.edit-list-section) .tab-container {
     border-bottom: 2px solid #333;
 }
 
-/* 상세 섹션 카드 */
+/* ?�세 ?�션 카드 */
 .detail-section-card {
     margin-bottom: 24px;
     border-radius: 16px;
@@ -7517,7 +7446,7 @@ body:has(.edit-list-section) .tab-container {
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
 }
 
-/* 핑크 카드 */
+/* ?�크 카드 */
 .pink-card {
     background: linear-gradient(135deg, #FFE8E8 0%, #FFD4D4 100%);
     padding: 24px 20px;
@@ -7529,7 +7458,7 @@ body:has(.edit-list-section) .tab-container {
     padding: 24px 20px;
 }
 
-/* 다크 카드 */
+/* ?�크 카드 */
 .dark-card {
     background: linear-gradient(135deg, #4A5C54 0%, #3A4C44 100%);
     padding: 24px 20px;
@@ -7540,13 +7469,13 @@ body:has(.edit-list-section) .tab-container {
     color: white;
 }
 
-/* 스펙 카드 */
+/* ?�펙 카드 */
 .spec-card {
     background: linear-gradient(135deg, #F5F5F5 0%, #EFEFEF 100%);
     padding: 24px 20px;
 }
 
-/* 카드 타이틀 */
+/* 카드 ?�?��? */
 .detail-card-title {
     font-size: 18px;
     font-weight: 700;
@@ -7567,7 +7496,7 @@ body:has(.edit-list-section) .tab-container {
     margin-bottom: 16px;
 }
 
-/* 상세 이미지 */
+/* ?�세 ?��?지 */
 .detail-image {
     width: 100%;
     border-radius: 12px;
@@ -7583,7 +7512,7 @@ body:has(.edit-list-section) .tab-container {
     padding: 16px;
 }
 
-/* 스펙 상세 */
+/* ?�펙 ?�세 */
 .spec-details {
     margin-top: 20px;
     background: white;
@@ -7656,14 +7585,14 @@ body:has(.edit-list-section) .tab-container {
 }
 
 .detail-info-list li::before {
-    content: '•';
+    content: '??;
     position: absolute;
     left: 8px;
     color: #FF7474;
     font-weight: bold;
 }
 
-/* ==================== 일정 알림 모달 ==================== */
+/* ==================== ?�정 ?�림 모달 ==================== */
 .event-notification-overlay {
     position: fixed;
     top: 0;
@@ -7785,7 +7714,7 @@ body:has(.edit-list-section) .tab-container {
     }
 }
 
-/* ==================== 편지 보기 모달 ==================== */
+/* ==================== ?��? 보기 모달 ==================== */
 .letter-view-modal-overlay {
     position: fixed;
     top: 0;
@@ -7913,140 +7842,4 @@ body:has(.edit-list-section) .tab-container {
 .letter-view-photo.single {
     grid-column: 1 / -1;
     max-width: 100%;
-}
-
-/* ========================================
-   선물 내역 페이지 (gift_history.html)
-   ======================================== */
-
-.gift-history-profile {
-    background-color: white;
-    padding: 80px 20px 0px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 8px;
-}
-
-.gift-profile-image {
-    width: 100px;
-    height: 100px;
-    border-radius: 16px;
-    object-fit: cover;
-    margin-bottom: 12px;
-}
-
-.gift-profile-name {
-    font-size: 18px;
-    font-weight: 700;
-    color: #333;
-    margin-bottom: 12px;
-}
-
-.gift-address-btn {
-    padding: 8px 20px;
-    background-color: white;
-    border: 1px solid #E0E0E0;
-    border-radius: 8px;
-    color: #333;
-    font-size: 14px;
-    font-weight: 500;
-    cursor: pointer;
-    margin-bottom: 12px;
-}
-
-.gift-status-text {
-    font-size: 14px;
-    color: #666;
-    width: 100%;
-    text-align: left;
-    padding: 16px 0;
-    padding-left: 20px;
-    border-top: 8px solid #F0F2F6;
-    border-bottom: 8px solid #F0F2F6;
-    margin-top: 12px;
-    margin-left: -20px;
-    margin-right: -20px;
-    width: calc(100% + 40px);
-}
-
-.gift-count {
-    color: #FF7474;
-    font-weight: 600;
-}
-
-.gift-orders-section {
-    background-color: white;
-    padding: 20px;
-    min-height: calc(100vh - 400px);
-    padding-bottom: 100px;
-}
-
-.gift-orders-title {
-    font-size: 18px;
-    font-weight: 700;
-    color: #333;
-    margin-bottom: 20px;
-}
-
-.gift-order-card {
-    background-color: transparent;
-    border-radius: 12px;
-    padding: 16px 0;
-    margin-bottom: 12px;
-}
-
-.gift-order-status {
-    font-size: 16px;
-    font-weight: 700;
-    margin-bottom: 8px;
-}
-
-.gift-order-status.shipping {
-    color: #333;
-}
-
-.gift-order-status.delivered {
-    color: #333;
-}
-
-.gift-order-product {
-    font-size: 14px;
-    color: #666;
-    margin-bottom: 4px;
-}
-
-.gift-order-quantity {
-    font-size: 13px;
-    color: #999;
-    margin-bottom: 12px;
-}
-
-.gift-track-btn {
-    width: 100%;
-    padding: 12px;
-    background-color: white;
-    border: 1px solid #FF7474;
-    border-radius: 8px;
-    color: #FF7474;
-    font-size: 15px;
-    font-weight: 600;
-    cursor: pointer;
-}
-
-.gift-action-buttons {
-    display: flex;
-    gap: 10px;
-}
-
-.gift-action-btn {
-    flex: 1;
-    padding: 12px;
-    background-color: white;
-    border: 1px solid #E0E0E0;
-    border-radius: 8px;
-    color: #333;
-    font-size: 15px;
-    font-weight: 500;
-    cursor: pointer;
 }

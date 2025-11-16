@@ -1,4 +1,4 @@
-const CACHE_NAME = 'mynok-v13';
+const CACHE_NAME = 'mynok-v76';
 const urlsToCache = [
   '/1_main/',
   '/1_main/00_loading.html',
@@ -26,6 +26,7 @@ const urlsToCache = [
   '/1_main/calendar_plus.html',
   '/1_main/keyring.html',
   '/1_main/frame.html',
+  '/1_main/gift_history.html',
   '/1_main/script.js',
   '/1_main/styles.css'
 ];

@@ -8,8 +8,8 @@
     <title>장소별 추억 확인 - 마이노크</title>
 
     <!-- PWA 설정 -->
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#FF9595">
+    <!-- <link rel="manifest" href="manifest.json"> -->
+    <meta name="theme-color" content="#FF7474">
     <link rel="icon" type="image/png" href="../img/00_로고.png">
     <link rel="apple-touch-icon" href="../img/00_로고.png">
 
@@ -24,23 +24,29 @@
 
     <!-- 상단 배너 -->
     <div class="place-header-banner">
-        <div class="place-banner-person">
-            <span class="place-banner-name" id="placeBannerName">강훈</span>
-            <span class="place-banner-text"> 님과</span>
-        </div>
-        <div class="place-banner-message">
-            다양한 장소에서 추억을 쌓았어요 🍀
-        </div>
-        <div class="place-banner-stats">
-            <div class="place-total-count">
-                함께한 지역 <span class="place-count-number" id="totalPlaceCount">38</span> 곳
+        <div class="place-banner-content">
+            <div class="place-banner-person">
+                <span class="place-banner-name" id="placeBannerName">강훈</span>
+                <span class="place-banner-text"> 님과</span>
             </div>
-            <div class="place-season-stats">
-                봄 <span class="season-count" id="springCount">389</span> |
-                여름 <span class="season-count" id="summerCount">524</span> |
-                가을 <span class="season-count" id="fallCount">208</span> |
-                겨울 <span class="season-count" id="winterCount">528</span>
+            <div class="place-banner-message">
+                다양한 장소에서<br>
+                추억을 쌓았어요 🍀
             </div>
+            <div class="place-banner-stats">
+                <div class="place-total-count">
+                    함께한 지역 <span class="place-count-number" id="totalPlaceCount">38</span> 곳
+                </div>
+                <div class="place-season-stats">
+                    봄 <span class="season-count" id="springCount">389</span> |
+                    여름 <span class="season-count" id="summerCount">524</span> |
+                    가을 <span class="season-count" id="fallCount">208</span> |
+                    겨울 <span class="season-count" id="winterCount">528</span>
+                </div>
+            </div>
+        </div>
+        <div class="place-banner-icon">
+            <img src="../img/장소별 추억 아이콘_00.png" alt="장소별 추억" class="place-icon-img">
         </div>
     </div>
 
@@ -48,8 +54,8 @@
     <div class="place-search-wrapper">
         <input type="text" class="place-search-input" id="placeSearchInput" placeholder="지역을 검색해주세요.">
         <svg class="place-search-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="11" cy="11" r="7" stroke="#FF9595" stroke-width="2"/>
-            <path d="M20 20L16.5 16.5" stroke="#FF9595" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="11" cy="11" r="7" stroke="#FF7474" stroke-width="2"/>
+            <path d="M20 20L16.5 16.5" stroke="#FF7474" stroke-width="2" stroke-linecap="round"/>
         </svg>
     </div>
 
