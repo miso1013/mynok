@@ -6836,15 +6836,22 @@ body:has(.edit-list-section) .tab-container {
 
 .gift-stats-title {
     font-size: 19px;
-    font-weight: 700;
-    color: #5d5d5d;
-    line-height: 1.5;
+    font-weight: 300;
+    color: #666;
+    line-height: 1.3;
     margin-bottom: 16px;
+    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
 .gift-user-name {
     color: #FF7474;
-    font-size: 19px;
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.gift-suffix {
+    color: #666;
+    font-weight: 500;
 }
 
 .gift-count {

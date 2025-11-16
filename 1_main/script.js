@@ -1680,15 +1680,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // 선물 내역 보러가기 링크
-    const giftHistoryLink = document.getElementById('giftHistoryLink');
-    if (giftHistoryLink) {
-        giftHistoryLink.addEventListener('click', function(e) {
-            e.preventDefault();
-            alert('선물 내역 페이지는 준비중입니다.');
-        });
-    }
-
     // 키링 선물하기 버튼
     const giftKeyringBtn = document.getElementById('giftKeyringBtn');
     if (giftKeyringBtn) {
@@ -9472,6 +9463,14 @@ if (document.getElementById('backFromGiftHistory')) {
 // 마이페이지 - 선물 내역 버튼
 if (document.getElementById('giftHistoryBtn')) {
     document.getElementById('giftHistoryBtn').addEventListener('click', () => {
+        window.location.href = 'gift_history.html';
+    });
+}
+
+// 선물 페이지 - 선물한 내역 보러가기 링크
+if (document.getElementById('giftHistoryLink')) {
+    document.getElementById('giftHistoryLink').addEventListener('click', (e) => {
+        e.preventDefault();
         window.location.href = 'gift_history.html';
     });
 }

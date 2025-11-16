@@ -1,4 +1,4 @@
-const CACHE_NAME = 'mynok-v76';
+const CACHE_NAME = 'mynok-v79';
 const urlsToCache = [
   '/1_main/',
   '/1_main/00_loading.html',
