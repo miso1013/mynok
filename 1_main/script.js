@@ -70,7 +70,7 @@ function initializeSampleData() {
             contact: '01056789887',
             connectionType: 'person',
             memories: 654,
-            avatar: '../img/miso/할머니_01.png',
+            avatar: '../img/miso/할머니_01.jpg',
             isSharing: true
         },
         {
@@ -273,7 +273,7 @@ function initializeSampleData() {
             id: '1',
             name: '가족',
             members: [
-                { name: '할머니', relation: '그룹 멤버', profileImage: '../img/miso/할머니_01.png' },
+                { name: '할머니', relation: '그룹 멤버', profileImage: '../img/miso/할머니_01.jpg' },
                 { name: '엄마', relation: '그룹 멤버', profileImage: '../img/miso/엄마_01.png' },
                 { name: '아빠', relation: '그룹 멤버', profileImage: '../img/miso/아빠_01.png' },
                 { name: '미소', relation: '나', profileImage: '../img/miso/미소_01.jpg' }
@@ -1068,6 +1068,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
 
+            // 아빠는 추억 0개로 유지 (편지, 사진, 음성 모두 삭제)
+            localStorage.removeItem('mynokLetters_아빠');
+            localStorage.removeItem('mynokPhotos_아빠');
+            localStorage.removeItem('mynokVoices_아빠');
+
             // 엄마 프로필 이미지 및 공유 상태 업데이트
             const mom = connections.find(conn => conn.name === '엄마');
             if (mom) {
@@ -1084,8 +1089,8 @@ document.addEventListener('DOMContentLoaded', function() {
             // 할머니 프로필 이미지 및 공유 상태 업데이트
             const grandma = connections.find(conn => conn.name === '할머니');
             if (grandma) {
-                if (grandma.avatar !== '../img/miso/할머니_01.png') {
-                    grandma.avatar = '../img/miso/할머니_01.png';
+                if (grandma.avatar !== '../img/miso/할머니_01.jpg') {
+                    grandma.avatar = '../img/miso/할머니_01.jpg';
                     updated = true;
                 }
                 if (grandma.isSharing !== true) {
@@ -1349,6 +1354,349 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // 페이지 로드 시 강훈 사진 초기화 실행
     initializeKanghoonPhotos();
+
+    // 할머니 사진 초기화 함수
+    function initializeGrandmotherPhotos() {
+        const PHOTOS_KEY = 'mynokPhotos_할머니';
+        const existingPhotos = localStorage.getItem(PHOTOS_KEY);
+
+        // 이미 사진이 있으면 초기화하지 않음
+        if (existingPhotos) {
+            const photos = JSON.parse(existingPhotos);
+            if (photos.length >= 3) {
+                return;
+            }
+        }
+
+        const grandmotherPhotos = [
+            {
+                id: 1,
+                type: 'photo',
+                url: '../img/grandmother/1.png',
+                date: '2025.04.04',
+                favorite: true,
+                createdAt: new Date('2025-04-04').toISOString()
+            },
+            {
+                id: 2,
+                type: 'photo',
+                url: '../img/grandmother/2.jpg',
+                date: '2025.02.15',
+                favorite: false,
+                createdAt: new Date('2025-02-15').toISOString()
+            },
+            {
+                id: 3,
+                type: 'photo',
+                url: '../img/grandmother/3.jpg',
+                date: '2024.12.25',
+                favorite: false,
+                createdAt: new Date('2024-12-25').toISOString()
+            }
+        ];
+
+        localStorage.setItem(PHOTOS_KEY, JSON.stringify(grandmotherPhotos));
+        console.log('할머니 사진 초기화 완료:', grandmotherPhotos.length, '개');
+    }
+
+    // 페이지 로드 시 할머니 사진 초기화 실행
+    initializeGrandmotherPhotos();
+
+    // 할머니 편지 초기화 함수
+    function initializeGrandmotherLetters() {
+        const LETTERS_KEY = 'mynokLetters_할머니';
+        // 항상 새로운 편지 데이터로 덮어쓰기
+
+        const grandmotherLetters = [
+            {
+                id: 1,
+                type: 'sent',
+                recipient: '할머니',
+                date: '2025.04.04',
+                title: '할머니 생일 축하해',
+                content: '할머니, 생일 축하해! 오늘 할머니네에서 같이 미역국 먹으면서 진짜 행복했어. 할머니가 해주는 밥이 세상에서 제일 맛있어. 앞으로도 건강하게 오래오래 내 곁에 있어줘. 할머니 많이 사랑해. 💕',
+                pattern: 'hearts',
+                photos: [],
+                createdAt: new Date('2025-04-04').toISOString()
+            },
+            {
+                id: 2,
+                type: 'received',
+                recipient: '미소',
+                date: '2025.03.20',
+                title: '우리 미소한테',
+                content: '미소야, 오늘도 장 봐줘서 고맙다 아이가. 할매는 니가 올때마다 너무 조타. 요즘 기억이 가물가물해도 니 얼굴은 항상 선명하게 기억난다. 우리 미소 건강하고, 할매 자주 보러온나. 사랑핸다.',
+                pattern: 'flowers',
+                photos: [],
+                createdAt: new Date('2025-03-20').toISOString()
+            },
+            {
+                id: 3,
+                type: 'sent',
+                recipient: '할머니',
+                date: '2025.02.15',
+                title: '할머니, 오늘 너무 즐거웠어',
+                content: '할머니! 오늘 같이 마트 가서 장보고, 집에서 같이 만두 빚은 거 너무 재밌었어. 할머니가 만두 빚는 거 알려줄 때 손이 참 따뜻했어. 다음에 또 같이 만들자! 할아버지한테도 안부 전해줘. 💙',
+                pattern: 'dots',
+                photos: [],
+                createdAt: new Date('2025-02-15').toISOString()
+            },
+            {
+                id: 4,
+                type: 'received',
+                recipient: '미소',
+                date: '2025.01.10',
+                title: '새해 복 마이 받아라',
+                content: '우리 미소, 새해 복 마이 받아라. 할매는 니가 건강하고 행복하게 지내는기 제일 조타. 올해도 자주 놀러온나. 할매가 맛잇는거 마이 해줄게. 설날에 보자 아이가.',
+                pattern: 'plain-pink',
+                photos: [],
+                createdAt: new Date('2025-01-10').toISOString()
+            }
+        ];
+
+        localStorage.setItem(LETTERS_KEY, JSON.stringify(grandmotherLetters));
+        console.log('할머니 편지 초기화 완료:', grandmotherLetters.length, '개');
+    }
+
+    // 페이지 로드 시 할머니 편지 초기화 실행
+    initializeGrandmotherLetters();
+
+    // 강훈 편지 초기화 함수
+    function initializeKanghoonLetters() {
+        const LETTERS_KEY = 'mynokLetters_강훈';
+        // 항상 새로운 편지 데이터로 덮어쓰기
+
+        const kanghoonLetters = [
+            // 보낸 편지 (미소 → 강훈)
+            {
+                id: 1,
+                type: 'sent',
+                recipient: '강훈',
+                date: '2025.04.10',
+                title: '오빠 보고싶어',
+                content: '오빠~ 오늘 수업 끝나고 혼자 집에 오는데 갑자기 오빠 생각났어. 내일 만나는 거 맞지? 빨리 보고싶다 ㅠㅠ 오빠 얼굴 보면 기분 좋아져. 내일 뭐 먹을까? 오빠가 골라! 💕',
+                pattern: 'hearts',
+                photos: [],
+                createdAt: new Date('2025-04-10').toISOString()
+            },
+            {
+                id: 2,
+                type: 'sent',
+                recipient: '강훈',
+                date: '2025.03.14',
+                title: '화이트데이 고마워',
+                content: '오빠 오늘 선물 너무 고마워!! 사탕도 맛있고 인형도 너무 귀여워 ㅠㅠ 오빠가 세상에서 제일 좋아. 나도 오빠한테 더 잘할게. 우리 오래오래 행복하자 💙',
+                pattern: 'dots',
+                photos: [],
+                createdAt: new Date('2025-03-14').toISOString()
+            },
+            {
+                id: 3,
+                type: 'sent',
+                recipient: '강훈',
+                date: '2025.02.14',
+                title: '발렌타인데이에',
+                content: '오빠~ 발렌타인데이라서 초콜릿 만들어봤어. 좀 못생겼는데 맛은 있을거야 아마도..? ㅋㅋㅋ 오빠가 맛있게 먹어주면 좋겠다. 사랑해 오빠 ❤️',
+                pattern: 'hearts',
+                photos: [],
+                createdAt: new Date('2025-02-14').toISOString()
+            },
+            {
+                id: 4,
+                type: 'sent',
+                recipient: '강훈',
+                date: '2025.01.25',
+                title: '오빠 아파?',
+                content: '오빠 감기 괜찮아? 약 먹었어? 밥은 먹었고? 죽 사다줄까 내가. 아프면 안돼 ㅠㅠ 빨리 나아서 나랑 놀아야지. 푹 쉬어 오빠. 걱정돼.',
+                pattern: 'plain-pink',
+                photos: [],
+                createdAt: new Date('2025-01-25').toISOString()
+            },
+            {
+                id: 5,
+                type: 'sent',
+                recipient: '강훈',
+                date: '2025.01.01',
+                title: '새해 첫날!',
+                content: '오빠 새해 복 많이 받아!! 올해도 우리 행복하자. 작년에 오빠 만나서 진짜 좋았어. 올해는 더 많이 보고 더 많이 웃자! 2025년도 오빠랑 함께라서 기대돼 💕',
+                pattern: 'flowers',
+                photos: [],
+                createdAt: new Date('2025-01-01').toISOString()
+            },
+            {
+                id: 6,
+                type: 'sent',
+                recipient: '강훈',
+                date: '2024.12.25',
+                title: '메리 크리스마스 오빠',
+                content: '오빠~ 메리 크리스마스! 오늘 같이 보내서 너무 좋았어. 트리도 예뻤고 오빠가 해준 저녁도 맛있었어. 크리스마스 선물 고마워 ㅠㅠ 오빠가 최고야!',
+                pattern: 'dots',
+                photos: [],
+                createdAt: new Date('2024-12-25').toISOString()
+            },
+            {
+                id: 7,
+                type: 'sent',
+                recipient: '강훈',
+                date: '2024.11.15',
+                title: '오늘 데이트 너무 좋았어',
+                content: '오빠 오늘 영화 재밌었지? 나 오빠 손 잡고 있으니까 심장이 쿵쾅쿵쾅 했어 ㅋㅋ 아직도 두근거려. 다음에 또 영화 보러가자! 오빠랑 있으면 뭘 해도 재밌어.',
+                pattern: 'stripes',
+                photos: [],
+                createdAt: new Date('2024-11-15').toISOString()
+            },
+            {
+                id: 8,
+                type: 'sent',
+                recipient: '강훈',
+                date: '2024.10.10',
+                title: '100일 축하해 우리',
+                content: '오빠!! 우리 100일이야!! 벌써 100일이나 됐다니 시간 진짜 빠르다. 오빠 만나고 매일매일이 행복해. 앞으로 200일, 300일, 1000일도 함께하자. 사랑해 💕',
+                pattern: 'hearts',
+                photos: [],
+                createdAt: new Date('2024-10-10').toISOString()
+            },
+            {
+                id: 9,
+                type: 'sent',
+                recipient: '강훈',
+                date: '2024.08.20',
+                title: '오빠 생각나',
+                content: '오빠 뭐해? 나 지금 집에서 뒹굴뒹굴 하는데 갑자기 오빠 보고싶어졌어. 언제 봐? 빨리 보고싶다 ㅠㅠ 오빠 목소리라도 듣고싶어. 전화해줘~',
+                pattern: 'plain-pink',
+                photos: [],
+                createdAt: new Date('2024-08-20').toISOString()
+            },
+            {
+                id: 10,
+                type: 'sent',
+                recipient: '강훈',
+                date: '2024.07.03',
+                title: '우리 처음 만난 날',
+                content: '오빠~ 오늘 우리 처음 만난 날이야 알아? 그때 오빠 진짜 떨고 있었잖아 ㅋㅋㅋ 귀여웠어. 그날 오빠 만나서 진짜 다행이야. 앞으로도 잘 부탁해 오빠 💙',
+                pattern: 'flowers',
+                photos: [],
+                createdAt: new Date('2024-07-03').toISOString()
+            },
+            // 받은 편지 (강훈 → 미소)
+            {
+                id: 11,
+                type: 'received',
+                recipient: '미소',
+                date: '2025.04.08',
+                title: '애기야',
+                content: '애기야 뭐해~ 오빠 지금 일 끝났어. 내일 만나면 맛있는 거 사줄게. 뭐 먹고싶어? 애기가 먹고싶은 거 다 사줄게. 보고싶다 애기야 ❤️',
+                pattern: 'hearts',
+                photos: [],
+                createdAt: new Date('2025-04-08').toISOString()
+            },
+            {
+                id: 12,
+                type: 'received',
+                recipient: '미소',
+                date: '2025.03.15',
+                title: '우리 애기 최고',
+                content: '애기야 오늘 같이 산책해서 너무 좋았어. 애기 손 잡고 걷는 거 오빠 진짜 좋아해. 날씨도 좋았고 애기도 예뻤고 완벽한 하루였어. 고마워 애기야.',
+                pattern: 'dots',
+                photos: [],
+                createdAt: new Date('2025-03-15').toISOString()
+            },
+            {
+                id: 13,
+                type: 'received',
+                recipient: '미소',
+                date: '2025.02.14',
+                title: '발렌타인데이 고마워',
+                content: '애기야 초콜릿 너무 맛있어!! 못생기긴 뭐가 못생겨 세상에서 제일 예쁜 초콜릿이야. 애기가 만들어줬으니까. 오빠가 더 잘할게. 사랑해 애기야 💕',
+                pattern: 'hearts',
+                photos: [],
+                createdAt: new Date('2025-02-14').toISOString()
+            },
+            {
+                id: 14,
+                type: 'received',
+                recipient: '미소',
+                date: '2025.01.20',
+                title: '애기 걱정돼',
+                content: '애기야 집에 잘 들어갔어? 늦게까지 있어서 미안해. 다음엔 일찍 데려다줄게. 항상 애기 안전이 제일 중요해. 도착하면 연락해 애기야.',
+                pattern: 'plain-pink',
+                photos: [],
+                createdAt: new Date('2025-01-20').toISOString()
+            },
+            {
+                id: 15,
+                type: 'received',
+                recipient: '미소',
+                date: '2025.01.01',
+                title: '새해에도 함께',
+                content: '애기야 새해 복 많이 받아! 올해도 애기랑 함께할 수 있어서 너무 행복해. 애기 만나고 오빠 인생이 진짜 바뀌었어. 올해도 행복하게 해줄게. 사랑해.',
+                pattern: 'flowers',
+                photos: [],
+                createdAt: new Date('2025-01-01').toISOString()
+            },
+            {
+                id: 16,
+                type: 'received',
+                recipient: '미소',
+                date: '2024.12.24',
+                title: '크리스마스 이브에',
+                content: '애기야~ 내일 크리스마스 진짜 기대돼. 애기랑 보내는 첫 크리스마스잖아. 선물 준비했는데 애기가 좋아했으면 좋겠다. 내일 보자 애기야 ❤️',
+                pattern: 'stripes',
+                photos: [],
+                createdAt: new Date('2024-12-24').toISOString()
+            },
+            {
+                id: 17,
+                type: 'received',
+                recipient: '미소',
+                date: '2024.11.11',
+                title: '빼빼로데이',
+                content: '애기야 빼빼로 좋아해? 오빠가 많이 샀어 ㅋㅋ 같이 먹자. 애기 볼 생각에 벌써 기분 좋아. 아 그리고 애기 진짜 예뻐. 갑자기 생각나서.',
+                pattern: 'dots',
+                photos: [],
+                createdAt: new Date('2024-11-11').toISOString()
+            },
+            {
+                id: 18,
+                type: 'received',
+                recipient: '미소',
+                date: '2024.10.10',
+                title: '100일 축하해 애기야',
+                content: '애기야 우리 100일 축하해!! 애기 만나고 100일이 벌써 됐네. 매일이 행복했어. 앞으로도 오빠가 애기 행복하게 해줄게. 평생 함께하자. 사랑해 💕',
+                pattern: 'hearts',
+                photos: [],
+                createdAt: new Date('2024-10-10').toISOString()
+            },
+            {
+                id: 19,
+                type: 'received',
+                recipient: '미소',
+                date: '2024.09.05',
+                title: '애기 힘들지?',
+                content: '애기야 오늘 많이 힘들었지? 오빠가 옆에 있어줬으면 좋겠는데 못 가서 미안해. 힘들면 오빠한테 말해. 언제든 달려갈게. 화이팅이야 애기!',
+                pattern: 'plain-pink',
+                photos: [],
+                createdAt: new Date('2024-09-05').toISOString()
+            },
+            {
+                id: 20,
+                type: 'received',
+                recipient: '미소',
+                date: '2024.07.10',
+                title: '사귀자고 해줘서 고마워',
+                content: '애기야 일주일 전에 오빠한테 고백해줘서 고마워. 오빠 진짜 떨렸거든 ㅋㅋ 근데 애기가 좋다고 해줘서 너무 행복했어. 앞으로 잘하자 우리. 사랑해 애기야 ❤️',
+                pattern: 'flowers',
+                photos: [],
+                createdAt: new Date('2024-07-10').toISOString()
+            }
+        ];
+
+        localStorage.setItem(LETTERS_KEY, JSON.stringify(kanghoonLetters));
+        console.log('강훈 편지 초기화 완료:', kanghoonLetters.length, '개');
+    }
+
+    // 페이지 로드 시 강훈 편지 초기화 실행
+    initializeKanghoonLetters();
 
     // 인연별 추억 개수 계산
     function calculateMemoriesCount(personName) {
@@ -2711,6 +3059,12 @@ document.addEventListener('DOMContentLoaded', function() {
                             shareLabel.textContent = '공유중';
                             shareLabel.style.color = '#FF7474';
                         }
+
+                        // 공유중일 때 배너 질문 텍스트 원래대로
+                        const bannerQuestion = document.querySelector('.memory-banner-question');
+                        if (bannerQuestion) {
+                            bannerQuestion.textContent = '오늘은 어떤 추억을 쌓으셨나요?';
+                        }
                     } else {
                         document.getElementById('bannerStatus').textContent = '간직중이에요';
                         if (shareToggleElement) {
@@ -2722,6 +3076,12 @@ document.addEventListener('DOMContentLoaded', function() {
                         if (shareLabel) {
                             shareLabel.textContent = '간직중';
                             shareLabel.style.color = '#999';
+                        }
+
+                        // 간직중일 때 배너 질문 텍스트 변경
+                        const bannerQuestion = document.querySelector('.memory-banner-question');
+                        if (bannerQuestion) {
+                            bannerQuestion.innerHTML = '간직할 추억이 있다는건 멋진거에요.';
                         }
                     }
                 } else {
@@ -2736,6 +3096,12 @@ document.addEventListener('DOMContentLoaded', function() {
                     if (shareLabel) {
                         shareLabel.textContent = '간직중';
                         shareLabel.style.color = '#999';
+                    }
+
+                    // 간직중일 때 배너 질문 텍스트 변경
+                    const bannerQuestion = document.querySelector('.memory-banner-question');
+                    if (bannerQuestion) {
+                        bannerQuestion.innerHTML = '간직할 추억이 있다는건 멋진거에요.';
                     }
 
                     // 토글 비활성화
@@ -2764,6 +3130,46 @@ document.addEventListener('DOMContentLoaded', function() {
                 document.getElementById('memoryTypesTitle').textContent = `나와 ${person.name}의 추억에는`;
 
                 console.log('추억 페이지 렌더링 완료:', person.name);
+
+                // 추억 없음 팝업 체크
+                const noMemoryOverlay = document.getElementById('noMemoryNotificationOverlay');
+                if (noMemoryOverlay && memoriesCount === 0) {
+                    // 팝업 메시지에 이름 넣기
+                    const noMemoryMessage = document.getElementById('noMemoryMessage');
+                    if (noMemoryMessage) {
+                        noMemoryMessage.innerHTML = `
+                            <span class="highlight-name">${person.name}</span>님과 처음으로<br>
+                            날씨 이야기를 하며<br>
+                            편지를 써보는건 어떠실까요?
+                        `;
+                    }
+
+                    // 팝업 표시 (항상)
+                    noMemoryOverlay.style.display = 'flex';
+
+                    // 편지 쓰러 가기 버튼
+                    const writeLetterBtn = document.getElementById('noMemoryWriteLetterBtn');
+                    if (writeLetterBtn) {
+                        writeLetterBtn.addEventListener('click', function() {
+                            window.location.href = `letter_write.html?name=${encodeURIComponent(person.name)}`;
+                        });
+                    }
+
+                    // 나중에 할게요 버튼
+                    const closeBtn = document.getElementById('noMemoryCloseBtn');
+                    if (closeBtn) {
+                        closeBtn.addEventListener('click', function() {
+                            noMemoryOverlay.style.display = 'none';
+                        });
+                    }
+
+                    // 오버레이 클릭 시 닫기
+                    noMemoryOverlay.addEventListener('click', function(e) {
+                        if (e.target === this) {
+                            this.style.display = 'none';
+                        }
+                    });
+                }
             } else {
                 alert('해당 인연을 찾을 수 없습니다.');
                 window.location.href = '01_main.html';
@@ -2811,6 +3217,12 @@ document.addEventListener('DOMContentLoaded', function() {
                     bannerStatus.textContent = '공유중이에요';
                 }
 
+                // 공유중일 때 배너 질문 텍스트 원래대로
+                const bannerQuestion = document.querySelector('.memory-banner-question');
+                if (bannerQuestion) {
+                    bannerQuestion.textContent = '오늘은 어떤 추억을 쌓으셨나요?';
+                }
+
                 // localStorage에 isSharing 상태 저장
                 const urlParams = new URLSearchParams(window.location.search);
                 const personName = urlParams.get('name');
@@ -2842,6 +3254,12 @@ document.addEventListener('DOMContentLoaded', function() {
             const bannerStatus = document.getElementById('bannerStatus');
             if (bannerStatus) {
                 bannerStatus.textContent = '간직중이에요';
+            }
+
+            // 간직중일 때 배너 질문 텍스트 변경
+            const bannerQuestion = document.querySelector('.memory-banner-question');
+            if (bannerQuestion) {
+                bannerQuestion.innerHTML = '간직할 추억이 있다는건 멋진거에요.';
             }
 
             // localStorage에 isSharing 상태 저장
@@ -4022,6 +4440,11 @@ document.addEventListener('DOMContentLoaded', function() {
             const saved = localStorage.getItem(letterStorageKey);
             if (saved) {
                 return JSON.parse(saved);
+            }
+            // 아빠는 빈 편지함으로 시작
+            if (personName === '아빠') {
+                localStorage.setItem(letterStorageKey, JSON.stringify([]));
+                return [];
             }
             // 처음이면 기본 데이터 저장
             localStorage.setItem(letterStorageKey, JSON.stringify(defaultLetters));
@@ -5309,7 +5732,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             let mediaHTML;
             if (photo.type === 'video') {
-                mediaHTML = `<video src="${photo.url}" preload="metadata"></video>`;
+                mediaHTML = `<video src="${photo.url}#t=0.001" preload="auto"></video>`;
             } else {
                 mediaHTML = `<img src="${photo.url}" alt="사진">`;
             }
@@ -5323,8 +5746,17 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         // 사진 렌더링
-        function renderPhotos(filterType = 'all', searchQuery = '') {
+        function renderPhotos(filterType = 'all', searchQuery = '', dateFilter = '') {
             let photos = getPhotos();
+
+            // 날짜 필터링 (월별)
+            if (dateFilter) {
+                photos = photos.filter(photo => {
+                    // photo.date는 "2025.05.08" 형식, dateFilter는 "2025-05" 형식
+                    const photoDate = photo.date.replace(/\./g, '-').substring(0, 7); // "2025-05"
+                    return photoDate === dateFilter;
+                });
+            }
 
             // 검색 필터링
             if (searchQuery) {
@@ -5422,12 +5854,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
                     highlightVideoCard.innerHTML = `
                         <div class="highlight-video-item" data-id="${videoHighlight.id}">
-                            ${videoHighlight.url ? `<img src="${videoHighlight.url}" alt="하이라이트 영상">` : ''}
+                            ${videoHighlight.url ? `<video src="${videoHighlight.url}#t=0.001" preload="auto" muted></video>` : ''}
                             <div class="highlight-video-date">${formattedDate}</div>
                         </div>
                     `;
                 } else {
-                    highlightVideoCard.innerHTML = '<p style="text-align: center; color: #999; padding: 40px 20px;">영상이 없습니다</p>';
+                    // 기본 동영상 표시
+                    highlightVideoCard.innerHTML = `
+                        <div class="highlight-video-item">
+                            <video src="../img/kanghoon/동영상2.mp4#t=0.001" preload="auto" muted></video>
+                            <div class="highlight-video-date">2025년 7월 28일</div>
+                        </div>
+                    `;
                 }
             }
 
@@ -5489,12 +5927,25 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
 
-        // 검색
-        const photoSearchInput = document.getElementById('photoSearchInput');
-        if (photoSearchInput) {
-            photoSearchInput.addEventListener('input', function() {
+        // 날짜 조회
+        const photoDateInput = document.getElementById('photoDateInput');
+        const photoDateReset = document.getElementById('photoDateReset');
+
+        if (photoDateInput) {
+            photoDateInput.addEventListener('change', function() {
+                const selectedMonth = this.value; // "2025-07" 형식
                 const currentTab = document.querySelector('.photo-tab-btn.active').getAttribute('data-tab');
-                renderPhotos(currentTab, this.value);
+                renderPhotos(currentTab, '', selectedMonth);
+            });
+        }
+
+        if (photoDateReset) {
+            photoDateReset.addEventListener('click', function() {
+                if (photoDateInput) {
+                    photoDateInput.value = '';
+                }
+                const currentTab = document.querySelector('.photo-tab-btn.active').getAttribute('data-tab');
+                renderPhotos(currentTab, '', '');
             });
         }
 
@@ -8517,21 +8968,32 @@ document.addEventListener('DOMContentLoaded', function() {
         // 그룹 멤버 프로필 표시
         const groupVoiceProfiles = document.getElementById('groupVoiceProfiles');
         if (groupVoiceProfiles && currentGroup.members) {
+            // 미소 프로필 이미지 가져오기
+            const userProfile = JSON.parse(localStorage.getItem('mynokUserProfile') || '{}');
+            const misoAvatar = userProfile.profilePhoto || '../img/miso/미소_01.jpg';
+
             groupVoiceProfiles.innerHTML = `
                 <div style="text-align: center; margin-bottom: 20px;">
                     <h3 style="color: #FF7474; font-size: 18px; margin-bottom: 10px;">${currentGroup.name} 그룹</h3>
                     <p style="color: #666; font-size: 14px;">함께한 소중한 순간들</p>
                 </div>
-                <div style="display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;">
+                <div style="display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; margin-bottom: 16px;">
                     ${currentGroup.members.slice(0, 4).map(member => {
                         const memberName = typeof member === 'string' ? member : member.name;
                         const cleanName = memberName.replace('(나)', '').trim();
-                        const connection = connections.find(c => c.name === cleanName);
-                        const avatarSrc = connection && connection.avatar ? connection.avatar : '';
+
+                        // 미소인 경우 userProfile에서 가져오고, 아니면 connections에서 찾기
+                        let avatarSrc = '';
+                        if (cleanName === '미소') {
+                            avatarSrc = misoAvatar;
+                        } else {
+                            const connection = connections.find(c => c.name === cleanName);
+                            avatarSrc = connection && connection.avatar ? connection.avatar : '';
+                        }
 
                         return `
                             <div style="display: flex; flex-direction: column; align-items: center;">
-                                <div style="width: 60px; height: 60px; border-radius: 50%; overflow: hidden; background: #FFE8E8; display: flex; align-items: center; justify-content: center;">
+                                <div style="width: 60px; height: 60px; border-radius: 8px; overflow: hidden; background: #FFE8E8; display: flex; align-items: center; justify-content: center;">
                                     ${avatarSrc ? `<img src="${avatarSrc}" style="width: 100%; height: 100%; object-fit: cover;">` : '<span style="font-size: 24px;">👤</span>'}
                                 </div>
                                 <p style="margin-top: 6px; font-size: 12px; color: #666;">${memberName}</p>
