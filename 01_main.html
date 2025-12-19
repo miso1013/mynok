@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>마이노크</title>
+
+    <!-- PWA Manifest -->
+    <!-- <link rel="manifest" href="manifest.json"> -->
+
+    <!-- 테마 컬러 -->
+    <meta name="theme-color" content="#FF7474">
+
+    <!-- iOS 전용 설정 -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="마이노크">
+    <link rel="apple-touch-icon" href="../img/00_로고.png">
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- 헤더 -->
+    <header class="header">
+        <h1 class="logo">마이노크</h1>
+    </header>
+
+    <!-- 프로필 섹션 -->
+    <section class="profile-section">
+        <div class="profile-content">
+            <div class="greeting">
+                <h2 class="user-name">미소 <span class="suffix">님</span></h2>
+                <p class="message">오늘의 추억은<br>내일의 당신에게<br>큰 힘이 될거에요. 🍀</p>
+            </div>
+            <div class="profile-image-container">
+                <img src="../img/miso/미소_01.jpg" alt="프로필" class="profile-image" id="mainProfileImage" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="profile-placeholder" id="mainProfilePlaceholder" style="display: none;">👤</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 검색바 -->
+    <div class="search-container">
+        <input type="text" class="search-input" placeholder="검색">
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="11" cy="11" r="7" stroke="#FF7474" stroke-width="2"/>
+            <path d="M20 20L16.5 16.5" stroke="#FF7474" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+    </div>
+
+    <!-- 탭 버튼 -->
+    <div class="tab-container">
+        <button class="tab-btn active" data-tab="connection">소중한 인연</button>
+        <button class="tab-btn" data-tab="group">소중한 그룹 인연</button>
+    </div>
+
+    <!-- 인연 목록 -->
+    <section class="connections-section" id="connectionTab">
+        <div class="connections-scroll-wrapper">
+            <div id="connectionsList">
+                <!-- 인연 목록이 JavaScript로 동적 생성됩니다 -->
+            </div>
+        </div>
+
+        <!-- 인연 추가 버튼 -->
+        <button class="add-connection-btn">+ 인연 추가하기</button>
+
+        <!-- 선물 추천 섹션 -->
+        <div class="gift-section">
+            <div class="gift-icons-container">
+                <img src="../img/오디오 키링_아이콘.png" alt="오디오 키링" class="gift-icon-img">
+                <img src="../img/디스플레이 액자_아이콘.png" alt="디스플레이 액자" class="gift-icon-img">
+            </div>
+            <div class="gift-content">
+                <p class="gift-title">소중한 사람에게</p>
+                <p class="gift-subtitle">평생 간직할 수 있는<br>선물을 전달해보세요</p>
+                <button class="gift-btn">추억 선물하러 가기 ›</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- 그룹 인연 탭 (숨김) -->
+    <section class="groups-section" id="groupTab" style="display: none;">
+        <div class="connections-scroll-wrapper">
+            <div id="groupsList">
+                <!-- 그룹 목록이 JavaScript로 동적 생성됩니다 -->
+            </div>
+        </div>
+
+        <!-- 그룹 추가 버튼 -->
+        <button class="add-connection-btn" id="addGroupBtn">+ 새 그룹 만들기</button>
+    </section>
+
+
+    <!-- 일정 알림 모달 -->
+    <div class="event-notification-overlay" id="eventNotificationOverlay">
+        <div class="event-notification-modal">
+            <div class="event-notification-icon">🍀</div>
+            <h3 class="event-notification-title">띵동!</h3>
+            <p class="event-notification-message">
+                오늘은 <span class="highlight-name">미소</span>님의<br>
+                <span class="highlight-event">졸업전시회</span> 날이에요!
+            </p>
+            <p class="event-notification-submessage">
+                다같이 축하할 수 있도록<br>
+                일정을 공유해보세요! 🍀
+            </p>
+            <button class="event-notification-btn" id="eventNotificationCloseBtn">확인했어요</button>
+        </div>
+    </div>
+
+    <!-- 하단 네비게이션 -->
+    <nav class="bottom-nav">
+        <div class="nav-item" id="navHome">
+            <img src="../img/마이노크 홈 아이콘_off.png" alt="홈" class="nav-icon">
+            <span class="nav-label">마이노크홈</span>
+        </div>
+        <div class="nav-item" id="navCalendar">
+            <img src="../img/마이노크 캘린더 아이콘_off.png" alt="캘린더" class="nav-icon">
+            <span class="nav-label">일정 확인하기</span>
+        </div>
+        <div class="nav-item" id="navMypage">
+            <img src="../img/마이노크 마이페이지 아이콘_off.png" alt="마이페이지" class="nav-icon">
+            <span class="nav-label">마이페이지</span>
+        </div>
+    </nav>
+
+    <script src="script.js"></script>
+</body>
+</html>

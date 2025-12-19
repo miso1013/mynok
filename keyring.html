@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <title>추억 선물하러 가기 - 마이노크</title>
+
+    <!-- PWA 설정 -->
+    <!-- <link rel="manifest" href="manifest.json"> -->
+    <meta name="theme-color" content="#FF7474">
+    <link rel="icon" type="image/png" href="../img/00_로고.png">
+    <link rel="apple-touch-icon" href="../img/00_로고.png">
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- 헤더 -->
+    <header class="header add-connection-header">
+        <button class="back-btn" id="backFromKeyring">‹</button>
+        <h1 class="page-title">추억 선물하러 가기</h1>
+    </header>
+
+    <!-- 상품 상세 페이지 -->
+    <div class="product-detail-wrapper">
+
+        <!-- 상품 이미지 슬라이더 -->
+        <div class="product-image-slider">
+            <div class="product-image-container">
+                <img src="../img/오디오 키링_아이콘.png" alt="녹음 카세트 키링" class="product-main-image">
+            </div>
+            <div class="image-indicator">1 / 1</div>
+        </div>
+
+        <!-- 상품 정보 -->
+        <div class="product-info-section">
+            <p class="product-breadcrumb">마이노크 | 선물 구매하기 ›</p>
+            <h2 class="product-title">녹음 카세트 키링</h2>
+
+            <div class="product-price-section">
+                <div class="product-discount-wrapper">
+                    <span class="product-discount-rate">30%</span>
+                    <span class="product-original-price">10,000원</span>
+                    <button class="price-info-btn">ⓘ</button>
+                </div>
+                <div class="product-final-price">7,000원</div>
+            </div>
+        </div>
+
+        <!-- 배송 정보 -->
+        <div class="delivery-section">
+            <h3 class="delivery-title">배송</h3>
+            <div class="delivery-info-box" id="deliveryInfoBox">
+                <div class="delivery-info-main">
+                    <div class="delivery-icon">🚚</div>
+                    <div class="delivery-text">
+                        <p class="delivery-date">12/30(화) 까지 도착 확률 88%</p>
+                        <p class="delivery-fee">무료 배송</p>
+                    </div>
+                    <button class="delivery-toggle-btn" id="deliveryToggleBtn">
+                        <svg viewBox="0 0 24 24" width="20" height="20">
+                            <path d="M7 10l5 5 5-5z" fill="#666"/>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- 배송 상세 정보 (토글) -->
+                <div class="delivery-detail-info collapsed" id="deliveryDetailInfo">
+                    <div class="delivery-detail-divider"></div>
+                    <div class="delivery-detail-content">
+                        <p class="delivery-detail-item">
+                            <span class="detail-label">배송비</span>
+                            <span class="detail-value">무료</span>
+                        </p>
+                        <p class="delivery-detail-item">
+                            <span class="detail-label">배송 방법</span>
+                            <span class="detail-value">택배</span>
+                        </p>
+                        <p class="delivery-detail-item">
+                            <span class="detail-label">배송 지역</span>
+                            <span class="detail-value">전국</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 상품 상세 정보 -->
+        <div class="product-detail-section">
+            <img src="../img/키링상세.jpg" alt="오디오 키링 상세 정보" class="product-detail-image">
+        </div>
+
+        <!-- 선물하기 버튼 -->
+        <div class="purchase-button-container">
+            <button class="purchase-btn" id="purchaseBtn">선물하기</button>
+        </div>
+    </div>
+
+    <!-- 하단 네비게이션 -->
+    <nav class="bottom-nav">
+        <div class="nav-item" id="navHome">
+            <img src="../img/마이노크 홈 아이콘_off.png" alt="홈" class="nav-icon">
+            <span class="nav-label">마이노크홈</span>
+        </div>
+        <div class="nav-item" id="navCalendar">
+            <img src="../img/마이노크 캘린더 아이콘_off.png" alt="캘린더" class="nav-icon">
+            <span class="nav-label">일정 확인하기</span>
+        </div>
+        <div class="nav-item" id="navMypage">
+            <img src="../img/마이노크 마이페이지 아이콘_off.png" alt="마이페이지" class="nav-icon">
+            <span class="nav-label">마이페이지</span>
+        </div>
+    </nav>
+
+    <script src="script.js"></script>
+</body>
+</html>

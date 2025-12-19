@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <title>지역 추억 상세 - 마이노크</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- 헤더 -->
+    <header class="header">
+        <button class="back-btn" id="backFromDetail">‹</button>
+        <h1 class="page-title" id="detailLocationTitle">지역 추억</h1>
+    </header>
+
+    <!-- 계절 필터 탭 -->
+    <div class="place-detail-season-tabs">
+        <button class="place-detail-season-tab active" data-season="all">전체</button>
+        <button class="place-detail-season-tab" data-season="spring">봄</button>
+        <button class="place-detail-season-tab" data-season="summer">여름</button>
+        <button class="place-detail-season-tab" data-season="fall">가을</button>
+        <button class="place-detail-season-tab" data-season="winter">겨울</button>
+    </div>
+
+    <!-- 추억 개수 표시 -->
+    <div class="place-detail-count">
+        <span id="detailPhotoCount">0</span>개의 추억
+    </div>
+
+    <!-- 사진 그리드 -->
+    <div class="place-detail-photos-container">
+        <div class="place-detail-photos-grid" id="detailPhotosGrid">
+            <!-- JavaScript로 동적 생성 -->
+        </div>
+    </div>
+
+    <!-- 이미지 전체보기 모달 -->
+    <div class="image-viewer-modal" id="imageViewerModal">
+        <div class="image-viewer-header">
+            <button class="image-viewer-close" id="imageViewerClose">×</button>
+        </div>
+        <div class="image-viewer-content">
+            <img src="" alt="추억 사진" id="imageViewerImg">
+        </div>
+        <div class="image-viewer-info" id="imageViewerInfo">
+            <!-- 사진 정보 표시 -->
+        </div>
+        <div class="image-viewer-actions">
+            <button class="image-viewer-btn edit-btn" id="imageViewerEdit">수정하기</button>
+            <button class="image-viewer-btn delete-btn" id="imageViewerDelete">지우기</button>
+        </div>
+    </div>
+
+    <!-- 하단 네비게이션 -->
+    <nav class="bottom-nav">
+        <div class="nav-item" id="navHome">
+            <img src="../img/마이노크 홈 아이콘_off.png" alt="홈" class="nav-icon">
+            <span class="nav-label">마이노크홈</span>
+        </div>
+        <div class="nav-item" id="navCalendar">
+            <img src="../img/마이노크 캘린더 아이콘_off.png" alt="캘린더" class="nav-icon">
+            <span class="nav-label">일정 확인하기</span>
+        </div>
+        <div class="nav-item" id="navMypage">
+            <img src="../img/마이노크 마이페이지 아이콘_off.png" alt="마이페이지" class="nav-icon">
+            <span class="nav-label">마이페이지</span>
+        </div>
+    </nav>
+
+    <script src="script.js"></script>
+</body>
+</html>

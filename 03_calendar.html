@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <title>캘린더 - 마이노크</title>
+
+    <!-- PWA 설정 -->
+    <!-- <link rel="manifest" href="manifest.json"> -->
+    <meta name="theme-color" content="#FF7474">
+    <link rel="icon" type="image/png" href="../img/00_로고.png">
+    <link rel="apple-touch-icon" href="../img/00_로고.png">
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- 헤더 -->
+    <header class="header add-connection-header">
+        <button class="back-btn" id="backFromCalendar">‹</button>
+        <h1 class="page-title">캘린더</h1>
+    </header>
+
+    <!-- 캘린더 헤더 -->
+    <div class="calendar-header">
+        <button class="calendar-nav-btn year" id="prevYear">‹‹</button>
+        <button class="calendar-nav-btn month" id="prevMonth">‹</button>
+        <div class="calendar-month" id="calendarMonth">2025년 1월</div>
+        <button class="calendar-nav-btn month" id="nextMonth">›</button>
+        <button class="calendar-nav-btn year" id="nextYear">››</button>
+    </div>
+
+    <!-- 검색 및 필터 섹션 -->
+    <div class="calendar-filter-section">
+        <div class="calendar-search-wrapper">
+            <input type="text" id="calendarSearchInput" class="calendar-search-input" placeholder="일정 검색...">
+            <svg class="calendar-search-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="11" cy="11" r="7" stroke="#FF7474" stroke-width="2"/>
+                <path d="M20 20L16.5 16.5" stroke="#FF7474" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+        </div>
+        <div class="calendar-filter-wrapper">
+            <button class="calendar-filter-btn" id="filterToggleBtn">
+                <img src="../img/마이노크 전체보기 아이콘.png" alt="필터" class="calendar-filter-icon">
+                <span id="filterLabel">전체 일정</span>
+                <span class="calendar-filter-arrow">▼</span>
+            </button>
+            <div class="calendar-filter-dropdown" id="filterDropdown">
+                <div class="calendar-filter-item active" data-filter="all">전체 일정</div>
+                <div class="calendar-filter-item" data-filter="personal">비공유 일정</div>
+                <div class="calendar-filter-item" data-filter="shared">공유 일정</div>
+                <div class="calendar-filter-divider"></div>
+                <div class="calendar-filter-subtitle">인연별 필터</div>
+                <div id="connectionFilterList">
+                    <!-- JavaScript로 동적 생성 -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 캘린더 그리드 -->
+    <div class="calendar-grid" id="calendarGrid">
+        <!-- JavaScript로 동적 생성 -->
+    </div>
+
+    <!-- 이번 달 공휴일 리스트 -->
+    <div class="calendar-holidays-section" id="holidaysSection">
+        <div class="calendar-holidays-title">📌 이번 달 공휴일</div>
+        <div class="calendar-holidays-list" id="holidaysList">
+            <!-- JavaScript로 동적 생성 -->
+        </div>
+    </div>
+
+    <!-- 이번 달 일정 리스트 -->
+    <div class="calendar-monthly-events-section" id="monthlyEventsSection">
+        <div class="calendar-selected-date-header" id="selectedDateHeader" style="display: none;">
+            <div class="calendar-selected-date-info">
+                <img src="../img/캘린더 아이콘_00.png" alt="캘린더" class="calendar-selected-date-icon">
+                <span id="selectedDateText">2025년 1월 1일</span>
+            </div>
+            <button class="calendar-show-all-btn" id="showAllEventsBtn">전체 일정 보기</button>
+        </div>
+        <div class="calendar-monthly-events-list" id="monthlyEventsList">
+            <!-- JavaScript로 동적 생성 -->
+        </div>
+    </div>
+
+    <!-- 일정 추가 FAB 버튼 -->
+    <button class="calendar-fab-btn" id="calendarAddFab">+</button>
+
+    <!-- 하단 네비게이션 -->
+    <nav class="bottom-nav">
+        <div class="nav-item" id="navHome">
+            <img src="../img/마이노크 홈 아이콘_off.png" alt="홈" class="nav-icon">
+            <span class="nav-label">마이노크홈</span>
+        </div>
+        <div class="nav-item" id="navCalendar">
+            <img src="../img/마이노크 캘린더 아이콘_off.png" alt="캘린더" class="nav-icon">
+            <span class="nav-label">일정 확인하기</span>
+        </div>
+        <div class="nav-item" id="navMypage">
+            <img src="../img/마이노크 마이페이지 아이콘_off.png" alt="마이페이지" class="nav-icon">
+            <span class="nav-label">마이페이지</span>
+        </div>
+    </nav>
+
+    <script src="script.js"></script>
+</body>
+</html>

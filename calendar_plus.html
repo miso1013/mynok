@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <title>일정 추가 - 마이노크</title>
+
+    <!-- PWA 설정 -->
+    <!-- <link rel="manifest" href="manifest.json"> -->
+    <meta name="theme-color" content="#FF7474">
+    <link rel="icon" type="image/png" href="../img/00_로고.png">
+    <link rel="apple-touch-icon" href="../img/00_로고.png">
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- 헤더 -->
+    <header class="header">
+        <button class="back-btn" id="backFromCalendarPlus">‹</button>
+        <div class="header-title">일정 추가</div>
+    </header>
+
+    <!-- 페이지 헤더 -->
+    <div class="event-page-header">
+        <div class="event-header-content">
+            <span class="event-fire-icon">🔥</span>
+            <h2 class="event-header-title">일정 추가</h2>
+        </div>
+        <p class="event-header-desc">소중한 일정을 기록해보세요.</p>
+    </div>
+
+    <!-- 폼 섹션 -->
+    <div class="event-form-wrapper">
+        <!-- 일정 제목 -->
+        <div class="event-input-group">
+            <input type="text" id="eventTitle" class="event-title-input" placeholder="일정 제목을 입력해주세요.">
+        </div>
+
+        <!-- 날짜 범위 선택 -->
+        <div class="event-date-picker-wrapper">
+            <div class="event-date-card">
+                <img src="../img/마이노크 캘린더 아이콘_on.png" alt="캘린더" class="event-calendar-icon">
+                <span id="startDateText">10월 13일 (화)</span>
+                <input type="date" id="startDate" class="hidden-date-input">
+            </div>
+            <span class="event-date-arrow">→</span>
+            <div class="event-date-card">
+                <img src="../img/마이노크 캘린더 아이콘_on.png" alt="캘린더" class="event-calendar-icon">
+                <span id="endDateText">10월 13일 (화)</span>
+                <input type="date" id="endDate" class="hidden-date-input">
+            </div>
+        </div>
+
+        <!-- 알람 반복 및 알람 설정 -->
+        <div class="event-section-title">알람 반복 및 알람 설정</div>
+
+        <!-- 반복 설정 드롭다운 -->
+        <div class="event-dropdown-wrapper">
+            <div class="event-dropdown-select" id="repeatSelect">
+                <span id="repeatSelected">반복 안함</span>
+                <span class="event-dropdown-arrow">▼</span>
+            </div>
+            <div class="event-dropdown-menu" id="repeatDropdown">
+                <div class="event-dropdown-item" data-value="none">반복 안함</div>
+                <div class="event-dropdown-item" data-value="daily">매일</div>
+                <div class="event-dropdown-item" data-value="monthly">매달</div>
+                <div class="event-dropdown-item" data-value="weekly">매주</div>
+                <div class="event-dropdown-item" data-value="yearly">매년</div>
+                <div class="event-dropdown-item" data-value="custom">사용자화</div>
+            </div>
+        </div>
+
+        <!-- 알람 설정 드롭다운 -->
+        <div class="event-dropdown-wrapper">
+            <div class="event-dropdown-select" id="alarmSelect">
+                <span id="alarmSelected">알람 안함</span>
+                <span class="event-dropdown-arrow">▼</span>
+            </div>
+            <div class="event-dropdown-menu" id="alarmDropdown">
+                <div class="event-dropdown-item" data-value="0">알람 안함</div>
+                <div class="event-dropdown-item" data-value="5">5분 전</div>
+                <div class="event-dropdown-item" data-value="10">10분 전</div>
+                <div class="event-dropdown-item" data-value="30">30분 전</div>
+                <div class="event-dropdown-item" data-value="60">1시간 전</div>
+                <div class="event-dropdown-item" data-value="120">두시간 전</div>
+                <div class="event-dropdown-item" data-value="1440">하루 전</div>
+                <div class="event-dropdown-item" data-value="2880">이틀 전</div>
+                <div class="event-dropdown-item" data-value="10080">일주일 전</div>
+            </div>
+        </div>
+
+        <!-- 공유방법 -->
+        <div class="event-section-title">공유방법</div>
+        <div class="event-share-tabs">
+            <button class="event-share-tab active" id="shareBtn1">선택공유</button>
+            <button class="event-share-tab" id="shareBtn2">비공개</button>
+            <button class="event-share-tab" id="shareBtn3">전체보기</button>
+        </div>
+
+        <!-- 공유할 인연 검색 -->
+        <div class="event-search-wrapper">
+            <div class="event-search-input-container">
+                <input type="text" class="event-search-input" id="searchMembers" placeholder="공유할 인연을 검색해주세요.">
+                <svg class="event-search-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="11" cy="11" r="7" stroke="#FF7474" stroke-width="2"/>
+                    <path d="M20 20L16.5 16.5" stroke="#FF7474" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+            </div>
+            <div class="event-search-results"></div>
+            <div class="event-selected-members"></div>
+        </div>
+
+        <!-- 일정 내용 -->
+        <div class="event-content-wrapper">
+            <textarea id="eventContent" class="event-content-textarea" placeholder="일정 내용을 입력해주세요." rows="6"></textarea>
+        </div>
+
+        <!-- 버튼 -->
+        <div class="event-action-buttons">
+            <button class="event-cancel-btn" id="cancelBtn">뒤로가기</button>
+            <button class="event-save-btn" id="saveEventBtn">저장하기</button>
+        </div>
+
+        <!-- 삭제 버튼 (수정 모드일 때만 표시) -->
+        <button class="event-delete-btn" id="deleteEventBtn" style="display: none;">일정 삭제</button>
+    </div>
+
+    <!-- 하단 네비게이션 -->
+    <nav class="bottom-nav">
+        <div class="nav-item" id="navHome">
+            <img src="../img/마이노크 홈 아이콘_off.png" alt="홈" class="nav-icon">
+            <span class="nav-label">마이노크홈</span>
+        </div>
+        <div class="nav-item" id="navCalendar">
+            <img src="../img/마이노크 캘린더 아이콘_off.png" alt="캘린더" class="nav-icon">
+            <span class="nav-label">일정 확인하기</span>
+        </div>
+        <div class="nav-item" id="navMypage">
+            <img src="../img/마이노크 마이페이지 아이콘_off.png" alt="마이페이지" class="nav-icon">
+            <span class="nav-label">마이페이지</span>
+        </div>
+    </nav>
+
+    <script src="script.js"></script>
+</body>
+</html>

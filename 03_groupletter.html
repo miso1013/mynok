@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <title>문장이 있어 - 마이노크</title>
+
+    <!-- PWA 설정 -->
+    <!-- <link rel="manifest" href="manifest.json"> -->
+    <meta name="theme-color" content="#FF7474">
+    <link rel="icon" type="image/png" href="../img/00_로고.png">
+    <link rel="apple-touch-icon" href="../img/00_로고.png">
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- 헤더 -->
+    <header class="header add-connection-header">
+        <button class="back-btn" id="backFromGroupLetter">‹</button>
+        <h1 class="page-title">문장이 있어</h1>
+    </header>
+
+    <!-- 그룹 인사 섹션 -->
+    <section class="letter-greeting-section">
+        <div class="letter-greeting-content">
+            <div class="letter-greeting-text">
+                <h2 class="letter-person-name" id="groupLetterName">그룹과</h2>
+                <p class="letter-greeting-message">함께 주고받은 문장이 여기 모여있어요.</p>
+            </div>
+            <img src="../img/문장이 있어 상단 아이콘.png" alt="문장이 있어" class="letter-icon-img" onerror="this.style.display='none';">
+        </div>
+    </section>
+
+    <!-- 편지 쓰기 버튼 -->
+    <div class="letter-write-btn-container">
+        <button class="letter-write-btn" id="writeGroupLetterBtn">+ 편지 쓰기</button>
+    </div>
+
+    <!-- 탭 버튼 -->
+    <div class="letter-tab-container">
+        <button class="letter-tab-btn active" data-tab="all">전체편지함</button>
+        <button class="letter-tab-btn" data-tab="my">내가 쓴 편지</button>
+    </div>
+
+    <!-- 검색바 -->
+    <div class="letter-search-container">
+        <input type="text" class="letter-search-input" id="groupLetterSearchInput" placeholder="그룹 편지 검색">
+        <svg class="letter-search-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="11" cy="11" r="7" stroke="#FF7474" stroke-width="2"/>
+            <path d="M20 20L16.5 16.5" stroke="#FF7474" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+    </div>
+
+    <!-- 전체편지함 -->
+    <section class="letter-list-section" id="allGroupLetterTab">
+        <div id="allGroupLetterList">
+            <!-- JavaScript로 동적 생성 -->
+        </div>
+    </section>
+
+    <!-- 내가 쓴 편지함 (숨김) -->
+    <section class="letter-list-section" id="myGroupLetterTab" style="display: none;">
+        <div id="myGroupLetterList">
+            <!-- JavaScript로 동적 생성 -->
+        </div>
+    </section>
+
+    <!-- 하단 네비게이션 -->
+    <nav class="bottom-nav">
+        <div class="nav-item" id="navHome">
+            <img src="../img/마이노크 홈 아이콘_off.png" alt="홈" class="nav-icon">
+            <span class="nav-label">마이노크홈</span>
+        </div>
+        <div class="nav-item" id="navCalendar">
+            <img src="../img/마이노크 캘린더 아이콘_off.png" alt="캘린더" class="nav-icon">
+            <span class="nav-label">일정 확인하기</span>
+        </div>
+        <div class="nav-item" id="navMypage">
+            <img src="../img/마이노크 마이페이지 아이콘_off.png" alt="마이페이지" class="nav-icon">
+            <span class="nav-label">마이페이지</span>
+        </div>
+    </nav>
+
+    <script src="script.js"></script>
+</body>
+</html>

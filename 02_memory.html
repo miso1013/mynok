@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <title id="pageTitle">추억 - 마이노크</title>
+
+    <!-- PWA 설정 -->
+    <!-- <link rel="manifest" href="manifest.json"> -->
+    <meta name="theme-color" content="#FF7474">
+    <link rel="icon" type="image/png" href="../img/00_로고.png">
+    <link rel="apple-touch-icon" href="../img/00_로고.png">
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- 헤더 -->
+    <header class="memory-header">
+        <button class="back-btn" id="backFromMemory">‹</button>
+        <h1 class="memory-person-name" id="headerName">...</h1>
+        <div class="memory-share-toggle">
+            <span class="share-label">공유중</span>
+            <div class="toggle-switch active" id="shareToggle">
+                <div class="toggle-slider"></div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 메인 배너 -->
+    <section class="memory-banner">
+        <div class="memory-banner-content">
+            <h2 class="memory-banner-title">
+                <span class="highlight-name" id="bannerName">...</span> 님과<br>
+                함께한 추억을<br>
+                <span class="highlight-days" id="bannerDays">...</span> <span id="bannerStatus">간직중이에요</span>
+            </h2>
+            <p class="memory-banner-question">오늘은 어떤 추억을 쌓으셨나요?</p>
+        </div>
+        <div class="memory-banner-image">
+            <img src="" alt="" class="memory-profile-img" id="profileImg">
+        </div>
+    </section>
+
+    <!-- 추억 콘텐츠 -->
+    <div class="memory-content-wrapper">
+
+        <!-- 핑크 배경 영역 -->
+        <div class="memory-pink-section">
+            <!-- 나와 강훈의 추억에는 -->
+            <section class="memory-types-card">
+                <h3 class="memory-types-title" id="memoryTypesTitle">나와 ...의 추억에는</h3>
+                <div class="memory-types-grid">
+                    <div class="memory-type-item" data-type="voice">
+                        <div class="memory-type-icon">
+                            <img src="../img/소리가 있어 아이콘_00.png" alt="소리가 있어" class="memory-type-img">
+                            <span class="red-dot" id="voiceDot"></span>
+                        </div>
+                        <p class="memory-type-label">소리가 있어</p>
+                    </div>
+                    <div class="memory-type-item" data-type="photo">
+                        <div class="memory-type-icon">
+                            <img src="../img/사진이 있어 아이콘_00.png" alt="사진이 있어" class="memory-type-img">
+                            <span class="red-dot" id="photoDot"></span>
+                        </div>
+                        <p class="memory-type-label">사진이 있어</p>
+                    </div>
+                    <div class="memory-type-item" data-type="letter">
+                        <div class="memory-type-icon">
+                            <img src="../img/문장이 있어 아이콘_00.png" alt="문장이 있어" class="memory-type-img">
+                            <span class="red-dot" id="letterDot"></span>
+                        </div>
+                        <p class="memory-type-label">문장이 있어</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 캘린더 & 장소 카드 -->
+            <div class="memory-cards-row">
+                <div class="memory-feature-card">
+                    <h3 class="feature-card-title">캘린더</h3>
+                    <div class="feature-card-icon">
+                        <img src="../img/캘린더 아이콘_00.png" alt="캘린더" class="feature-icon-img">
+                    </div>
+                </div>
+                <div class="memory-feature-card" id="placePhotoCard">
+                    <h3 class="feature-card-title">장소별<br>추억 확인</h3>
+                    <div class="feature-card-icon">
+                        <img src="../img/장소별 추억 아이콘_00.png" alt="장소별 추억" class="feature-icon-img">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 선물 카드 -->
+        <section class="gift-section">
+            <div class="gift-icons-container">
+                <img src="../img/오디오 키링_아이콘.png" alt="오디오 키링" class="gift-icon-img">
+                <img src="../img/디스플레이 액자_아이콘.png" alt="디스플레이 액자" class="gift-icon-img">
+            </div>
+            <div class="gift-content">
+                <p class="gift-title">소중한 사람에게</p>
+                <p class="gift-subtitle">평생 간직할 수 있는<br>선물을 전달해보세요</p>
+                <button class="gift-btn">추억 선물하러 가기 ›</button>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- 추억 없음 알림 팝업 -->
+    <div class="no-memory-notification-overlay" id="noMemoryNotificationOverlay">
+        <div class="no-memory-notification-modal">
+            <div class="no-memory-notification-icon">🌞</div>
+            <h3 class="no-memory-notification-title">오늘 날씨가 좋네요!</h3>
+            <p class="no-memory-notification-message" id="noMemoryMessage">
+                <span class="highlight-name">아빠</span>님과 처음으로<br>
+                날씨 이야기를 하며<br>
+                편지를 써보는건 어떠실까요?
+            </p>
+            <button class="no-memory-notification-btn" id="noMemoryWriteLetterBtn">편지 쓰러 가기</button>
+            <button class="no-memory-notification-close" id="noMemoryCloseBtn">나중에 할게요</button>
+        </div>
+    </div>
+
+    <!-- 간직중 전환 확인 모달 -->
+    <div class="share-modal-overlay" id="shareModalOverlay">
+        <div class="share-modal">
+            <h3 class="share-modal-title">⚠️ 주의!</h3>
+            <p class="share-modal-text">
+                <span class="highlight-red">간직중</span>으로 변경하면<br>
+                더이상 <span class="highlight-red">소중한 인연과<br>
+                추억을 공유할 수 없게</span> 됩니다.
+            </p>
+            <p class="share-modal-question">그래도 변경 하시겠습니까?</p>
+            <div class="share-modal-buttons">
+                <button class="share-modal-btn-no" id="modalBtnNo">네</button>
+                <button class="share-modal-btn-yes" id="modalBtnYes">아니요</button>
+            </div>
+            <p class="share-modal-note">단, 공유중에 공유되었던 사진은 그대로 남습니다.</p>
+        </div>
+    </div>
+
+    <!-- 하단 네비게이션 -->
+    <nav class="bottom-nav">
+        <div class="nav-item" id="navHome">
+            <img src="../img/마이노크 홈 아이콘_off.png" alt="홈" class="nav-icon">
+            <span class="nav-label">마이노크홈</span>
+        </div>
+        <div class="nav-item" id="navCalendar">
+            <img src="../img/마이노크 캘린더 아이콘_off.png" alt="캘린더" class="nav-icon">
+            <span class="nav-label">일정 확인하기</span>
+        </div>
+        <div class="nav-item" id="navMypage">
+            <img src="../img/마이노크 마이페이지 아이콘_off.png" alt="마이페이지" class="nav-icon">
+            <span class="nav-label">마이페이지</span>
+        </div>
+    </nav>
+
+    <script src="script.js"></script>
+</body>
+</html>

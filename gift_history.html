@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <title>선물 내역 - 마이노크</title>
+
+    <!-- PWA 설정 -->
+    <!-- <link rel="manifest" href="manifest.json"> -->
+    <meta name="theme-color" content="#FF7474">
+    <link rel="icon" type="image/png" href="../img/00_로고.png">
+    <link rel="apple-touch-icon" href="../img/00_로고.png">
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- 헤더 -->
+    <header class="header">
+        <button class="back-btn" id="backFromGiftHistory">‹</button>
+        <h1 class="page-title">선물 내역</h1>
+    </header>
+
+    <!-- 프로필 섹션 -->
+    <section class="gift-history-profile">
+        <img src="../img/miso/미소_01.jpg" alt="프로필" class="gift-profile-image">
+        <h2 class="gift-profile-name">정미소 님</h2>
+        <button class="gift-address-btn">기본 배송지 수정</button>
+        <p class="gift-status-text">선물 <span class="gift-count">2건</span> 이 가고있어요</p>
+    </section>
+
+    <!-- 주문 목록 -->
+    <section class="gift-orders-section">
+        <h3 class="gift-orders-title">모든 주문</h3>
+
+        <!-- 주문 카드 1 - 배송 중 -->
+        <div class="gift-order-card">
+            <div class="gift-order-status shipping">배송 중</div>
+            <div class="gift-order-product">디지털 액자</div>
+            <div class="gift-order-quantity">수량 : 1</div>
+            <button class="gift-track-btn">배송 조회</button>
+        </div>
+
+        <!-- 주문 카드 2 - 배송 중 -->
+        <div class="gift-order-card">
+            <div class="gift-order-status shipping">배송 중</div>
+            <div class="gift-order-product">오디오 카세트 키링</div>
+            <div class="gift-order-quantity">수량 : 1</div>
+            <button class="gift-track-btn">배송 조회</button>
+        </div>
+
+        <!-- 주문 카드 3 - 배송 완료 -->
+        <div class="gift-order-card">
+            <div class="gift-order-status delivered">배송 완료</div>
+            <div class="gift-order-product">오디오 카세트 키링</div>
+            <div class="gift-order-quantity">수량 : 2</div>
+            <div class="gift-action-buttons">
+                <button class="gift-action-btn">교환 요청</button>
+                <button class="gift-action-btn">반품 요청</button>
+            </div>
+        </div>
+
+        <!-- 주문 카드 4 - 배송 완료 -->
+        <div class="gift-order-card">
+            <div class="gift-order-status delivered">배송 완료</div>
+            <div class="gift-order-product">디지털 액자</div>
+            <div class="gift-order-quantity">수량 : 1</div>
+            <div class="gift-action-buttons">
+                <button class="gift-action-btn">교환 요청</button>
+                <button class="gift-action-btn">반품 요청</button>
+            </div>
+        </div>
+
+        <!-- 주문 카드 5 - 배송 완료 -->
+        <div class="gift-order-card">
+            <div class="gift-order-status delivered">배송 완료</div>
+            <div class="gift-order-product">디지털 액자</div>
+            <div class="gift-order-quantity">수량 : 1</div>
+            <div class="gift-action-buttons">
+                <button class="gift-action-btn">교환 요청</button>
+                <button class="gift-action-btn">반품 요청</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- 하단 네비게이션 -->
+    <nav class="bottom-nav">
+        <div class="nav-item" id="navHome">
+            <img src="../img/마이노크 홈 아이콘_off.png" alt="홈" class="nav-icon">
+            <span class="nav-label">마이노크홈</span>
+        </div>
+        <div class="nav-item" id="navCalendar">
+            <img src="../img/마이노크 캘린더 아이콘_off.png" alt="캘린더" class="nav-icon">
+            <span class="nav-label">일정 확인하기</span>
+        </div>
+        <div class="nav-item" id="navMypage">
+            <img src="../img/마이노크 마이페이지 아이콘_off.png" alt="마이페이지" class="nav-icon">
+            <span class="nav-label">마이페이지</span>
+        </div>
+    </nav>
+
+    <script src="script.js"></script>
+</body>
+</html>
